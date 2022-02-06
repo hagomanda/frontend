@@ -20,7 +20,6 @@ export const userSlice = createSlice({
       state.loginLoading = false;
       state.loginSucceed = true;
       state.loginError = null;
-      console.log(111, action);
       state.user = action.payload;
     },
     loginFailed: (state, action) => {
@@ -33,9 +32,10 @@ export const userSlice = createSlice({
       state.loginSucceed = false;
       state.loginError = null;
     },
+    refresh: state => state,
   },
 });
 
-export const { loginRequest, loginSucceed, loginFailed, join } =
+export const { loginRequest, loginSucceed, loginFailed, join, refresh } =
   userSlice.actions;
 export default userSlice.reducer;
