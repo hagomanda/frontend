@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
   loginLoading: false,
   loginSucceed: false,
-  loginError: null
-}
+  loginError: null,
+};
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
-    loginRequest: (state) => {
+    loginRequest: state => {
       state.loginLoading = true;
       state.loginSucceed = false;
-      state.loginError =  null;
+      state.loginError = null;
     },
     loginSucceed: (state, action) => {
       state.loginLoading = false;
       state.loginSucceed = true;
       state.loginError = null;
-      console.log(111,action)
+      console.log(111, action);
       state.user = action.payload;
     },
     loginFailed: (state, action) => {
@@ -28,13 +28,14 @@ export const userSlice = createSlice({
       state.loginSucceed = false;
       state.loginError = action.payload;
     },
-    join: (state) => {
+    join: state => {
       state.loginLoading = true;
       state.loginSucceed = false;
-      state.loginError =  null;
-    }
+      state.loginError = null;
+    },
   },
 });
 
-export const { loginRequest, loginSucceed, loginFailed, join } = userSlice.actions;
+export const { loginRequest, loginSucceed, loginFailed, join } =
+  userSlice.actions;
 export default userSlice.reducer;

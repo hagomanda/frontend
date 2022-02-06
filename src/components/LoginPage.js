@@ -1,18 +1,19 @@
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { loginRequest, join } from "../features/userSlice"
+import { loginRequest, join } from "../features/userSlice";
 const LoginModal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
   border: 1px solid black;
-  width:500px;
-  height:600px;
+  width: 500px;
+  height: 600px;
   margin-top: 10%;
   padding: 30px, 20px;
 
-  background-color:#FFFFFF;
+  background-color: #ffffff;
   border-radius: 15px;
   text-align: center;
 
@@ -54,7 +55,7 @@ const LoginContainer = styled.div`
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  const isServerLogin = useSelector((state) => state.user.loginError);
+  const isServerLogin = useSelector(state => state.user.loginError);
   const signInWithGoogle = () => {
     dispatch(loginRequest());
   };
@@ -65,27 +66,35 @@ export default function LoginPage() {
 
   const joinWithGoogleAccount = () => {
     dispatch(join());
-  }
+  };
   return (
     <LoginContainer>
       <LoginModal>
         <img className="logo" alt="logo" src="../img/logo.png" />
         <h1>Hagomanda</h1>
         <div>어쩌구저쩌구 명언</div>
-        <img onClick={signInWithGoogle} className="loginButton" alt="loginButton" src="../img/button.png" />
+        <img
+          onClick={signInWithGoogle}
+          className="loginButton"
+          alt="loginButton"
+          src="../img/button.png"
+        />
         <div>
-          {
-            isServerLogin?.name === "ServerLoginFailed"
-            && <>
+          {isServerLogin?.name === "ServerLoginFailed" && (
+            <>
               <div>가입되지 않은 계정 입니다.</div>
-              <p onClick={joinWithGoogleAccount} className="joinButton">구글 계정으로 회원가입하기</p>
+              <p onClick={joinWithGoogleAccount} className="joinButton">
+                구글 계정으로 회원가입하기
+              </p>
             </>
-          }
-          {isServerLogin?.name === "FirebaseError" && "구글로그인 확인 해주세요"}
+          )}
+          {isServerLogin?.name === "FirebaseError" &&
+            "구글로그인 확인 해주세요"}
         </div>
-        <p className="joinText">Don't have an account?</p>
-        <p onClick={createGoogleAccount} className="joinButton">create google account</p>
-
+        <p className="joinText">Dont have an account?</p>
+        <p onClick={createGoogleAccount} className="joinButton">
+          create google account
+        </p>
       </LoginModal>
     </LoginContainer>
   );
