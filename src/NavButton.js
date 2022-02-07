@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -42,3 +43,7 @@ export default function NavButton({ textName }) {
     </ButtonContainer>
   );
 }
+
+NavButton.propTypes = {
+  textName: PropTypes.string.isRequired,
+};

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import NavButton from "./NavButton";
 
@@ -9,15 +10,9 @@ const NavContainer = styled.div`
 export default function Navbar() {
   return (
     <NavContainer>
-      <NavButton
-        textName={"Home"}
-      />
-      <NavButton
-        textName={"Calendar"}
-      />
-      <NavButton
-        textName={"MyPage"}
-      />
+      <NavButton textName={"Home"} />
+      <NavButton textName={"Calendar"} />
+      <NavButton textName={"MyPage"} />
     </NavContainer>
   );
 }
