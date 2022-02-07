@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -15,12 +16,10 @@ const ButtonWrapper = styled.div`
   height: 15%;
   border: 1px solid black;
   border-radius: 0 20px 20px 0;
-
   &:hover {
     background-color: rgb(148, 178, 235);
     cursor: pointer;
   }
-
   .buttonText {
     display: flex;
     justify-content: center;
@@ -42,3 +41,7 @@ export default function NavButton({ textName }) {
     </ButtonContainer>
   );
 }
+
+NavButton.propTypes = {
+  textName: PropTypes.string.isRequired,
+};

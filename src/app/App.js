@@ -4,6 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "../components/LoginPage";
 import { useDispatch } from "react-redux";
 import { refresh } from "../features/userSlice";
+import MainGoalPage from "../components/MainGoalPage";
+import axios from "axios";
+import MandalPage from "../components/MandalPage";
+axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +21,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={} /> */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/mainGoal/:id" element={<MandalPage />} />
       </Routes>
     </BrowserRouter>
     // <div className="App">
