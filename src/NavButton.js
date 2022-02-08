@@ -16,12 +16,10 @@ const ButtonWrapper = styled.div`
   height: 15%;
   border: 1px solid black;
   border-radius: 0 20px 20px 0;
-
   &:hover {
     background-color: rgb(148, 178, 235);
     cursor: pointer;
   }
-
   .buttonText {
     display: flex;
     justify-content: center;
