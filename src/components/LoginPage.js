@@ -56,6 +56,7 @@ const LoginContainer = styled.div`
 export default function LoginPage() {
   const dispatch = useDispatch();
   const isServerLogin = useSelector(state => state.user.loginError);
+
   const signInWithGoogle = () => {
     dispatch(loginRequest());
   };
@@ -67,6 +68,7 @@ export default function LoginPage() {
   const joinWithGoogleAccount = () => {
     dispatch(join());
   };
+
   return (
     <LoginContainer>
       <LoginModal>
