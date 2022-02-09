@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
+import styled from "styled-components";
+
 import MandalBox from "./MandalBox";
 
 const getMainGoal = async id => {
@@ -32,14 +33,16 @@ export default function MainGoalPage() {
   const { id } = useParams();
   const [mandalart, setMandalart] = useState();
   const [mandalartArray, setMandalartArray] = useState([]);
-
+  const loginState = useSelector(state => state.user.loginSucceed);
   useEffect(() => {
-    const getMandalart = async () => {
-      const res = await getMainGoal(id);
-      setMandalart(res.data.result.mainGoal);
-    };
-    getMandalart();
-  }, []);
+    if (loginState) {
+      const getMandalart = async () => {
+        const res = await getMainGoal(id);
+        setMandalart(res.data.result.mainGoal);
+      };
+      getMandalart();
+    }
+  }, [loginState]);
 
   useEffect(() => {
     if (!mandalart) {

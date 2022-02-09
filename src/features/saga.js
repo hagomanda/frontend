@@ -1,21 +1,22 @@
+import axios from "axios";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
-  put,
-  takeLatest,
   all,
-  fork,
   call,
+  fork,
+  put,
   takeEvery,
+  takeLatest,
 } from "redux-saga/effects";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+import { authentication } from "./firebase";
 import {
+  join,
+  loginFailed,
   loginRequest,
   loginSucceed,
-  loginFailed,
-  join,
   refresh,
 } from "./userSlice";
-import { authentication } from "./firebase";
-import axios from "axios";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const JWT_EXPIRY_TIME = 3600 * 1000;
@@ -101,7 +102,7 @@ function* loginSaga(action) {
 function* afterSuccess(user) {
   const { email, displayName, profile, newAccessToken } = user;
   yield put(loginSucceed({ email, displayName, profile }));
-  axios.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
+  axios.defaults.headers.common["Authorization"] = newAccessToken;
   clearTimeout(delay);
   yield call(delay, JWT_EXPIRY_TIME - 60000);
   yield put(refresh());
