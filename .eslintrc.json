@@ -16,15 +16,17 @@
   },
   "plugins": [
     "react",
-    "prettier",
-    "simple-import-sort",
-    "import"
+    "prettier"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "no-unused-vars": 1,
     "no-extra-semi": 2,
-    "no-undef": 1,
-    "simple-import-sort/imports": "error"
+    "no-undef": 1
   }
 }
