@@ -4,6 +4,7 @@ import MainGoalPage from "./MainGoalPage";
 import styled from "styled-components";
 import { changeToMainGoal, chageToFullView } from "../features/viewSlice";
 import { changeEditMode } from "../features/editSlice";
+import axios from "axios";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -72,7 +73,7 @@ export default function MandalPage() {
   const handleEdit = () => {
     dispatch(changeEditMode());
   };
-  const handleShare = () => {};
+  const handleShare = async () => {};
   // view option 에 따라 MainGoal, SubGoal, FullView보여줌
   // 공유, 채팅, 로그아웃, 소켓 설정 예정
   return (
