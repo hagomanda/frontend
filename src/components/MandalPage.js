@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainGoalPage from "./MainGoalPage";
+import MainMandal from "./MainMandal";
 import styled from "styled-components";
 import { changeToMainGoal, chageToFullView } from "../features/viewSlice";
 import { changeEditMode } from "../features/editSlice";
@@ -73,7 +73,12 @@ export default function MandalPage() {
   const handleEdit = () => {
     dispatch(changeEditMode());
   };
-  const handleShare = async () => {};
+  const handleShare = async () => {
+    await axios.post("/api/goals/mainGoal", {
+      title: "123123",
+    });
+    // await axios.get("api/todos");
+  };
   // view option 에 따라 MainGoal, SubGoal, FullView보여줌
   // 공유, 채팅, 로그아웃, 소켓 설정 예정
   return (
@@ -99,7 +104,7 @@ export default function MandalPage() {
         />
       </ButtonsContainer>
       <BodyContainer>
-        {viewOption === "mainGoal" && <MainGoalPage />}
+        {viewOption === "mainGoal" && <MainMandal />}
       </BodyContainer>
     </>
   );

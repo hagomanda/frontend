@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { format, add, getDay } from "date-fns";
-import CalenderBox from "./CalendarBox";
+import CalendarBox from "./CalendarBox";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -18,11 +18,11 @@ export default function CalendarPage() {
   const [todos, setTodos] = useState([]);
   const loginState = useSelector(state => state.user.loginSucceed);
 
-  const WEEK = ["일", "화", "수", "목", "금", "토", "월"];
-  const handleLeft = () => {
+  const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+  const handlePrevButtonClick = () => {
     setCurrentDate(add(currentDate, { days: -7 }));
   };
-  const handleRight = () => {
+  const handleNextButtonClick = () => {
     setCurrentDate(add(currentDate, { days: 7 }));
   };
 
@@ -31,10 +31,10 @@ export default function CalendarPage() {
   };
 
   const getUsersTodo = async id => {
-    const currentSunday = add(currentDate, { days: -1 * getDay(currentDate) });
+    const weekStart = add(currentDate, { days: -1 * getDay(currentDate) });
     const res = await axios.get("/api/todos", {
       headers: {
-        currentDate: format(currentSunday, "yyyy-MM-dd"),
+        currentDate: format(weekStart, "yyyy-MM-dd"),
       },
     });
 
@@ -45,7 +45,7 @@ export default function CalendarPage() {
     setTodos(res.data.result);
   };
 
-  const showCalender = () => {
+  const showCalendar = () => {
     return WEEK.map((day, i) => {
       const date = format(
         add(currentDate, { days: -1 * getDay(currentDate) + i }),
@@ -53,7 +53,7 @@ export default function CalendarPage() {
       );
 
       return (
-        <CalenderBox day={day} date={date} key={date} todo={todos?.[date]} />
+        <CalendarBox day={day} date={date} key={date} todo={todos?.[date]} />
       );
     });
   };
@@ -68,11 +68,11 @@ export default function CalendarPage() {
     <div>
       <Container>
         <div onClick={goToday}>오늘</div>
-        <div onClick={handleLeft}>{`<`}</div>
+        <div onClick={handlePrevButtonClick}>{`<`}</div>
         {format(currentDate, "yyyy년 MM월")}
-        <div onClick={handleRight}>{`>`}</div>
+        <div onClick={handleNextButtonClick}>{`>`}</div>
       </Container>
-      <Container>{showCalender()}</Container>
+      <Container>{showCalendar()}</Container>
     </div>
   );
 }
