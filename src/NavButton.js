@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -32,10 +33,16 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-export default function NavButton({ textName }) {
+export default function NavButton({ textName, link }) {
+  const navigate = useNavigate();
+
+  const handleLinkButtonOnClick = () => {
+    navigate(link);
+  };
+
   return (
     <ButtonContainer>
-      <ButtonWrapper>
+      <ButtonWrapper onClick={handleLinkButtonOnClick}>
         <div className="buttonText">{textName}</div>
       </ButtonWrapper>
     </ButtonContainer>
@@ -44,4 +51,5 @@ export default function NavButton({ textName }) {
 
 NavButton.propTypes = {
   textName: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };

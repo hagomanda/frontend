@@ -14,12 +14,12 @@ export const viewSlice = createSlice({
     changeToSubGoal: state => {
       state.option = "subGoal";
     },
-    chageToFullView: state => {
+    changeToFullView: state => {
       state.option = "fullView";
     },
   },
 });
 
-export const { changeToMainGoal, changeToSubGoal, chageToFullView } =
+export const { changeToMainGoal, changeToSubGoal, changeToFullView } =
   viewSlice.actions;
 export default viewSlice.reducer;

@@ -10,9 +10,9 @@ const NavContainer = styled.div`
 export default function Navbar() {
   return (
     <NavContainer>
-      <NavButton textName={"Home"} />
-      <NavButton textName={"Calendar"} />
-      <NavButton textName={"MyPage"} />
+      <NavButton textName={"Home"} link="/main" />
+      <NavButton textName={"Calendar"} link="/calendar" />
+      <NavButton textName={"MyPage"} link="/mypage" />
     </NavContainer>
   );
 }

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest, join } from "../features/userSlice";
 const LoginModal = styled.div`
@@ -55,7 +56,17 @@ const LoginContainer = styled.div`
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  const isServerLogin = useSelector(state => state.user.loginError);
+  const navigate = useNavigate();
+  const { loginLoading, loginSucceed, loginError } = useSelector(
+    state => state.user,
+  );
+
+  console.log(loginSucceed);
+  useEffect(() => {
+    if (loginSucceed) {
+      navigate("/main");
+    }
+  }, [loginSucceed]);
 
   const signInWithGoogle = () => {
     dispatch(loginRequest());
@@ -70,34 +81,40 @@ export default function LoginPage() {
   };
 
   return (
-    <LoginContainer>
-      <LoginModal>
-        <img className="logo" alt="logo" src="../img/logo.png" />
-        <h1>Hagomanda</h1>
-        <div>어쩌구저쩌구 명언</div>
-        <img
-          onClick={signInWithGoogle}
-          className="loginButton"
-          alt="loginButton"
-          src="../img/button.png"
-        />
-        <div>
-          {isServerLogin?.name === "ServerLoginFailed" && (
-            <>
-              <div>가입되지 않은 계정 입니다.</div>
-              <p onClick={joinWithGoogleAccount} className="joinButton">
-                구글 계정으로 회원가입하기
-              </p>
-            </>
-          )}
-          {isServerLogin?.name === "FirebaseError" &&
-            "구글로그인 확인 해주세요"}
-        </div>
-        <p className="joinText">Dont have an account?</p>
-        <p onClick={createGoogleAccount} className="joinButton">
-          create google account
-        </p>
-      </LoginModal>
-    </LoginContainer>
+    <>
+      {loginLoading ? (
+        <div>loginLoading</div>
+      ) : (
+        <LoginContainer>
+          <LoginModal>
+            <img className="logo" alt="logo" src="../img/logo.png" />
+            <h1>Hagomanda</h1>
+            <div>어쩌구저쩌구 명언</div>
+            <img
+              onClick={signInWithGoogle}
+              className="loginButton"
+              alt="loginButton"
+              src="../img/button.png"
+            />
+            <div>
+              {loginError?.name === "ServerLoginFailed" && (
+                <>
+                  <div>가입되지 않은 계정입니다.</div>
+                  <p onClick={joinWithGoogleAccount} className="joinButton">
+                    구글 계정으로 회원가입하기
+                  </p>
+                </>
+              )}
+              {loginError?.name === "FirebaseError" &&
+                "구글로그인 확인 해주세요"}
+            </div>
+            <p className="joinText">Dont have an account?</p>
+            <p onClick={createGoogleAccount} className="joinButton">
+              create google account
+            </p>
+          </LoginModal>
+        </LoginContainer>
+      )}
+    </>
   );
 }
