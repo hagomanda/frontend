@@ -29,7 +29,7 @@ const BoxContatiner = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
-export default function MainGoalPage() {
+export default function MainMandal() {
   const { id } = useParams();
   const [mandalart, setMandalart] = useState();
   const [mandalartArray, setMandalartArray] = useState([]);

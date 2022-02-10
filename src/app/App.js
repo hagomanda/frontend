@@ -5,13 +5,13 @@ import styled from "styled-components";
 
 import { refresh } from "../features/userSlice";
 
-import MainGoalPage from "../components/MainGoalPage";
+import MainMandal from "../components/MainMandal";
 import axios from "axios";
 import MandalPage from "../components/MandalPage";
 import Navbar from "../Navbar";
 import LoginPage from "../components/LoginPage";
-import CreateButton from "../components/MyGoals/CreateButton";
 import Main from "../components/Main/Main";
+import CalendarPage from "../components/CalendarPage";
 
 axios.defaults.withCredentials = true;
 
@@ -28,8 +28,8 @@ function App() {
         {/* <Route path="/" element={} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mainGoal/:id" element={<MandalPage />} />
-        <Route path="/create" element={<CreateButton />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/calendar" element={<CalendarPage />} />
       </Routes>
     </BrowserRouter>
   );
