@@ -23,6 +23,7 @@ export default function MyGoalsList() {
 
   const getData = async () => {
     const { data } = await goalApi();
+    console.log(data.result);
     setData(data.result);
     setIsLoading(false);
   };

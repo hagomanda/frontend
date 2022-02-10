@@ -22,7 +22,7 @@ const makeArray = (mandalart, id) => {
   return tempArray;
 };
 
-const BoxContatiner = styled.div`
+const BoxContainer = styled.div`
   display: grid;
   height: 684px;
   width: 684px;
@@ -33,7 +33,9 @@ export default function MainMandal() {
   const { id } = useParams();
   const [mandalart, setMandalart] = useState();
   const [mandalartArray, setMandalartArray] = useState([]);
+
   const loginState = useSelector(state => state.user.loginSucceed);
+
   useEffect(() => {
     if (loginState) {
       const getMandalart = async () => {
@@ -65,5 +67,5 @@ export default function MainMandal() {
     });
   };
 
-  return <BoxContatiner className="gridContainer">{showBoxes()}</BoxContatiner>;
+  return <BoxContainer className="gridContainer">{showBoxes()}</BoxContainer>;
 }
