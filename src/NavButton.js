@@ -1,7 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -17,10 +17,12 @@ const ButtonWrapper = styled.div`
   height: 15%;
   border: 1px solid black;
   border-radius: 0 20px 20px 0;
+
   &:hover {
     background-color: rgb(148, 178, 235);
     cursor: pointer;
   }
+
   .buttonText {
     display: flex;
     justify-content: center;

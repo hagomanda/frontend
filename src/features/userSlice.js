@@ -5,6 +5,7 @@ const initialState = {
   loginLoading: false,
   loginSucceed: false,
   loginError: null,
+  logoutLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -27,6 +28,21 @@ export const userSlice = createSlice({
       state.loginSucceed = false;
       state.loginError = action.payload;
     },
+    logoutRequest: state => {
+      state.logoutLoading = true;
+      state.loginError = null;
+    },
+    logoutSucceed: state => {
+      state.user = null;
+      state.loginLoading = false;
+      state.loginSucceed = false;
+      state.loginError = null;
+      state.logoutLoading = false;
+    },
+    logoutFailed: (state, action) => {
+      state.logoutLoading = false;
+      state.loginError = action.payload;
+    },
     join: state => {
       state.loginLoading = true;
       state.loginSucceed = false;
@@ -36,6 +52,14 @@ export const userSlice = createSlice({
   },
 });
 
-export const { loginRequest, loginSucceed, loginFailed, join, refresh } =
-  userSlice.actions;
+export const {
+  loginRequest,
+  loginSucceed,
+  loginFailed,
+  logoutRequest,
+  logoutSucceed,
+  logoutFailed,
+  join,
+  refresh,
+} = userSlice.actions;
 export default userSlice.reducer;

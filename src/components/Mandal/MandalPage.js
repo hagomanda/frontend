@@ -1,10 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainMandal from "./view/MainMandal";
 import styled from "styled-components";
+import axios from "axios";
+
 import { changeToMainGoal, changeToFullView } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
-import axios from "axios";
+import MainMandal from "./view/MainMandal";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const ButtonsContainer = styled.div`
 const ImageButton = styled.img`
   width: 50px;
   height: 50px;
+
   cursor: pointer;
 `;
 
@@ -20,6 +22,7 @@ const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   height: 80vh;
 `;
 
@@ -38,21 +41,22 @@ const ToggleButton = styled.input`
 
 const ToggleLabel = styled.label`
   display: inline-block;
-  cursor: pointer;
+  position: relative;
   width: 100px;
   height: 50px;
-  text-indent: -9999em;
+
   background: #dff7fa;
   border-radius: 25px;
-  position: relative;
+  text-indent: -9999em;
   transition: 0.4s ease-out;
+  cursor: pointer;
 
   &:after {
+    position: absolute;
     content: "";
     width: 40px;
     height: 40px;
     background: #a5cace;
-    position: absolute;
     border-radius: 50%;
     top: 5px;
     left: 5px;

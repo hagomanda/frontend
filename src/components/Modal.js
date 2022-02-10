@@ -6,22 +6,22 @@ import Portal from "./Portal";
 
 const Background = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
   position: fixed;
-  left: 0;
-  top: 0;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const Child = styled.div`
+  position: relative;
   height: 200px;
   width: 500px;
   margin-top: 70px;
-  position: relative;
   overflow: scroll;
   background: #f4f4f4;
 `;

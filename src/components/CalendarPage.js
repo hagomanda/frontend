@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { format, add, getDay } from "date-fns";
-import CalendarBox from "./CalendarBox";
 import styled from "styled-components";
 import axios from "axios";
 
+import CalendarBox from "./CalendarBox";
+
 const Container = styled.div`
   display: flex;
-  margin-bottom: 20px;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
   border-collapse: collapse;
 `;
 

@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 import MandalBox from "./MandalBox";
 
@@ -34,6 +34,7 @@ export default function MainMandal() {
   const [mandalart, setMandalart] = useState();
   const [mandalartArray, setMandalartArray] = useState([]);
   const loginState = useSelector(state => state.user.loginSucceed);
+
   useEffect(() => {
     if (loginState) {
       const getMandalart = async () => {
