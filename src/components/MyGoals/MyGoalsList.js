@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import MainGoalEntry from "./MainGoalEntry";
+
+import MyGoalsEntry from "./MyGoalsEntry";
 
 const GoalsContainer = styled.div`
   display: inline-grid;
@@ -8,33 +11,27 @@ const GoalsContainer = styled.div`
   padding: 5px;
 `;
 
-const useMockData = true;
-
 const goalApi = async () => {
-  if (useMockData) {
-    const res = await fetch("/maingoal.json");
-    const data = await res.json();
-    return data;
-  }
+  const res = await axios.get("/api/users/goals");
+  return res;
 };
 
-export default function MainGoalLists() {
+export default function MyGoalsList() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const loginState = useSelector(state => state.user.loginSucceed);
 
   const getData = async () => {
-    const { result } = await goalApi();
-    setData(result);
+    const { data } = await goalApi();
+    setData(data.result);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  const handleEntryClick = () => {
-    console.log("clicked");
-  };
+    if (loginState) {
+      getData();
+    }
+  }, [loginState]);
 
   return (
     <GoalsContainer>
@@ -45,10 +42,10 @@ export default function MainGoalLists() {
       ) : (
         data.map(element => {
           return (
-            <MainGoalEntry
+            <MyGoalsEntry
               key={element._id}
+              id={element._id}
               title={element.title}
-              onClick={handleEntryClick}
             />
           );
         })

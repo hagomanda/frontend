@@ -102,7 +102,7 @@ function* loginSaga(action) {
 function* afterSuccess(user) {
   const { email, displayName, profile, newAccessToken } = user;
   yield put(loginSucceed({ email, displayName, profile }));
-  axios.defaults.headers.common["Authorization"] = `${newAccessToken}`;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
   clearTimeout(delay);
   yield call(delay, JWT_EXPIRY_TIME - 60000);
   yield put(refresh());
