@@ -6,7 +6,9 @@ import { logoutRequest } from "../features/userSlice";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  width: 200px;
+  margin: 0 auto;
 `;
 
 const LogoutButton = styled.div`
