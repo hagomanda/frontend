@@ -32,9 +32,10 @@ export default function CalendarPage() {
 
   const getUsersTodo = async id => {
     const weekStart = add(currentDate, { days: -1 * getDay(currentDate) });
-    const res = await axios.get("/api/todos", {
+    const res = await axios.get("/api/users/todos", {
       headers: {
         currentDate: format(weekStart, "yyyy-MM-dd"),
+        days: 7,
       },
     });
 

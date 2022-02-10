@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeToSubGoal } from "../features/viewSlice";
+import { changeToSubGoal } from "../../../features/viewSlice";
 
 const InnerBox = styled.div`
   /* width: 100px;

@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainMandal from "./MainMandal";
+import MainMandal from "./view/MainMandal";
 import styled from "styled-components";
-import { changeToMainGoal, chageToFullView } from "../features/viewSlice";
-import { changeEditMode } from "../features/editSlice";
+import { changeToMainGoal, changeToFullView } from "../../features/viewSlice";
+import { changeEditMode } from "../../features/editSlice";
 import axios from "axios";
 
 const ButtonsContainer = styled.div`
@@ -66,7 +66,7 @@ export default function MandalPage() {
 
   const viewCheckHandler = event => {
     event.target.checked
-      ? dispatch(chageToFullView())
+      ? dispatch(changeToFullView())
       : dispatch(changeToMainGoal());
   };
 
