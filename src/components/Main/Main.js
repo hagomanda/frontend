@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import MyGoalsList from "../MyGoals/MyGoalsList";
 import Navbar from "../../Navbar";
+import MyGoalsList from "../MyGoals/MyGoalsList";
 import CreateButton from "../MyGoals/CreateButton";
+import Logout from "../Logout";
 
 const AppContainer = styled.div`
   display: flex;
@@ -16,6 +17,7 @@ export default function Main() {
       <MyGoalsList />
       <Navbar />
       <CreateButton />
+      <Logout />
     </AppContainer>
   );
 }

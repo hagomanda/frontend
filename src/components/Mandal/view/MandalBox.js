@@ -1,8 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+
 import { changeToSubGoal } from "../../../features/viewSlice";
 
 const InnerBox = styled.div`
@@ -12,6 +13,7 @@ const InnerBox = styled.div`
   box-sizing: border-box;
   border-radius: 10%;
   margin: 10px;
+
   &.sub {
     background-color: #f4f4f4;
     &:hover {

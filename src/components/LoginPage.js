@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import { loginRequest, join } from "../features/userSlice";
+
 const LoginModal = styled.div`
   display: flex;
   flex-direction: column;
@@ -61,7 +63,6 @@ export default function LoginPage() {
     state => state.user,
   );
 
-  console.log(loginSucceed);
   useEffect(() => {
     if (loginSucceed) {
       navigate("/main");

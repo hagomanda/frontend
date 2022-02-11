@@ -1,33 +1,47 @@
-import axios from "axios";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
-  all,
-  call,
-  fork,
   put,
-  takeEvery,
   takeLatest,
+  all,
+  fork,
+  call,
+  takeEvery,
 } from "redux-saga/effects";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { createBrowserHistory } from "history";
+import axios from "axios";
 
-import { authentication } from "./firebase";
 import {
-  join,
-  loginFailed,
   loginRequest,
   loginSucceed,
+  loginFailed,
+  logoutRequest,
+  logoutSucceed,
+  logoutFailed,
+  join,
   refresh,
 } from "./userSlice";
+import { authentication } from "./firebase";
+import { useEffect } from "react";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const JWT_EXPIRY_TIME = 3600 * 1000;
 // const JWT_EXPIRY_TIME = 62000;
 
 export default function* rootSaga() {
-  yield all([fork(watchLogin), fork(watchJoin), fork(watchRefresh)]);
+  yield all([
+    fork(watchLogin),
+    fork(watchJoin),
+    fork(watchRefresh),
+    fork(watchLogout),
+  ]);
 }
 
 function* watchLogin() {
   yield takeLatest(loginRequest, loginSaga);
+}
+
+function* watchLogout() {
+  yield takeLatest(logoutRequest, logoutSaga);
 }
 
 function* watchJoin() {
@@ -51,6 +65,11 @@ async function loginServer(email) {
   return res;
 }
 
+async function logoutServer() {
+  const res = axios.get("/api/auth/logout");
+  return res;
+}
+
 async function joinServer(user) {
   const res = await axios.post("/api/users", { user });
   return res;
@@ -63,7 +82,7 @@ async function refreshLogin() {
 
 function* silentRefreshSaga() {
   const res = yield call(refreshLogin);
-  console.log(res);
+
   if (!res.data.isSuccess) {
     yield put(
       loginFailed({
@@ -71,7 +90,7 @@ function* silentRefreshSaga() {
       }),
     );
   } else {
-    yield call(afterSuccess, res.data);
+    yield call(afterLoginSuccess, res.data);
   }
 }
 
@@ -86,7 +105,7 @@ function* loginSaga(action) {
     const serverLoginResult = yield call(loginServer, signInGoogleResult.email);
 
     if (serverLoginResult.data.isSuccess) {
-      yield call(afterSuccess, serverLoginResult.data);
+      yield call(afterLoginSuccess, serverLoginResult.data);
     } else {
       yield put(
         loginFailed({
@@ -99,11 +118,37 @@ function* loginSaga(action) {
   }
 }
 
-function* afterSuccess(user) {
+function* logoutSaga() {
+  try {
+    const serverLogoutResult = yield call(logoutServer);
+
+    if (serverLogoutResult.statusText) {
+      yield call(afterLogoutSuccess, "/login");
+    } else {
+      yield put(
+        logoutFailed({
+          name: "ServerLogoutFailed",
+        }),
+      );
+    }
+  } catch (error) {
+    yield put(logoutFailed(error));
+  }
+}
+
+function* afterLoginSuccess(user) {
   const { email, displayName, profile, newAccessToken } = user;
   yield put(loginSucceed({ email, displayName, profile }));
   axios.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
   clearTimeout(delay);
   yield call(delay, JWT_EXPIRY_TIME - 60000);
   yield put(refresh());
+}
+
+function* afterLogoutSuccess(location) {
+  const history = createBrowserHistory();
+
+  axios.defaults.headers.common["Authorization"] = null;
+  yield put(logoutSucceed());
+  history.push(location);
 }
