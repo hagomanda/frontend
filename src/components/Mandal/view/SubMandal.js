@@ -1,11 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 import MandalBox from "./MandalBox";
+import { displayMain } from "../../../features/viewSlice";
 
 const BoxContainer = styled.div`
   display: grid;
@@ -13,21 +11,6 @@ const BoxContainer = styled.div`
   width: 684px;
   grid-template-columns: 1fr 1fr 1fr;
 `;
-
-const getMainGoal = async id => {
-  const res = await axios.get(`/api/goals/mainGoal/${id}`);
-  return res;
-};
-
-const getSubGoal = (res, id) => {
-  const { subGoals } = res.data.result.mainGoal;
-
-  for (let i = 0; i < subGoals.length; i++) {
-    if (subGoals[i]._id === id) {
-      return subGoals[i];
-    }
-  }
-};
 
 const makeArray = mandal => {
   const results = [];
@@ -42,39 +25,34 @@ const makeArray = mandal => {
   return results;
 };
 
-export default function SubMandal({ selected }) {
-  const { id } = useParams();
-  const [mandal, setMandal] = useState({});
+export default function SubMandal() {
   const [mandalArray, setMandalArray] = useState([]);
-  const loginState = useSelector(state => state.user.loginSucceed);
+  const data = useSelector(state => state.mandal.displayed);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getMandal = async () => {
-      const res = await getMainGoal(id);
-      setMandal(getSubGoal(res, selected));
-    };
-
-    if (loginState) {
-      getMandal();
-    }
-  }, [loginState]);
-
-  useEffect(() => {
-    if (!Object.keys(mandal).length) {
+    if (!Object.keys(data).length) {
       return;
     }
 
-    setMandalArray(makeArray(mandal));
-  }, [mandal]);
+    setMandalArray(makeArray(data));
+  }, [data]);
+
+  const handleBoxClick = index => {
+    if (index === 4) {
+      dispatch(displayMain());
+    }
+  };
 
   const showBoxes = () => {
-    return mandalArray.map(box => {
+    return mandalArray.map((box, index) => {
       return (
         <MandalBox
           context={String(box.title)}
           role={box.role}
           key={box["_id"]}
           goalId={box["_id"]}
+          onClick={() => handleBoxClick(index)}
         />
       );
     });
@@ -82,7 +60,3 @@ export default function SubMandal({ selected }) {
 
   return <BoxContainer className="gridContainer">{showBoxes()}</BoxContainer>;
 }
-
-SubMandal.propTypes = {
-  selected: PropTypes.string.isRequired,
-};

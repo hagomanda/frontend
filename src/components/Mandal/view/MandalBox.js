@@ -1,10 +1,6 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-
-import { changeToSubGoal } from "../../../features/viewSlice";
 
 const InnerBox = styled.div`
   /* width: 100px;
@@ -35,27 +31,10 @@ const InnerBox = styled.div`
   }
 `;
 
-export default function MandalBox({ context, role, goalId }) {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const isEditMode = useSelector(state => state.edit.mode);
-  const handleClickBox = event => {
-    if (isEditMode) {
-      if (id !== event.target.id) {
-        return;
-      }
-      // 수정기능 추가
-    } else {
-      if (id === event.target.id) {
-        return;
-      }
-
-      dispatch(changeToSubGoal(event.target.id));
-    }
-  };
-
+// MandalBox가 handleClick props 내려받을 수 있도록 (MandalPage에서)
+export default function MandalBox({ context, role, goalId, onClick }) {
   return (
-    <InnerBox className={role} onClick={handleClickBox} id={goalId}>
+    <InnerBox className={role} onClick={onClick} id={goalId}>
       {context}
     </InnerBox>
   );
@@ -65,4 +44,5 @@ MandalBox.propTypes = {
   context: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
   goalId: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

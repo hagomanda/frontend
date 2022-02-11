@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
 import MandalBox from "./MandalBox";
+import { getMandal, displaySub } from "../../../features/viewSlice";
 
-const getMainGoal = async id => {
-  const res = await axios.get(`/api/goals/mainGoal/${id}`);
-  return res;
-};
-
-const makeArray = (mandalart, id) => {
+const makeArray = (mandal, id) => {
   const tempArray = [];
-  mandalart.subGoals.forEach(({ title, level, _id }) => {
+  mandal.subGoals.forEach(({ title, level, _id }) => {
     tempArray.push({ title, level, _id, role: "sub" });
   });
-  const { title, level } = mandalart;
+  const { title, level } = mandal;
   tempArray.splice(4, 0, { title, level, _id: id, role: "main" });
 
   return tempArray;
@@ -31,37 +27,50 @@ const BoxContainer = styled.div`
 
 export default function MainMandal() {
   const { id } = useParams();
-  const [mandalart, setMandalart] = useState();
-  const [mandalartArray, setMandalartArray] = useState([]);
-
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.mandal.displayed);
   const loginState = useSelector(state => state.user.loginSucceed);
+  const isEditMode = useSelector(state => state.edit.mode);
+  const [mandalArray, setMandalArray] = useState([]);
 
   useEffect(() => {
     if (loginState) {
-      const getMandalart = async () => {
-        const res = await getMainGoal(id);
-        setMandalart(res.data.result.mainGoal);
-      };
-      getMandalart();
+      dispatch(getMandal(id));
     }
   }, [loginState]);
 
   useEffect(() => {
-    if (!mandalart) {
+    if (!Object.keys(data).length) {
       return;
     }
 
-    setMandalartArray(makeArray(mandalart, id));
-  }, [mandalart]);
+    setMandalArray(makeArray(data, id));
+  }, [data]);
+
+  const handleBoxClick = (event, index) => {
+    if (isEditMode) {
+      if (id !== event.target.id) {
+        return;
+      }
+      // 수정기능 추가
+    } else {
+      if (id === event.target.id) {
+        return;
+      }
+
+      dispatch(displaySub(index));
+    }
+  };
 
   const showBoxes = () => {
-    return mandalartArray.map(box => {
+    return mandalArray.map((box, index) => {
       return (
         <MandalBox
           context={String(box.title)}
           role={box.role}
           key={box["_id"]}
           goalId={box["_id"]}
+          onClick={event => handleBoxClick(event, index)}
         />
       );
     });
