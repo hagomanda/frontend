@@ -18,7 +18,6 @@ const Background = styled.div`
 `;
 
 const Child = styled.div`
-  position: relative;
   height: 200px;
   width: 500px;
   margin-top: 70px;

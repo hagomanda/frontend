@@ -12,6 +12,9 @@ import Main from "../components/Main/Main";
 import CalendarPage from "../components/CalendarPage";
 import Navbar from "../Navbar";
 
+import Todo from "../components/Mandal/view/Todo";
+import Modal from "../components/Modal";
+
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -23,6 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      {/* <Modal child={<Todo id="6205d66b9f17beadd1cdec7d" />} /> */}
       <Routes>
         {/* <Route path="/" element={} /> */}
         <Route path="/login" element={<LoginPage />} />
