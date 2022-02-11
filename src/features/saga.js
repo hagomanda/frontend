@@ -20,8 +20,9 @@ import {
   join,
   refresh,
 } from "./userSlice";
+
 import { authentication } from "./firebase";
-import { useEffect } from "react";
+import { getMandal, setMandal } from "./viewSlice";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const JWT_EXPIRY_TIME = 3600 * 1000;
@@ -33,6 +34,7 @@ export default function* rootSaga() {
     fork(watchJoin),
     fork(watchRefresh),
     fork(watchLogout),
+    fork(watchGetMandal),
   ]);
 }
 
@@ -52,9 +54,13 @@ function* watchRefresh() {
   yield takeEvery(refresh, silentRefreshSaga);
 }
 
+function* watchGetMandal() {
+  yield takeLatest(getMandal, getMandalSaga);
+}
+
 async function signInGoogle() {
-  const provieder = new GoogleAuthProvider();
-  const googleLoginResult = await signInWithPopup(authentication, provieder);
+  const provider = new GoogleAuthProvider();
+  const googleLoginResult = await signInWithPopup(authentication, provider);
   const { email, displayName, photoURL: profile } = googleLoginResult.user;
 
   return { email, displayName, profile };
@@ -77,6 +83,11 @@ async function joinServer(user) {
 
 async function refreshLogin() {
   const res = await axios.post("/api/auth/refresh");
+  return res;
+}
+
+async function getMainGoal(id) {
+  const res = await axios.get(`/api/goals/mainGoal/${id}`);
   return res;
 }
 
@@ -151,4 +162,17 @@ function* afterLogoutSuccess(location) {
   axios.defaults.headers.common["Authorization"] = null;
   yield put(logoutSucceed());
   history.push(location);
+}
+
+function* getMandalSaga(action) {
+  try {
+    const res = yield call(getMainGoal, action.payload);
+    if (res.data.message) {
+      // 결과가 없는 경우(해당 url이 유효하지 않은 경우)
+    } else {
+      yield put(setMandal(res.data.result.mainGoal));
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

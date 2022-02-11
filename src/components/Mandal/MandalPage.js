@@ -6,7 +6,7 @@ import axios from "axios";
 import MainMandal from "./view/MainMandal";
 import SubMandal from "./view/SubMandal";
 
-import { changeToMainGoal, changeToFullView } from "../../features/viewSlice";
+import { displayMain, displayFull } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
 
 const ButtonsContainer = styled.div`
@@ -68,16 +68,14 @@ const ToggleLabel = styled.label`
 
 export default function MandalPage() {
   const dispatch = useDispatch();
-  const view = useSelector(state => state.view);
+  const viewOption = useSelector(state => state.mandal.option);
 
   useEffect(() => {
-    dispatch(changeToMainGoal());
+    dispatch(displayMain());
   }, []);
 
   const viewCheckHandler = event => {
-    event.target.checked
-      ? dispatch(changeToFullView())
-      : dispatch(changeToMainGoal());
+    event.target.checked ? dispatch(displayFull()) : dispatch(displayMain());
   };
 
   const handleEdit = () => {
@@ -114,8 +112,8 @@ export default function MandalPage() {
         />
       </ButtonsContainer>
       <BodyContainer>
-        {view.option === "mainGoal" && <MainMandal />}
-        {view.option === "subGoal" && <SubMandal selected={view.selectedId} />}
+        {viewOption === "mainGoal" && <MainMandal />}
+        {viewOption === "subGoal" && <SubMandal />}
       </BodyContainer>
     </>
   );

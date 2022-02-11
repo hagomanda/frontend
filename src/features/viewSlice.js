@@ -2,28 +2,34 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   option: "mainGoal",
-  selectedId: "",
+  data: {},
+  displayed: {},
 };
 
 export const viewSlice = createSlice({
   name: "view",
   initialState,
   reducers: {
-    changeToMainGoal: state => {
+    getMandal: state => state,
+    setMandal: (state, action) => {
+      state.data = action.payload;
+      state.displayed = action.payload;
+    },
+    displayMain: state => {
       state.option = "mainGoal";
-      state.selectedId = "";
+      state.displayed = state.data;
     },
-    changeToSubGoal: (state, action) => {
+    displayFull: state => {
+      state.option = "full";
+      state.displayed = state.data;
+    },
+    displaySub: (state, action) => {
       state.option = "subGoal";
-      state.selectedId = action.payload;
-    },
-    changeToFullView: state => {
-      state.option = "fullView";
-      state.selectedId = "";
+      state.displayed = state.data.subGoals[action.payload];
     },
   },
 });
 
-export const { changeToMainGoal, changeToSubGoal, changeToFullView } =
+export const { getMandal, setMandal, displayMain, displaySub, displayFull } =
   viewSlice.actions;
 export default viewSlice.reducer;
