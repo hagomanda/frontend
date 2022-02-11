@@ -14,12 +14,24 @@ const Container = styled.div`
   border-collapse: collapse;
 `;
 
+const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+const ONE_WEEK = 7;
+
+const getUsersTodo = async (date, days) => {
+  const result = await axios.get("/api/users/todos", {
+    headers: {
+      currentDate: format(date, "yyyy-MM-dd"),
+      days,
+    },
+  });
+  return result;
+};
+
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todos, setTodos] = useState([]);
   const loginState = useSelector(state => state.user.loginSucceed);
 
-  const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
   const handlePrevButtonClick = () => {
     setCurrentDate(add(currentDate, { days: -7 }));
   };
@@ -31,14 +43,9 @@ export default function CalendarPage() {
     setCurrentDate(new Date());
   };
 
-  const getUsersTodo = async id => {
+  const getTodosOfWeek = async () => {
     const weekStart = add(currentDate, { days: -1 * getDay(currentDate) });
-    const res = await axios.get("/api/users/todos", {
-      headers: {
-        currentDate: format(weekStart, "yyyy-MM-dd"),
-        days: 7,
-      },
-    });
+    const res = await getUsersTodo(weekStart, ONE_WEEK);
 
     if (res.data.result === "error") {
       return;
@@ -62,7 +69,7 @@ export default function CalendarPage() {
 
   useEffect(() => {
     if (loginState) {
-      getUsersTodo();
+      getTodosOfWeek();
     }
   }, [loginState]);
 

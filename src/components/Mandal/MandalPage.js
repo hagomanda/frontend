@@ -9,7 +9,6 @@ import SubMandal from "./view/SubMandal";
 import { changeToMainGoal, changeToFullView } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
 
-
 const ButtonsContainer = styled.div`
   display: flex;
 `;
