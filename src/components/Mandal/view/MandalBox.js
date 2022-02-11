@@ -25,6 +25,14 @@ const InnerBox = styled.div`
   &.main {
     background-color: rgb(148, 178, 235);
   }
+
+  &.todo {
+    background-color: rgb(148, 178, 235);
+    &:hover {
+      background-color: #f4f4f4;
+      cursor: pointer;
+    }
+  }
 `;
 
 export default function MandalBox({ context, role, goalId }) {
@@ -41,7 +49,8 @@ export default function MandalBox({ context, role, goalId }) {
       if (id === event.target.id) {
         return;
       }
-      dispatch(changeToSubGoal());
+
+      dispatch(changeToSubGoal(event.target.id));
     }
   };
 

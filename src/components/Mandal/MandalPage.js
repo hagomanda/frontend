@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 
+import MainMandal from "./view/MainMandal";
+import SubMandal from "./view/SubMandal";
+
 import { changeToMainGoal, changeToFullView } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
-import MainMandal from "./view/MainMandal";
+
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -66,7 +69,11 @@ const ToggleLabel = styled.label`
 
 export default function MandalPage() {
   const dispatch = useDispatch();
-  const viewOption = useSelector(state => state.view.option);
+  const view = useSelector(state => state.view);
+
+  useEffect(() => {
+    dispatch(changeToMainGoal());
+  }, []);
 
   const viewCheckHandler = event => {
     event.target.checked
@@ -108,7 +115,8 @@ export default function MandalPage() {
         />
       </ButtonsContainer>
       <BodyContainer>
-        {viewOption === "mainGoal" && <MainMandal />}
+        {view.option === "mainGoal" && <MainMandal />}
+        {view.option === "subGoal" && <SubMandal selected={view.selectedId} />}
       </BodyContainer>
     </>
   );
