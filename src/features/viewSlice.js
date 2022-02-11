@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   option: "mainGoal",
+  selectedId: "",
 };
 
 export const viewSlice = createSlice({
@@ -10,12 +11,15 @@ export const viewSlice = createSlice({
   reducers: {
     changeToMainGoal: state => {
       state.option = "mainGoal";
+      state.selectedId = "";
     },
-    changeToSubGoal: state => {
+    changeToSubGoal: (state, action) => {
       state.option = "subGoal";
+      state.selectedId = action.payload;
     },
     changeToFullView: state => {
       state.option = "fullView";
+      state.selectedId = "";
     },
   },
 });
