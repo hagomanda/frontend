@@ -107,6 +107,14 @@ export default function Todo({ id }) {
     setDuration(event.target.value);
   };
 
+  const handleAddButton = () => {
+    saveTodo(id, currentDate, {
+      isRepeat,
+      type: repetition,
+      duration,
+    });
+  };
+
   return (
     <>
       <div>할일 저장하기</div> <hr />
@@ -140,17 +148,7 @@ export default function Todo({ id }) {
         <ContentContainer>
           <div>저장된 할 일들</div>
           {isLoading ? <div>로딩 중</div> : <div>{showTodosInDate()}</div>}
-          <input
-            type="button"
-            value="Add"
-            onClick={() =>
-              saveTodo(id, currentDate, {
-                isRepeat,
-                type: repetition,
-                duration,
-              })
-            }
-          />
+          <input type="button" value="Add" onClick={handleAddButton} />
         </ContentContainer>
       </BodyContainer>
     </>

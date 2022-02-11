@@ -38,7 +38,7 @@ const RadioLabel = styled.label`
 `;
 
 export default function RadioButton({ handleOnChange, options }) {
-  const showButons = () => {
+  const showButtons = () => {
     return options.slice(1).map(({ value, content }, i) => (
       <>
         <StyledRadio
@@ -54,7 +54,7 @@ export default function RadioButton({ handleOnChange, options }) {
     ));
   };
 
-  return <StyledDiv>{showButons()}</StyledDiv>;
+  return <StyledDiv>{showButtons()}</StyledDiv>;
 }
 
 RadioButton.propTypes = {
