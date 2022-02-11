@@ -6,14 +6,13 @@ const InnerBox = styled.div`
   /* width: 100px;
   height: 100px; */
   /* border: solid black 1px; */
-  box-sizing: border-box;
   border-radius: 10%;
   margin: 10px;
 
   &.sub {
     background-color: #f4f4f4;
     &:hover {
-      background-color: rgb(148, 178, 235);
+      box-shadow: 0 0 0 3px rgb(148, 178, 235) inset;
       cursor: pointer;
     }
   }
@@ -22,10 +21,10 @@ const InnerBox = styled.div`
     background-color: rgb(148, 178, 235);
   }
 
-  &.todo {
+  &.submain {
     background-color: rgb(148, 178, 235);
     &:hover {
-      background-color: #f4f4f4;
+      box-shadow: 0 0 0 3px #cccccd inset;
       cursor: pointer;
     }
   }
