@@ -40,7 +40,7 @@ export default function MainMandal({ data }) {
       return;
     }
 
-    dispatch(displaySub(index));
+    index <= 4 ? dispatch(displaySub(index)) : dispatch(displaySub(index - 1));
   };
 
   return (

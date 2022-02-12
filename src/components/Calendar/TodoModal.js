@@ -93,9 +93,10 @@ export default function TodoModal({ todo, date, setShowModal, showModal }) {
     <>
       <Title>{`제목: ${todo.title}`}</Title>
       <Level>{todo.level ? `Lv.${todo.level}` : "Lv.0"}</Level>
-      <Memo onChange={e => setMemo(e.target.value)}>
-        {todo.memo ? todo.memo : "메모를 적어주세요!"}
-      </Memo>
+      <Memo
+        onChange={e => setMemo(e.target.value)}
+        placeholder={todo.memo ? todo.memo : "메모를 적어주세요!"}
+      />
       <ButtonContainer>
         <Button onClick={handleSaveButtonClick}>Save</Button>
         <Button onClick={handleDeleteButtonClick}>Delete</Button>

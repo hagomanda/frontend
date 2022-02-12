@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import Modal from "./Modal";
+import Modal from "../Modal";
 import TodoModal from "./TodoModal";
 
 const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
@@ -56,7 +56,7 @@ export default function Todo({ todo, date }) {
     setIsComplete(!isComplete);
 
     await axios.put(`/api/todos/calendar/${todoId}`, {
-      isComplete,
+      isComplete: !isComplete,
       date,
     });
   };
@@ -65,7 +65,7 @@ export default function Todo({ todo, date }) {
     <>
       <TodoContainer id={todo._id} onClick={handleTodoClick}>
         <CheckButton
-          src={todo.isComplete ? "/img/checkButton.png" : "/img/nounCheck.png"}
+          src={isComplete ? "/img/checkButton.png" : "/img/nounCheck.png"}
           onClick={event => handleCheckButtonClick(event, todo._id)}
         />
         <Title className={isComplete ? "complete" : null}>{todo.title}</Title>
