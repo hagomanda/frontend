@@ -4,20 +4,45 @@ const initialState = {
   option: "mainGoal",
   data: {},
   displayed: {},
+  isFetching: true,
+};
+
+const MAIN_VIEW = "subGoals";
+const SUB_VIEW = "todos";
+
+const makeArray = (mandal, view) => {
+  const results = [];
+
+  mandal[view].forEach(({ title, level, _id }) => {
+    results.push({ title, level, _id, role: "sub" });
+  });
+
+  const { title, level } = mandal;
+  results.splice(4, 0, {
+    title,
+    level,
+    _id: mandal._id,
+    role: view === SUB_VIEW ? "submain" : "main",
+  });
+
+  return results;
 };
 
 export const viewSlice = createSlice({
   name: "view",
   initialState,
   reducers: {
-    getMandal: state => state,
+    getMandal: state => {
+      state.isFetching = true;
+    },
     setMandal: (state, action) => {
       state.data = action.payload;
-      state.displayed = action.payload;
+      state.displayed = makeArray(action.payload, MAIN_VIEW);
+      state.isFetching = false;
     },
     displayMain: state => {
       state.option = "mainGoal";
-      state.displayed = state.data;
+      state.displayed = makeArray(state.data, MAIN_VIEW);
     },
     displayFull: state => {
       state.option = "full";
@@ -25,7 +50,10 @@ export const viewSlice = createSlice({
     },
     displaySub: (state, action) => {
       state.option = "subGoal";
-      state.displayed = state.data.subGoals[action.payload];
+      state.displayed = makeArray(
+        state.data.subGoals[action.payload],
+        SUB_VIEW,
+      );
     },
   },
 });

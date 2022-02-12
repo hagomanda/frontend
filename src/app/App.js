@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import axios from "axios";
 
 import { refresh } from "../features/userSlice";
@@ -19,6 +20,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
+  const loginState = useSelector(state => state.user.loginSucceed);
 
   useEffect(() => {
     dispatch(refresh());
@@ -30,10 +32,20 @@ function App() {
       <Routes>
         {/* <Route path="/" element={} /> */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/mainGoal/:id" element={<MandalPage />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/main" element={loginState ? <Main /> : <LoginPage />} />
+        <Route
+          path="/mypage"
+          element={loginState ? <MyPage /> : <LoginPage />}
+        />
+        <Route
+          path="/mainGoal/:id"
+          element={loginState ? <MandalPage /> : <LoginPage />}
+        />
+        <Route path="/main" element={loginState ? <Main /> : <LoginPage />} />
+        <Route
+          path="/calendar"
+          element={loginState ? <CalendarPage /> : <LoginPage />}
+        />
         <Route path="/create" element={<CreateButton />} />
       </Routes>
     </BrowserRouter>

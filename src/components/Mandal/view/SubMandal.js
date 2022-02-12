@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -12,31 +12,9 @@ const BoxContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
-const makeArray = mandal => {
-  const results = [];
-
-  mandal.todos.forEach(({ title, level, _id }) => {
-    results.push({ title, level, _id, role: "todo" });
-  });
-
-  const { title, level } = mandal;
-  results.splice(4, 0, { title, level, _id: mandal._id, role: "sub" });
-
-  return results;
-};
-
 export default function SubMandal() {
-  const [mandalArray, setMandalArray] = useState([]);
-  const data = useSelector(state => state.mandal.displayed);
+  const data = useSelector(state => state.view.displayed);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!Object.keys(data).length) {
-      return;
-    }
-
-    setMandalArray(makeArray(data));
-  }, [data]);
 
   const handleBoxClick = index => {
     if (index === 4) {
@@ -45,7 +23,7 @@ export default function SubMandal() {
   };
 
   const showBoxes = () => {
-    return mandalArray.map((box, index) => {
+    return data.map((box, index) => {
       return (
         <MandalBox
           context={String(box.title)}

@@ -170,6 +170,7 @@ function* getMandalSaga(action) {
     if (res.data.message) {
       // 결과가 없는 경우(해당 url이 유효하지 않은 경우)
     } else {
+      res.data.result.mainGoal["_id"] = action.payload;
       yield put(setMandal(res.data.result.mainGoal));
     }
   } catch (error) {
