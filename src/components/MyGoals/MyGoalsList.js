@@ -23,7 +23,6 @@ export default function MyGoalsList() {
 
   const getData = async () => {
     const { data } = await goalApi();
-    console.log(data.result);
     setData(data.result);
     setIsLoading(false);
   };
@@ -35,22 +34,24 @@ export default function MyGoalsList() {
   }, [loginState]);
 
   return (
-    <GoalsContainer>
-      {isLoading ? (
-        <div>로딩 중</div>
-      ) : !data.length ? (
-        <div>아직 만다라트가 없어요!</div>
-      ) : (
-        data.map(element => {
-          return (
-            <MyGoalsEntry
-              key={element._id}
-              id={element._id}
-              title={element.title}
-            />
-          );
-        })
-      )}
-    </GoalsContainer>
+    <>
+      <GoalsContainer>
+        {isLoading ? (
+          <div>로딩 중</div>
+        ) : !data.length ? (
+          <div>아직 만다라트가 없어요!</div>
+        ) : (
+          data.map(element => {
+            return (
+              <MyGoalsEntry
+                key={element._id}
+                id={element._id}
+                title={element.title}
+              />
+            );
+          })
+        )}
+      </GoalsContainer>
+    </>
   );
 }

@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import axios from "axios";
 
 import { refresh } from "../features/userSlice";
-import CreateButton from "../components/CreateButton";
 
-import MandalPage from "../components/Mandal/MandalPage";
+import IndexPage from "../components/IndexPage";
+import GlobalNavBar from "../components/Header/GlobalNavBar";
 import LoginPage from "../components/LoginPage";
 import Main from "../components/Main/Main";
 import CalendarPage from "../components/CalendarPage";
+import Navbar from "../components/Header/Navbar";
+import MandalPage from "../components/Mandal/MandalPage";
 import MyPage from "../components/MyPage";
-
-import Todo from "../components/Mandal/view/Todo";
-import Modal from "../components/Modal";
 
 axios.defaults.withCredentials = true;
 
@@ -28,25 +26,35 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Modal child={<Todo id="6205d66b9f17beadd1cdec7d" />} /> */}
+      <GlobalNavBar />
+      <Navbar />
       <Routes>
-        {/* <Route path="/" element={} /> */}
+        <Route path="/" element={<IndexPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/main" element={loginState ? <Main /> : <LoginPage />} />
+        <Route
+          path="/home"
+          element={loginState ? <Main /> : <Navigate replace to="/login" />}
+        />
         <Route
           path="/mypage"
-          element={loginState ? <MyPage /> : <LoginPage />}
+          element={loginState ? <MyPage /> : <Navigate replace to="/login" />}
         />
         <Route
           path="/mainGoal/:id"
-          element={loginState ? <MandalPage /> : <LoginPage />}
+          element={
+            loginState ? <MandalPage /> : <Navigate replace to="/login" />
+          }
         />
-        <Route path="/main" element={loginState ? <Main /> : <LoginPage />} />
+        <Route
+          path="/main"
+          element={loginState ? <Main /> : <Navigate replace to="/login" />}
+        />
         <Route
           path="/calendar"
-          element={loginState ? <CalendarPage /> : <LoginPage />}
+          element={
+            loginState ? <CalendarPage /> : <Navigate replace to="/login" />
+          }
         />
-        <Route path="/create" element={<CreateButton />} />
       </Routes>
     </BrowserRouter>
   );
