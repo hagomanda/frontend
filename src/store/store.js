@@ -13,7 +13,6 @@ export const store = configureStore({
     user: userReducer,
     view: viewReducer,
     edit: editReducer,
-    // mandal: mandalReducer,
   },
   middleware: [sagaMiddleware],
 });

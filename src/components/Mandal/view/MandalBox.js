@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const InnerBox = styled.div`
-  /* width: 100px;
-  height: 100px; */
-  /* border: solid black 1px; */
   border-radius: 10%;
   margin: 10px;
 
@@ -19,6 +17,9 @@ const InnerBox = styled.div`
 
   &.main {
     background-color: rgb(148, 178, 235);
+    &:hover {
+      box-shadow: 0 0 0 3px #cccccd inset;
+    }
   }
 
   &.submain {
@@ -30,11 +31,21 @@ const InnerBox = styled.div`
   }
 `;
 
+const Context = styled.div`
+  text-align: center;
+  outline: none;
+`;
+
 // MandalBox가 handleClick props 내려받을 수 있도록 (MandalPage에서)
 export default function MandalBox({ context, role, goalId, onClick }) {
+  const isEditMode = useSelector(state => state.edit.mode);
+  const giveContentEditable = event => {
+    event.target.contentEditable = true;
+  };
+
   return (
     <InnerBox className={role} onClick={onClick} id={goalId}>
-      {context}
+      <Context contentEditable={isEditMode}>{context}</Context>
     </InnerBox>
   );
 }

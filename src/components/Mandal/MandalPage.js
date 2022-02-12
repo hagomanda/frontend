@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 
 import MainMandal from "./view/MainMandal";
 import SubMandal from "./view/SubMandal";
+import FullView from "./view/FullView";
 
 import { displayMain, displayFull, getMandal } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
@@ -31,6 +32,11 @@ const BodyContainer = styled.div`
   align-items: center;
 
   height: 70vh;
+`;
+
+const BoxContainer = styled.div`
+  height: 684px;
+  width: 684px;
 `;
 
 const ToggleButton = styled.input`
@@ -71,30 +77,23 @@ const ToggleLabel = styled.label`
   }
 `;
 
-const makeArray = mandal => {
-  const results = [];
-
-  mandal.subGoals.forEach(({ title, level, _id }) => {
-    results.push({ title, level, _id, role: "todo" });
-  });
-
-  const { title, level } = mandal;
-  results.splice(4, 0, { title, level, _id: mandal._id, role: "sub" });
-
-  return results;
-};
-
 export default function MandalPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const loginState = useSelector(state => state.user.loginSucceed);
-  const data = useSelector(state => state.view.displayed);
   const isFetching = useSelector(state => state.view.isFetching);
   const viewOption = useSelector(state => state.view.option);
+  const mandalArray = useSelector(state => state.view.displayed);
+  const viewModeButton = useRef();
 
   useEffect(() => {
     dispatch(getMandal(id));
   }, []);
+
+  useEffect(() => {
+    if (viewOption !== "full") {
+      viewModeButton.current.checked = false;
+    }
+  }, [viewOption]);
 
   const viewCheckHandler = event => {
     event.target.checked ? dispatch(displayFull()) : dispatch(displayMain());
@@ -124,6 +123,7 @@ export default function MandalPage() {
           type="checkbox"
           id="toggle-slider"
           onChange={viewCheckHandler}
+          ref={viewModeButton}
         />
         <ToggleLabel htmlFor="toggle-slider">on/off</ToggleLabel>
         <ImageButton
@@ -141,8 +141,11 @@ export default function MandalPage() {
       </ButtonsContainer>
       {!isFetching && (
         <BodyContainer>
-          {viewOption === "mainGoal" && <MainMandal mandalData={data} />}
-          {viewOption === "subGoal" && <SubMandal />}
+          <BoxContainer>
+            {viewOption === "mainGoal" && <MainMandal data={mandalArray} />}
+            {viewOption === "subGoal" && <SubMandal data={mandalArray} />}
+            {viewOption === "full" && <FullView />}
+          </BoxContainer>
         </BodyContainer>
       )}
     </>
