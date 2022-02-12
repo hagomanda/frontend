@@ -12,6 +12,10 @@ import { changeEditMode } from "../../features/editSlice";
 
 const ButtonsContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 10px;
 `;
 
 const ImageButton = styled.img`
@@ -26,18 +30,18 @@ const BodyContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  height: 80vh;
+  height: 70vh;
 `;
 
 const ToggleButton = styled.input`
   display: none;
 
   &:checked + label {
-    background: #96e7ef;
+    background: #3c4963;
   }
 
   &:checked + label::after {
-    background: #1d6269;
+    background: #ffffff;
     left: 50px;
   }
 `;
@@ -48,7 +52,7 @@ const ToggleLabel = styled.label`
   width: 100px;
   height: 50px;
 
-  background: #dff7fa;
+  background: rgba(148, 178, 235, 0.5);
   border-radius: 25px;
   text-indent: -9999em;
   transition: 0.4s ease-out;
@@ -59,7 +63,7 @@ const ToggleLabel = styled.label`
     content: "";
     width: 40px;
     height: 40px;
-    background: #a5cace;
+    background: #ffffff;
     border-radius: 50%;
     top: 5px;
     left: 5px;

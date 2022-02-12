@@ -65,7 +65,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (loginSucceed) {
-      navigate("/main");
+      navigate("/home");
     }
   }, [loginSucceed]);
 

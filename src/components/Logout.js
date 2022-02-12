@@ -17,7 +17,7 @@ const LogoutButton = styled.div`
   text-align: center;
 
   &:hover {
-    color: grey;
+    color: #94b2eb;
     cursor: pointer;
   }
 `;
@@ -31,7 +31,7 @@ const StyledLink = styled(Link)`
   color: black;
 
   &:hover {
-    color: grey;
+    color: #94b2eb;
     cursor: pointer;
   }
 `;
@@ -45,7 +45,7 @@ export default function Logout() {
 
   return (
     <Container>
-      <StyledLink to="/index">
+      <StyledLink to="/">
         <div>서비스 소개</div>
       </StyledLink>
       <LogoutButton onClick={handleLogoutButtonClick}>로그아웃</LogoutButton>

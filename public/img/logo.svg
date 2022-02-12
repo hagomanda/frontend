@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg57"
+   width="295.58966"
+   height="295.58975"
+   viewBox="0 0 295.58966 295.58975"
+   sodipodi:docname="logo.png"
+   inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs61" />
+  <sodipodi:namedview
+     id="namedview59"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.8581705"
+     inkscape:cx="179.45152"
+     inkscape:cy="129.92756"
+     inkscape:window-width="1680"
+     inkscape:window-height="823"
+     inkscape:window-x="1731"
+     inkscape:window-y="64"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g63">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7780"
+       originx="-19.457005"
+       originy="-14.456924" />
+  </sodipodi:namedview>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g63"
+     transform="translate(-19.457005,-14.456924)">
+    <g
+       id="g7866">
+      <rect
+         style="fill:#82a9f6;fill-opacity:1;fill-rule:evenodd"
+         id="rect169"
+         width="135.543"
+         height="135.54308"
+         x="19.457005"
+         y="14.456924" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.992676;stroke-opacity:1"
+         id="rect169-0"
+         width="134.55032"
+         height="134.55032"
+         x="180"
+         y="15.449677" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.992676;stroke-opacity:1"
+         id="rect169-0-9"
+         width="134.55032"
+         height="134.55032"
+         x="20.44968"
+         y="175" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.992676;stroke-opacity:1"
+         id="rect169-0-9-2"
+         width="134.55032"
+         height="134.55032"
+         x="180"
+         y="175" />
+    </g>
+  </g>
+</svg>

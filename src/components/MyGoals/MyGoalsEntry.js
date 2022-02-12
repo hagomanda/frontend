@@ -12,8 +12,8 @@ const ThumbnailContainer = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  width: 30vh;
-  height: 30vh;
+  width: 200px;
+  height: 200px;
   margin: 5px;
   text-align: center;
   background-color: rgb(148, 178, 235);
@@ -66,7 +66,7 @@ export default function MyGoalsEntry({ title, id }) {
 
     if (res?.result === "ok") {
       setShowModal(false);
-      navigate("/main");
+      navigate("/home");
       return;
     }
 

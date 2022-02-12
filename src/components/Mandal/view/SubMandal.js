@@ -7,8 +7,8 @@ import { displayMain } from "../../../features/viewSlice";
 
 const BoxContainer = styled.div`
   display: grid;
-  height: 684px;
-  width: 684px;
+  height: 570px;
+  width: 570px;
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
