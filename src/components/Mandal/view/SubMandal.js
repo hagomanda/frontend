@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import MandalBox from "./MandalBox";
 import { displayMain, displaySub } from "../../../features/viewSlice";
+import MandalBox from "./MandalBox";
 import { showBoxes } from "./utils";
+
 const BoxContainer = styled.div`
   display: grid;
   height: 100%;

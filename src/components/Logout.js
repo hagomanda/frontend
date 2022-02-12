@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { logoutRequest } from "../features/userSlice";
 
 const Container = styled.div`
