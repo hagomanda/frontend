@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const InnerBox = styled.div`
   border-radius: 10%;
   margin: 10px;
 
-  &.sub {
+  &.subGoals,
+  &.todos {
     background-color: #f4f4f4;
     &:hover {
       box-shadow: 0 0 0 3px rgb(148, 178, 235) inset;
@@ -15,43 +19,65 @@ const InnerBox = styled.div`
     }
   }
 
-  &.main {
-    background-color: rgb(148, 178, 235);
-    &:hover {
-      box-shadow: 0 0 0 3px #cccccd inset;
-    }
-  }
-
+  &.main,
   &.submain {
     background-color: rgb(148, 178, 235);
     &:hover {
       box-shadow: 0 0 0 3px #cccccd inset;
-      cursor: pointer;
     }
   }
 `;
 
-const Context = styled.div`
+const Content = styled.div`
   text-align: center;
   outline: none;
 `;
 
 // MandalBox가 handleClick props 내려받을 수 있도록 (MandalPage에서)
-export default function MandalBox({ context, role, goalId, onClick }) {
+export default function MandalBox({ content, role, goalId, onClick }) {
+  const { id: mainGoalId } = useParams();
+  const defaultValue = useRef(content);
   const isEditMode = useSelector(state => state.edit.mode);
-  const giveContentEditable = event => {
-    event.target.contentEditable = true;
+
+  const box = useRef();
+
+  const handleContent = event => {
+    defaultValue.current = event.currentTarget.textContent;
+
+    if (role === "main") {
+      return axios.put(`/api/goals/mainGoal/${box.current.id}`, {
+        title: defaultValue.current,
+      });
+    }
+
+    if (role === "subGoals" || role === "submain") {
+      return axios.put(`/api/goals/subGoal/${box.current.id}`, {
+        title: defaultValue.current,
+        mainGoalId,
+      });
+    }
+
+    return axios.put(`/api/todos/${box.current.id}`, {
+      title: defaultValue.current,
+    });
   };
 
   return (
-    <InnerBox className={role} onClick={onClick} id={goalId}>
-      <Context contentEditable={isEditMode}>{context}</Context>
+    <InnerBox className={role} onClick={onClick} id={goalId} ref={box}>
+      <Content
+        contentEditable={isEditMode}
+        suppressContentEditableWarning={true}
+        // onBlur={handleContent}
+        onInput={handleContent}
+        spellCheck={false}
+        dangerouslySetInnerHTML={{ __html: defaultValue.current }}
+      />
     </InnerBox>
   );
 }
 
 MandalBox.propTypes = {
-  context: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
   goalId: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,

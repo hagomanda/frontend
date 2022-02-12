@@ -6,7 +6,7 @@ export const showBoxes = (data, handleClick) => {
   return data.map((box, index) => {
     return (
       <MandalBox
-        context={String(box.title)}
+        content={String(box.title)}
         role={box.role}
         key={box["_id"]}
         goalId={box["_id"]}
