@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import { displayMain, displayFull, getMandal } from "../../features/viewSlice";
-import { changeEditMode } from "../../features/editSlice";
+import {
+  displayMain,
+  displayFull,
+  getMandal,
+} from "../../reducers/mandalSlice";
+import { changeEditMode } from "../../reducers/editSlice";
 import { VIEW_OPTION } from "../../constants";
 import MainMandal from "./view/MainMandal";
 import SubMandal from "./view/SubMandal";
@@ -12,6 +16,7 @@ import FullView from "./view/FullView";
 import ShareButton from "./MandalHeader/ShareButton";
 import GoBackButton from "./MandalHeader/GoBackButton";
 import ChatPage from "../Chat/ChatPage";
+import { socketAction } from "../../features/socket";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -85,9 +90,9 @@ const ToggleLabel = styled.label`
 export default function MandalPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const isFetching = useSelector(state => state.view.isFetching);
-  const viewOption = useSelector(state => state.view.option);
-  const mandalArray = useSelector(state => state.view.displayed);
+  const isFetching = useSelector(state => state.mandal.isFetching);
+  const viewOption = useSelector(state => state.mandal.option);
+  const mandalArray = useSelector(state => state.mandal.displayed);
   const isEditMode = useSelector(state => state.edit.mode);
   const viewModeButton = useRef();
 
@@ -99,9 +104,13 @@ export default function MandalPage() {
   }, []);
 
   useEffect(() => {
+    dispatch(getMandal(id));
+
     if (!isEditMode) {
-      dispatch(getMandal(id));
+      return socketAction.leaveMandal();
     }
+
+    socketAction.joinMandal(id);
   }, [isEditMode]);
 
   useEffect(() => {
@@ -120,7 +129,6 @@ export default function MandalPage() {
 
   return (
     <>
-      {isFetching && <div>123</div>}
       <div>
         <ButtonsContainer>
           <GoBackButton onClick={viewCheckHandler} />
@@ -141,6 +149,7 @@ export default function MandalPage() {
           <ToggleLabel htmlFor="toggle-slider">on/off</ToggleLabel>
         </ButtonsContainer>
       </div>
+      {isFetching && <div>Loading...</div>}
       {!isFetching && (
         <BodyContainer>
           <BoxContainer>

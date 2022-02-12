@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
 import Modal from "../Modal";
 import CreateGoal from "./CreateGoal";
+import { useDispatch, useSelector } from "react-redux";
+import { createMandal } from "../../reducers/mandalSlice";
 
 const Button = styled.div`
   width: 50px;
@@ -24,25 +25,28 @@ const Button = styled.div`
   }
 `;
 
-const createApi = async () => {
-  const res = await axios.post("/api/goals/mainGoal");
-  return res;
-};
-
 export default function CreateButton() {
   const [showModal, setShowModal] = useState(false);
+  const createdId = useSelector(state => state.mandal.createMandal);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCreateButtonClick = () => {
     setShowModal(true);
   };
 
   const handleSubmitButtonClick = async title => {
-    const { data } = await createApi(title);
-    const { mainGoalId } = data.result;
+    dispatch(createMandal(title));
     setShowModal(false);
-    navigate(`/mainGoal/${mainGoalId}`);
   };
+
+  useEffect(() => {
+    if (!createdId) {
+      return;
+    }
+
+    navigate(`/mainGoal/${createdId}`);
+  }, [createdId]);
 
   return (
     <>

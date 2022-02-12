@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { socketAction } from "../../features/socket";
 import MyGoalsEntry from "./MyGoalsEntry";
+import { getGoalList } from "../../reducers/goalListSlice";
 
 const GoalsContainer = styled.div`
   display: inline-grid;
@@ -13,29 +13,22 @@ const GoalsContainer = styled.div`
   padding: 5px;
 `;
 
-const goalApi = async () => {
-  const res = await axios.get("/api/users/goals");
-  return res;
-};
-
 export default function MyGoalsList() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState([]);
   const loginState = useSelector(state => state.user.loginSucceed);
+  const dispatch = useDispatch();
 
-  const getData = async () => {
-    const { data } = await goalApi();
-    setData(data.result);
-    setIsLoading(false);
-  };
+  const data = useSelector(state => state.goalList.data);
+  const isLoading = useSelector(state => state.goalList.isFetching);
 
   useEffect(() => {
-    if (loginState) {
-      getData();
+    if (!loginState) {
+      socketAction.leaveMandal();
     }
-
-    socketAction.leaveMandal();
   }, [loginState]);
+
+  useEffect(() => {
+    dispatch(getGoalList());
+  }, []);
 
   return (
     <>

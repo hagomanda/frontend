@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import axios from "axios";
 import styled from "styled-components";
+
+import { saveMemo, deleteMemo } from "../../reducers/todoSlice";
 
 const Title = styled.p`
   display: flex;
@@ -69,23 +71,17 @@ const Memo = styled.textarea`
 
 export default function TodoModal({ todo, date, setShowModal, showModal }) {
   const [memo, setMemo] = useState(todo.memo);
+  const dispatch = useDispatch();
+  const todoId = todo._id;
 
   const handleSaveButtonClick = async () => {
-    await axios.post(`/api/todos/memo/${todo._id}`, {
-      date,
-      memo,
-    });
+    dispatch(saveMemo({ todoId, date, memo }));
 
     setShowModal(!showModal);
   };
 
   const handleDeleteButtonClick = async () => {
-    await axios.delete(`/api/todos/${todo._id}`, {
-      data: {
-        date,
-      },
-    });
-
+    dispatch(deleteMemo({ todoId, date }));
     setShowModal(!showModal);
   };
 
@@ -95,7 +91,8 @@ export default function TodoModal({ todo, date, setShowModal, showModal }) {
       <Level>{todo.level ? `Lv.${todo.level}` : "Lv.0"}</Level>
       <Memo
         onChange={e => setMemo(e.target.value)}
-        placeholder={todo.memo ? todo.memo : "메모를 적어주세요!"}
+        placeholder="메모를 적어주세요!"
+        defaultValue={memo}
       />
       <ButtonContainer>
         <Button onClick={handleSaveButtonClick}>Save</Button>

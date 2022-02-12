@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { VIEW_OPTION, ROLE } from "../constants";
+
 const initialState = {
   option: VIEW_OPTION.MAIN_VIEW,
   data: {},
   displayed: {},
   index: 0,
   isFetching: true,
+  createMandal: null,
+  error: null,
 };
 
 const makeArray = (mandal, child) => {
@@ -27,12 +30,20 @@ const makeArray = (mandal, child) => {
   return results;
 };
 
-export const viewSlice = createSlice({
-  name: "view",
+export const mandalSlice = createSlice({
+  name: "mandal",
   initialState,
   reducers: {
     getMandal: state => {
       state.isFetching = true;
+      state.createMandal = null;
+    },
+    getMandalSuccess: state => {
+      state.isFetching = false;
+    },
+    getMandalError: (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload;
     },
     setMandal: (state, action) => {
       state.data = action.payload;
@@ -44,7 +55,6 @@ export const viewSlice = createSlice({
       } else {
         state.displayed = makeArray(state.data, ROLE.SUBGOAL);
       }
-      state.isFetching = false;
     },
     displayMain: state => {
       state.option = VIEW_OPTION.MAIN_VIEW;
@@ -62,9 +72,32 @@ export const viewSlice = createSlice({
       );
       state.index = action.payload;
     },
+    createMandal: state => state,
+    createMandalError: (state, action) => {
+      state.error = action.payload;
+    },
+    createMandalSuccess: (state, action) => {
+      state.createMandal = action.payload;
+    },
+    modifyMandal: state => state,
+    modifyMandalError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { getMandal, setMandal, displayMain, displaySub, displayFull } =
-  viewSlice.actions;
-export default viewSlice.reducer;
+export const {
+  getMandal,
+  setMandal,
+  displayMain,
+  displaySub,
+  displayFull,
+  getMandalSuccess,
+  getMandalError,
+  createMandal,
+  createMandalError,
+  createMandalSuccess,
+  modifyMandal,
+  modifyMandalError,
+} = mandalSlice.actions;
+export default mandalSlice.reducer;

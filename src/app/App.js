@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { refresh } from "../features/userSlice";
+import { refresh } from "../reducers/userSlice";
 
 import IndexPage from "../components/IndexPage";
 import GlobalNavBar from "../components/Header/GlobalNavBar";

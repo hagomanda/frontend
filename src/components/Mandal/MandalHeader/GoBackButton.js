@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { displayMain } from "../../../features/viewSlice";
+import { displayMain } from "../../../reducers/mandalSlice";
 import { useNavigate } from "react-router-dom";
 
 const GoBackContainer = styled.div`
@@ -20,7 +20,7 @@ const GoBackContainer = styled.div`
 export default function GoBackButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const viewOption = useSelector(state => state.view.option);
+  const viewOption = useSelector(state => state.mandal.option);
 
   const handleGoBackButtonClick = () => {
     if (viewOption !== "mainGoal") {

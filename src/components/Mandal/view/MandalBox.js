@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import _ from "lodash";
 
-import { socket } from "../../../features/socket";
 import { VIEW_OPTION, ROLE } from "../../../constants";
+import { modifyMandal } from "../../../reducers/mandalSlice";
 
 const InnerBox = styled.div`
   border-radius: 10%;
@@ -36,39 +35,24 @@ const Content = styled.div`
   outline: none;
 `;
 
-const modifyMandal = _.debounce(async (role, box, newText, mainGoalId) => {
-  let modifiedMandal = null;
-  switch (role) {
-    case ROLE.MAIN:
-      modifiedMandal = await axios.put(
-        `/api/goals/mainGoal/${box.current.id}`,
-        {
-          title: newText,
-        },
-      );
-      break;
-    case ROLE.SUBGOAL || ROLE.SUBMAIN:
-      modifiedMandal = await axios.put(`/api/goals/subGoal/${box.current.id}`, {
-        title: newText,
-        mainGoalId,
-      });
-      break;
-    case ROLE.TODO:
-      modifiedMandal = await axios.put(`/api/todos/${box.current.id}`, {
-        title: newText,
-        mainGoalId,
-      });
-      break;
-  }
-  socket.emit("edit", modifiedMandal.data.data, mainGoalId);
-}, 500);
-
 export default function MandalBox({ content, role, goalId, onClick }) {
   const { id: mainGoalId } = useParams();
   const isEditMode = useSelector(state => state.edit.mode);
-  const viewOption = useSelector(state => state.view.option);
+  const viewOption = useSelector(state => state.mandal.option);
+  const dispatch = useDispatch();
 
   const box = useRef();
+
+  const debouncedModifyMandal = _.debounce((boxRole, title) => {
+    dispatch(
+      modifyMandal({
+        boxRole,
+        title,
+        mainGoalId,
+        boxId: box.current.id,
+      }),
+    );
+  }, 500);
 
   const handleContent = async event => {
     const newText = event.currentTarget.innerHTML;
@@ -76,8 +60,18 @@ export default function MandalBox({ content, role, goalId, onClick }) {
     if (viewOption === VIEW_OPTION.FULL_VIEW) {
       return;
     }
-    modifyMandal(role, box, newText, mainGoalId);
+
+    dispatch(
+      modifyMandal({
+        role,
+        title: newText,
+        mainGoalId,
+        boxId: box.current.id,
+      }),
+    );
+    // debouncedModifyMandal(boxRole, newText); 디바운스 걸면 구현은 되는데 에러콘솔 찍힘.
   };
+
   return (
     <InnerBox className={role} onClick={onClick} id={goalId} ref={box}>
       <Content

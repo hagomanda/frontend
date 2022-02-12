@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import axios from "axios";
-import { socketAction } from "../../features/socket";
 
 import Modal from "../Modal";
 import DeletePopup from "./DeletePopup";
+import { deleteGoal } from "../../reducers/goalListSlice";
 
 const ThumbnailContainer = styled.div`
   display: flex;
@@ -50,27 +50,13 @@ const ThumbnailContainer = styled.div`
   }
 `;
 
-const deleteGoal = async id => {
-  try {
-    await axios.delete(`/api/goals/mainGoal/${id}`);
-  } catch (error) {
-    return error;
-  }
-};
-
 export default function MyGoalsEntry({ title, id }) {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleConfirmButtonClick = async () => {
-    const res = await deleteGoal(id);
-
-    if (res?.result === "ok") {
-      setShowModal(false);
-      navigate("/home");
-      return;
-    }
-
+    dispatch(deleteGoal(id));
     setShowModal(false);
   };
 
@@ -80,7 +66,6 @@ export default function MyGoalsEntry({ title, id }) {
   };
 
   const handleContainerClick = () => {
-    socketAction.joinMandal(id);
     navigate(`/mainGoal/${id}`);
   };
 
