@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
+import { socketAction } from "../../features/socket";
 import MyGoalsEntry from "./MyGoalsEntry";
 
 const GoalsContainer = styled.div`
@@ -32,6 +33,8 @@ export default function MyGoalsList() {
     if (loginState) {
       getData();
     }
+
+    socketAction.leaveMandal();
   }, [loginState]);
 
   return (

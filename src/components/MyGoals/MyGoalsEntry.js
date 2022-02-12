@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { socketAction } from "../../features/socket";
 
 import Modal from "../Modal";
 import DeletePopup from "./DeletePopup";
@@ -79,6 +80,7 @@ export default function MyGoalsEntry({ title, id }) {
   };
 
   const handleContainerClick = () => {
+    socketAction.joinMandal(id);
     navigate(`/mainGoal/${id}`);
   };
 
@@ -94,7 +96,7 @@ export default function MyGoalsEntry({ title, id }) {
         <div className="delete-button" onClick={handleDeleteButtonClick}>
           <span>x</span>
         </div>
-        <p className="title">{title}</p>
+        <p className="title" dangerouslySetInnerHTML={{ __html: title }} />
       </ThumbnailContainer>
     </>
   );

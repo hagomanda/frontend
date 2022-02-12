@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 
 import { displayMain, displaySub } from "../../../features/viewSlice";
 import { showBoxes } from "./utils";
+import { VIEW_OPTION } from "../../../constants";
+
 const BoxContainer = styled.div`
   display: grid;
   height: 100%;
@@ -22,7 +24,7 @@ export default function SubMandal({ data, mandalIndex }) {
   const isEditMode = useSelector(state => state.edit.mode);
 
   const handleBoxClick = (event, index) => {
-    if (viewOption === "full") {
+    if (viewOption === VIEW_OPTION.FULL_VIEW) {
       dispatch(displaySub(mandalIndex));
       return;
     }

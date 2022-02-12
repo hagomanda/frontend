@@ -8,4 +8,7 @@ export const socketAction = {
   editContent: (content, role, id) => {
     socket.emit("edit", content, role, id);
   },
+  leaveMandal: () => {
+    socket.emit("leaveMandal");
+  },
 };
