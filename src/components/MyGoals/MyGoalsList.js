@@ -8,6 +8,7 @@ import MyGoalsEntry from "./MyGoalsEntry";
 const GoalsContainer = styled.div`
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   padding: 5px;
 `;
 

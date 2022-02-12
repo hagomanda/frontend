@@ -2,51 +2,53 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
-import MandalBox from "./MandalBox";
-import { displaySub } from "../../../features/viewSlice";
+import { showBoxes } from "./utils";
+import { displayMain, displaySub } from "../../../features/viewSlice";
 
 const BoxContainer = styled.div`
   display: grid;
-  height: 570px;
-  width: 570px;
+  height: 100%;
+  width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  & :nth-child(n) {
+    border: none;
+  }
 `;
 
-export default function MainMandal() {
+export default function MainMandal({ data }) {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const data = useSelector(state => state.view.displayed);
   const isEditMode = useSelector(state => state.edit.mode);
+  const viewOption = useSelector(state => state.view.option);
 
   const handleBoxClick = (event, index) => {
-    if (isEditMode) {
-      if (id !== event.target.id) {
-        return;
-      }
-      // 수정기능 추가
-    } else {
-      if (id === event.target.id) {
-        return;
-      }
-
-      dispatch(displaySub(index));
+    if (viewOption === "full") {
+      dispatch(displayMain());
+      return;
     }
+
+    if (isEditMode) {
+      event.target.children[0].focus();
+      return;
+    }
+
+    if (id === event.target.id) {
+      return;
+    }
+
+    dispatch(displaySub(index));
   };
 
-  const showBoxes = () => {
-    return data.map((box, index) => {
-      return (
-        <MandalBox
-          context={String(box.title)}
-          role={box.role}
-          key={box["_id"]}
-          goalId={box["_id"]}
-          onClick={event => handleBoxClick(event, index)}
-        />
-      );
-    });
-  };
-
-  return <BoxContainer className="gridContainer">{showBoxes()}</BoxContainer>;
+  return (
+    <BoxContainer className="gridContainer">
+      {showBoxes(data, handleBoxClick)}
+    </BoxContainer>
+  );
 }
+
+MainMandal.propTypes = {
+  data: PropTypes.array.isRequired,
+};
