@@ -55,17 +55,11 @@ export default function Todo({ todos, date }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleTodoClick = () => {
-    console.log(todos, date);
     setShowModal(true);
   };
 
   const handleCheckButtonClick = event => {
-    setIsComplete(false);
-    event.stopPropagation();
-  };
-
-  const handleNounCheckButtonClick = event => {
-    setIsComplete(true);
+    setIsComplete(!isComplete);
     event.stopPropagation();
   };
 
@@ -82,16 +76,15 @@ export default function Todo({ todos, date }) {
             ) : (
               <NounCheckButton
                 src={"/img/nounCheck.png"}
-                onClick={handleNounCheckButtonClick}
+                onClick={handleCheckButtonClick}
               />
             )}
-            {isComplete ? (
-              <Title className="complete" onClick={handleTodoClick}>
-                {"전수진"}
-              </Title>
-            ) : (
-              <Title onClick={handleTodoClick}>{"전수진"}</Title>
-            )}
+            <Title
+              className={isComplete ? "complete" : null}
+              onClick={handleTodoClick}
+            >
+              {todo.title}
+            </Title>
           </TodoContainer>
         );
       })}

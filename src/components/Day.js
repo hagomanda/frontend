@@ -18,7 +18,6 @@ const DayContainer = styled.div`
 const DayWrapper = styled.div`
   font-family: "Hanna", sans-serif;
   padding: 10px 0;
-  background: white;
   background-color: rgb(148, 178, 235);
 `;
 

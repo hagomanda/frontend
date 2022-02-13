@@ -20,13 +20,6 @@ const LoginModal = styled.div`
   border-radius: 15px;
   text-align: center;
 
-  h1 {
-    font-family: "Acme", sans-serif;
-    font-family: "Caveat", cursive;
-    font-family: "Gochi Hand", cursive;
-    font-family: "Quintessential", cursive;
-  }
-
   .logo {
     width: 100px;
     margin-top: 50px;
@@ -96,13 +89,13 @@ export default function LoginPage() {
       ) : (
         <LoginContainer>
           <LoginModal>
-            <img className="logo" alt="logo" src={"/img/logo.png"} />
+            <img className="logo" alt="logo" src="/img/logo.png" />
             <h1>Hagomanda</h1>
             <img
               onClick={signInWithGoogle}
               className="loginButton"
               alt="loginButton"
-              src={"/img/button.png"}
+              src="/img/button.png"
             />
             <div>
               {loginError?.name === "ServerLoginFailed" && (
