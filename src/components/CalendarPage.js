@@ -6,17 +6,18 @@ import axios from "axios";
 
 import Day from "./Day";
 
-const Calendar = styled.div`
+const CalendarHeader = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 
   .today-button {
+    display: flex;
+    margin: 10px;
+    padding: 10px 25px;
     border: 1px solid rgb(148, 178, 235);
     border-radius: 6px;
-    margin: 10px;
-    padding: 10px 20px;
+    font-size: 16px;
 
     &:hover {
       background-color: rgb(148, 178, 235);
@@ -24,11 +25,34 @@ const Calendar = styled.div`
     }
   }
 
-  .week-button {
+  .current-date {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .prev-button {
     margin: 0 10px;
     font-size: 30px;
+    width: 35px;
+    height: 35px;
 
     &:hover {
+      background-color: #e6e6e6;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  .next-button {
+    margin: 0 10px;
+    font-size: 30px;
+    width: 35px;
+    height: 35px;
+
+    &:hover {
+      background-color: #e6e6e6;
+      border-radius: 50%;
       cursor: pointer;
     }
   }
@@ -41,8 +65,15 @@ const Calendar = styled.div`
     display: flex;
     justify-content: center;
   }
+`;
 
-  &.calender {
+const Calendar = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &.calendar {
     border-radius: 10px;
     margin-left: 5px;
   }
@@ -60,7 +91,6 @@ export default function CalendarPage() {
   const handleNextButtonClick = () => {
     setCurrentDate(add(currentDate, { days: 7 }));
   };
-
   const goToday = () => {
     setCurrentDate(new Date());
   };
@@ -77,6 +107,7 @@ export default function CalendarPage() {
     if (res.data.result === "error") {
       return;
     }
+
     setTodos(res.data.result);
   };
 
@@ -109,15 +140,25 @@ export default function CalendarPage() {
 
   return (
     <>
-      <Calendar>
+      <CalendarHeader>
         <div onClick={goToday} className="today-button">
           오늘
         </div>
-        <div onClick={handlePrevButtonClick} className="week-button">{`<`}</div>
-        <div className="date">{format(currentDate, "yyyy년 MM월")}</div>
-        <div onClick={handleNextButtonClick} className="week-button">{`>`}</div>
-      </Calendar>
-      <Calendar className="calender">{showWeekCalendar()}</Calendar>
+        <div className="current-date">
+          <img
+            src="/img/left.svg"
+            onClick={handlePrevButtonClick}
+            className="prev-button"
+          />
+          <div className="date">{format(currentDate, "yyyy년 MM월")}</div>
+          <img
+            src="/img/right.svg"
+            onClick={handleNextButtonClick}
+            className="next-button"
+          />
+        </div>
+      </CalendarHeader>
+      <Calendar className="calendar">{showWeekCalendar()}</Calendar>
     </>
   );
 }

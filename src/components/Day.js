@@ -18,6 +18,10 @@ const DayContainer = styled.div`
 const DayWrapper = styled.div`
   font-family: "Hanna", sans-serif;
   padding: 10px 0;
+<<<<<<< HEAD
+=======
+  background: white;
+>>>>>>> b90026e ([16] 달력 내부 투두 UI)
   background-color: rgb(148, 178, 235);
 `;
 

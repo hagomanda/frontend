@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Modal from "./Modal";
 import TodoModal from "./TodoModal";
 
-const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
 
 const TodoContainer = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const TodoContainer = styled.div`
   margin-bottom: 5px;
   border: none;
   border-radius: 4px;
-  background-color: black;
+  background-color: "#" + ${randomColor};
 
   &:hover {
     border: 1px solid black;
@@ -50,7 +50,7 @@ const NounCheckButton = styled.img`
   margin: 0 12px;
 `;
 
-export default function Todo({ todos, date }) {
+export default function Todo({ todos }) {
   const [isComplete, setIsComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -65,37 +65,41 @@ export default function Todo({ todos, date }) {
 
   return (
     <>
-      {todos.forEach(todo => {
+      {todos.map(todo => {
         return (
-          <TodoContainer>
-            {isComplete ? (
-              <CheckButton
-                src={"/img/checkButton.png"}
-                onClick={handleCheckButtonClick}
-              />
-            ) : (
-              <NounCheckButton
-                src={"/img/nounCheck.png"}
-                onClick={handleCheckButtonClick}
+          <>
+            <TodoContainer>
+              {isComplete ? (
+                <CheckButton
+                  src={"/img/checkButton.png"}
+                  onClick={handleCheckButtonClick}
+                />
+              ) : (
+                <NounCheckButton
+                  src={"/img/nounCheck.png"}
+                  onClick={handleCheckButtonClick}
+                />
+              )}
+              <Title
+                className={isComplete ? "complete" : null}
+                onClick={handleTodoClick}
+              >
+                {todo.title}
+              </Title>
+            </TodoContainer>
+            {showModal && (
+              <Modal
+                onClick={() => setShowModal(false)}
+                child={<TodoModal contents={todo} />}
               />
             )}
-            <Title
-              className={isComplete ? "complete" : null}
-              onClick={handleTodoClick}
-            >
-              {todo.title}
-            </Title>
-          </TodoContainer>
+          </>
         );
       })}
-      {showModal && (
-        <Modal child={<TodoModal contents={todos} date={date} />} />
-      )}
     </>
   );
 }
 
 Todo.propTypes = {
   todos: PropTypes.instanceOf(Array),
-  date: PropTypes.string,
 };

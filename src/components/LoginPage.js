@@ -20,6 +20,13 @@ const LoginModal = styled.div`
   border-radius: 15px;
   text-align: center;
 
+  h1 {
+    font-family: "Acme", sans-serif;
+    font-family: "Caveat", cursive;
+    font-family: "Gochi Hand", cursive;
+    font-family: "Quintessential", cursive;
+  }
+
   .logo {
     width: 100px;
     margin-top: 50px;
