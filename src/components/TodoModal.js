@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes, { array } from "prop-types";
+import PropTypes from "prop-types";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -99,6 +99,6 @@ export default function TodoModal({ contents, date }) {
 }
 
 TodoModal.propTypes = {
-  contents: PropTypes.objectOf(Array).isRequired,
+  contents: PropTypes.arrayOf(PropTypes.object).isRequired,
   date: PropTypes.string.isRequired,
 };
