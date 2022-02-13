@@ -13,43 +13,43 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs61" />
-  <sodipodi:namedview
-     id="namedview59"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="false"
-     showgrid="true"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:zoom="0.8581705"
-     inkscape:cx="179.45152"
-     inkscape:cy="129.92756"
-     inkscape:window-width="1680"
-     inkscape:window-height="823"
-     inkscape:window-x="1731"
-     inkscape:window-y="64"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="g63">
-    <inkscape:grid
-       type="xygrid"
-       id="grid7780"
-       originx="-19.457005"
-       originy="-14.456924" />
-  </sodipodi:namedview>
-  <g
-     inkscape:groupmode="layer"
-     inkscape:label="Image"
-     id="g63"
-     transform="translate(-19.457005,-14.456924)">
-    <g
-       id="g7866">
+   <defs
+      id="defs61" />
+   <sodipodi:namedview
+      id="namedview59"
+      pagecolor="#ffffff"
+      bordercolor="#666666"
+      borderopacity="1.0"
+      inkscape:pageshadow="2"
+      inkscape:pageopacity="0.0"
+      inkscape:pagecheckerboard="false"
+      showgrid="true"
+      fit-margin-top="0"
+      fit-margin-left="0"
+      fit-margin-right="0"
+      fit-margin-bottom="0"
+      inkscape:zoom="0.8581705"
+      inkscape:cx="179.45152"
+      inkscape:cy="129.92756"
+      inkscape:window-width="1680"
+      inkscape:window-height="823"
+      inkscape:window-x="1731"
+      inkscape:window-y="64"
+      inkscape:window-maximized="0"
+      inkscape:current-layer="g63">
+      <inkscape:grid
+         type="xygrid"
+         id="grid7780"
+         originx="-19.457005"
+         originy="-14.456924" />
+   </sodipodi:namedview>
+   <g
+      inkscape:groupmode="layer"
+      inkscape:label="Image"
+      id="g63"
+      transform="translate(-19.457005,-14.456924)">
+      <g
+         id="g7866">
       <rect
          style="fill:#82a9f6;fill-opacity:1;fill-rule:evenodd"
          id="rect169"
@@ -78,6 +78,6 @@
          height="134.55032"
          x="180"
          y="175" />
-    </g>
-  </g>
+      </g>
+   </g>
 </svg>

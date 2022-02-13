@@ -1,15 +1,14 @@
 import React, { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-
-import MainMandal from "./view/MainMandal";
-import SubMandal from "./view/SubMandal";
-import FullView from "./view/FullView";
 
 import { displayMain, displayFull, getMandal } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
+import MainMandal from "./view/MainMandal";
+import SubMandal from "./view/SubMandal";
+import FullView from "./view/FullView";
 
 const ButtonsContainer = styled.div`
   display: flex;

@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { showBoxes } from "./utils";
 import { displayMain, displaySub } from "../../../features/viewSlice";
+import { showBoxes } from "./utils";
 
 const BoxContainer = styled.div`
   display: grid;
@@ -13,6 +13,7 @@ const BoxContainer = styled.div`
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+
   & :nth-child(n) {
     border: none;
   }

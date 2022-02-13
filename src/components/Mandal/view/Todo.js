@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { format, getDay } from "date-fns";
-import RadioButton from "./RadioButton";
+import { format } from "date-fns";
 import styled from "styled-components";
+
+import RadioButton from "./RadioButton";
 
 const BodyContainer = styled.div`
   display: flex;

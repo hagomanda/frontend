@@ -11,8 +11,8 @@ const LoginModal = styled.div`
   align-items: center;
 
   border: 1px solid black;
-  width: 500px;
-  height: 600px;
+  width: 400px;
+  height: 500px;
   margin-top: 10%;
   padding: 30px, 20px;
 
@@ -28,7 +28,7 @@ const LoginModal = styled.div`
   .loginButton {
     width: 280px;
     height: 55px;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 
   .loginButton:hover {
@@ -37,7 +37,8 @@ const LoginModal = styled.div`
   }
 
   .joinText {
-    margin: 180px 0 10px 0;
+    margin: 0;
+    margin-top: 100px;
   }
 
   .joinButton {
@@ -88,14 +89,13 @@ export default function LoginPage() {
       ) : (
         <LoginContainer>
           <LoginModal>
-            <img className="logo" alt="logo" src="../img/logo.png" />
+            <img className="logo" alt="logo" src="/img/logo.png" />
             <h1>Hagomanda</h1>
-            <div>어쩌구저쩌구 명언</div>
             <img
               onClick={signInWithGoogle}
               className="loginButton"
               alt="loginButton"
-              src="../img/button.png"
+              src="/img/button.png"
             />
             <div>
               {loginError?.name === "ServerLoginFailed" && (
@@ -109,9 +109,9 @@ export default function LoginPage() {
               {loginError?.name === "FirebaseError" &&
                 "구글로그인 확인 해주세요"}
             </div>
-            <p className="joinText">Dont have an account?</p>
+            <p className="joinText">{"Don't have an account?"}</p>
             <p onClick={createGoogleAccount} className="joinButton">
-              create google account
+              Create google account
             </p>
           </LoginModal>
         </LoginContainer>

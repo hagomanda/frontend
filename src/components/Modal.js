@@ -18,6 +18,7 @@ const Background = styled.div`
 `;
 
 const Child = styled.div`
+  position: relative;
   height: 200px;
   width: 500px;
   margin-top: 70px;
@@ -25,11 +26,18 @@ const Child = styled.div`
   background: #f4f4f4;
 `;
 
+// const CloseButton = styled.div`
+
+// `;
+
 export default function Modal({ child, onClick }) {
   return (
     <Portal>
       <Background onClick={onClick}>
         <Child onClick={event => event.stopPropagation()}>{child}</Child>
+        {/* <CloseButton>
+          <FontAwesomeIcon icon="fa-solid fa-xmark" />
+        </CloseButton> */}
       </Background>
     </Portal>
   );

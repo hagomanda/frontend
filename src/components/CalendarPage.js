@@ -4,34 +4,56 @@ import { format, add, getDay } from "date-fns";
 import styled from "styled-components";
 import axios from "axios";
 
-import CalendarBox from "./CalendarBox";
+import Day from "./Day";
 
-const Container = styled.div`
+const Calendar = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   margin-bottom: 20px;
-  border-collapse: collapse;
+
+  .today-button {
+    border: 1px solid rgb(148, 178, 235);
+    border-radius: 6px;
+    margin: 10px;
+    padding: 10px 20px;
+
+    &:hover {
+      background-color: rgb(148, 178, 235);
+      cursor: pointer;
+    }
+  }
+
+  .week-button {
+    margin: 0 10px;
+    font-size: 30px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .date {
+    font-size: 25px;
+  }
+
+  .day {
+    display: flex;
+    justify-content: center;
+  }
+
+  &.calender {
+    border-radius: 10px;
+    margin-left: 5px;
+  }
 `;
-
-const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
-const ONE_WEEK = 7;
-
-const getUsersTodo = async (date, days) => {
-  const result = await axios.get("/api/users/todos", {
-    headers: {
-      currentDate: format(date, "yyyy-MM-dd"),
-      days,
-    },
-  });
-  return result;
-};
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todos, setTodos] = useState([]);
   const loginState = useSelector(state => state.user.loginSucceed);
 
+  const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
   const handlePrevButtonClick = () => {
     setCurrentDate(add(currentDate, { days: -7 }));
   };
@@ -43,18 +65,22 @@ export default function CalendarPage() {
     setCurrentDate(new Date());
   };
 
-  const getTodosOfWeek = async () => {
+  const getUsersTodo = async () => {
     const weekStart = add(currentDate, { days: -1 * getDay(currentDate) });
-    const res = await getUsersTodo(weekStart, ONE_WEEK);
+    const res = await axios.get("/api/users/todos", {
+      headers: {
+        currentDate: format(weekStart, "yyyy-MM-dd"),
+        days: 7,
+      },
+    });
 
     if (res.data.result === "error") {
       return;
     }
-
     setTodos(res.data.result);
   };
 
-  const showCalendar = () => {
+  const showWeekCalendar = () => {
     return WEEK.map((day, i) => {
       const date = format(
         add(currentDate, { days: -1 * getDay(currentDate) + i }),
@@ -62,26 +88,36 @@ export default function CalendarPage() {
       );
 
       return (
-        <CalendarBox day={day} date={date} key={date} todo={todos?.[date]} />
+        <>
+          <Day
+            className="day"
+            day={day}
+            date={date}
+            key={date}
+            todos={todos?.[date]}
+          />
+        </>
       );
     });
   };
 
   useEffect(() => {
     if (loginState) {
-      getTodosOfWeek();
+      getUsersTodo();
     }
   }, [loginState]);
 
   return (
-    <div>
-      <Container>
-        <div onClick={goToday}>오늘</div>
-        <div onClick={handlePrevButtonClick}>{`<`}</div>
-        {format(currentDate, "yyyy년 MM월")}
-        <div onClick={handleNextButtonClick}>{`>`}</div>
-      </Container>
-      <Container>{showCalendar()}</Container>
-    </div>
+    <>
+      <Calendar>
+        <div onClick={goToday} className="today-button">
+          오늘
+        </div>
+        <div onClick={handlePrevButtonClick} className="week-button">{`<`}</div>
+        <div className="date">{format(currentDate, "yyyy년 MM월")}</div>
+        <div onClick={handleNextButtonClick} className="week-button">{`>`}</div>
+      </Calendar>
+      <Calendar className="calender">{showWeekCalendar()}</Calendar>
+    </>
   );
 }
