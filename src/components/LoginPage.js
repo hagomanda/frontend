@@ -89,7 +89,7 @@ export default function LoginPage() {
       ) : (
         <LoginContainer>
           <LoginModal>
-            <img className="logo" alt="logo" src="/img/logo.png" />
+            <img className="logo" alt="logo" src="/img/logo.svg" />
             <h1>Hagomanda</h1>
             <img
               onClick={signInWithGoogle}
