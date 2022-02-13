@@ -1,27 +1,31 @@
 import React, { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import { displayMain, displayFull, getMandal } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
 import MainMandal from "./view/MainMandal";
 import SubMandal from "./view/SubMandal";
 import FullView from "./view/FullView";
+import ShareButton from "./MandalHeader/ShareButton";
+import GoBackButton from "./MandalHeader/GoBackButton";
 
 const ButtonsContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 400px;
   height: 50px;
   margin-bottom: 10px;
+  margin-right: auto;
+  margin-left: auto;
 `;
 
 const ImageButton = styled.img`
   width: 50px;
   height: 50px;
-
   cursor: pointer;
 `;
 
@@ -40,7 +44,6 @@ const BoxContainer = styled.div`
 
 const ToggleButton = styled.input`
   display: none;
-
   &:checked + label {
     background: #3c4963;
   }
@@ -101,43 +104,29 @@ export default function MandalPage() {
   const handleEdit = () => {
     dispatch(changeEditMode());
   };
-  const handleShare = async () => {
-    await axios.delete("/api/todos/6205d66b9f17beadd1cdec7b", {
-      data: {
-        date: new Date("2022.02.17"),
-      },
-    });
-    // await axios.post("/api/goals/mainGoal", {
-    //   title: "123123",
-    // });
-    // await axios.get("api/todos");
-  };
-  // view option 에 따라 MainGoal, SubGoal, FullView보여줌
-  // 공유, 채팅, 로그아웃, 소켓 설정 예정
+
   return (
     <>
       {isFetching && <div>123</div>}
-      <ButtonsContainer>
-        <ToggleButton
-          type="checkbox"
-          id="toggle-slider"
-          onChange={viewCheckHandler}
-          ref={viewModeButton}
-        />
-        <ToggleLabel htmlFor="toggle-slider">on/off</ToggleLabel>
-        <ImageButton
-          className="editButton"
-          alt="editButton"
-          src="../img/edit.png"
-          onClick={handleEdit}
-        />
-        <ImageButton
-          className="shareButton"
-          alt="shareButton"
-          src="../img/share.png"
-          onClick={handleShare}
-        />
-      </ButtonsContainer>
+      <div>
+        <ButtonsContainer>
+          <GoBackButton onClick={viewCheckHandler} />
+          <ImageButton
+            className="editButton"
+            alt="editButton"
+            src="/icons/edit.svg"
+            onClick={handleEdit}
+          />
+          <ShareButton />
+          <ToggleButton
+            type="checkbox"
+            id="toggle-slider"
+            onChange={viewCheckHandler}
+            ref={viewModeButton}
+          />
+          <ToggleLabel htmlFor="toggle-slider">on/off</ToggleLabel>
+        </ButtonsContainer>
+      </div>
       {!isFetching && (
         <BodyContainer>
           <BoxContainer>
