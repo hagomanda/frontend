@@ -67,7 +67,6 @@ export default function MandalBox({ content, role, goalId, onClick }) {
       <Content
         contentEditable={isEditMode}
         suppressContentEditableWarning={true}
-        // onBlur={handleContent}
         onInput={handleContent}
         spellCheck={false}
         dangerouslySetInnerHTML={{ __html: defaultValue.current }}
