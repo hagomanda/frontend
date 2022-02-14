@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import Modal from "./Modal";
 import TodoModal from "./TodoModal";
@@ -37,16 +38,16 @@ const Title = styled.p`
 const CheckButton = styled.img`
   display: flex;
   align-items: center;
-  width: 25%;
-  height: 25%;
+  width: 18%;
+  height: 18%;
   margin: 0 12px;
 `;
 
 const NounCheckButton = styled.img`
   display: flex;
   align-items: center;
-  width: 25%;
-  height: 25%;
+  width: 18%;
+  height: 18%;
   margin: 0 12px;
 `;
 
@@ -58,8 +59,10 @@ export default function Todo({ todos }) {
     setShowModal(true);
   };
 
-  const handleCheckButtonClick = event => {
+  const handleCheckButtonClick = async (event, todoId) => {
     setIsComplete(!isComplete);
+
+    await axios.put(`/api/todos/calendar/${todoId}`);
     event.stopPropagation();
   };
 
@@ -71,13 +74,13 @@ export default function Todo({ todos }) {
             <TodoContainer>
               {isComplete ? (
                 <CheckButton
-                  src={"/img/checkButton.png"}
-                  onClick={handleCheckButtonClick}
+                  src="/img/checkButton.png"
+                  onClick={event => handleCheckButtonClick(event, todo._id)}
                 />
               ) : (
                 <NounCheckButton
-                  src={"/img/nounCheck.png"}
-                  onClick={handleCheckButtonClick}
+                  src="/img/nounCheck.png"
+                  onClick={event => handleCheckButtonClick(event, todo._id)}
                 />
               )}
               <Title
@@ -93,6 +96,7 @@ export default function Todo({ todos }) {
                 child={<TodoModal contents={todo} />}
               />
             )}
+            {todo._id}
           </>
         );
       })}

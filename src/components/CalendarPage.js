@@ -69,14 +69,21 @@ const CalendarHeader = styled.div`
 
 const Calendar = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  width: 80%;
 
   &.calendar {
     border-radius: 10px;
     margin-left: 5px;
   }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export default function CalendarPage() {
@@ -139,7 +146,7 @@ export default function CalendarPage() {
   }, [loginState]);
 
   return (
-    <>
+    <Container>
       <CalendarHeader>
         <div onClick={goToday} className="today-button">
           오늘
@@ -159,6 +166,6 @@ export default function CalendarPage() {
         </div>
       </CalendarHeader>
       <Calendar className="calendar">{showWeekCalendar()}</Calendar>
-    </>
+    </Container>
   );
 }

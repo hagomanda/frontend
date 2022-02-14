@@ -84,7 +84,7 @@ export default function TodoModal({ contents, date }) {
   return (
     <>
       <Title>{`제목: ${contents.title}`}</Title>
-      <Level>{`Lv.${contents.level}`}</Level>
+      <Level>{contents.level ? `Lv.${contents.level}` : "Lv.0"}</Level>
       <Memo onChange={e => setMemo(e.target.value)}>
         {contents.addedInCalendar?.[date]?.memo
           ? contents.addedInCalendar?.[date]?.memo
