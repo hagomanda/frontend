@@ -12,8 +12,8 @@ const LoginModal = styled.div`
 
   border: 1px solid black;
   width: 400px;
-  height: 500px;
-  margin-top: 10%;
+  height: 450px;
+  margin-top: 15%;
   padding: 30px, 20px;
 
   background-color: #ffffff;
@@ -21,8 +21,8 @@ const LoginModal = styled.div`
   text-align: center;
 
   .logo {
-    width: 100px;
-    margin-top: 50px;
+    width: 80px;
+    margin-top: 30px;
   }
 
   .loginButton {
@@ -37,8 +37,7 @@ const LoginModal = styled.div`
   }
 
   .joinText {
-    margin: 0;
-    margin-top: 100px;
+    bottom: 0;
   }
 
   .joinButton {
@@ -55,6 +54,10 @@ const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 `;
 
 export default function LoginPage() {

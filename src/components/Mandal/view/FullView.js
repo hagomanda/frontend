@@ -39,7 +39,7 @@ const SUB_VIEW = "todos";
 const makeArray = (mandal, view) => {
   const results = [];
   mandal[view].forEach(({ title, level, _id }) => {
-    results.push({ title, level, _id, role: "sub" });
+    results.push({ title, level, _id, role: view });
   });
 
   const { title, level } = mandal;
