@@ -4,7 +4,6 @@ import rootSaga from "../features/saga";
 import userReducer from "../features/userSlice";
 import viewReducer from "../features/viewSlice";
 import editReducer from "../features/editSlice";
-import mandalReducer from "../features/viewSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 

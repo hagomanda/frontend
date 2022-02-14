@@ -4,9 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { displayMain, displaySub } from "../../../features/viewSlice";
-import MandalBox from "./MandalBox";
 import { showBoxes } from "./utils";
-
 const BoxContainer = styled.div`
   display: grid;
   height: 100%;
@@ -21,10 +19,16 @@ const BoxContainer = styled.div`
 export default function SubMandal({ data, mandalIndex }) {
   const dispatch = useDispatch();
   const viewOption = useSelector(state => state.view.option);
+  const isEditMode = useSelector(state => state.edit.mode);
 
   const handleBoxClick = (event, index) => {
     if (viewOption === "full") {
       dispatch(displaySub(mandalIndex));
+      return;
+    }
+
+    if (isEditMode) {
+      event.target.children[0]?.focus();
       return;
     }
 

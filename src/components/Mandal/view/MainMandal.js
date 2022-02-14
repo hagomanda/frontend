@@ -13,7 +13,6 @@ const BoxContainer = styled.div`
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-
   & :nth-child(n) {
     border: none;
   }
@@ -32,11 +31,11 @@ export default function MainMandal({ data }) {
     }
 
     if (isEditMode) {
-      event.target.children[0].focus();
+      event.target.children[0]?.focus();
       return;
     }
 
-    if (id === event.target.id) {
+    if (id === event.target.id || event.target.id === "") {
       return;
     }
 
