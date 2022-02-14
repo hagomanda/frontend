@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import { displayMain, displayFull, getMandal } from "../../features/viewSlice";

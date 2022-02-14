@@ -63,6 +63,7 @@ const LoginContainer = styled.div`
 export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { loginLoading, loginSucceed, loginError } = useSelector(
     state => state.user,
   );
@@ -92,8 +93,8 @@ export default function LoginPage() {
       ) : (
         <LoginContainer>
           <LoginModal>
-            <img className="logo" alt="logo" src="/img/logo.png" />
-            <h1>Hagomanda</h1>
+            <img className="logo" alt="logo" src="/img/logo.svg" />
+            <h1>HAGOMANDA</h1>
             <img
               onClick={signInWithGoogle}
               className="loginButton"
