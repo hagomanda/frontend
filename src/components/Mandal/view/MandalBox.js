@@ -36,7 +36,6 @@ const Context = styled.div`
   outline: none;
 `;
 
-// MandalBox가 handleClick props 내려받을 수 있도록 (MandalPage에서)
 export default function MandalBox({ context, role, goalId, onClick }) {
   const isEditMode = useSelector(state => state.edit.mode);
   const giveContentEditable = event => {
