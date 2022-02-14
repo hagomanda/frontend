@@ -43,67 +43,56 @@ const CheckButton = styled.img`
   margin: 0 12px;
 `;
 
-const NounCheckButton = styled.img`
-  display: flex;
-  align-items: center;
-  width: 18%;
-  height: 18%;
-  margin: 0 12px;
-`;
-
-export default function Todo({ todos }) {
-  const [isComplete, setIsComplete] = useState(false);
+export default function Todo({ todo, date }) {
   const [showModal, setShowModal] = useState(false);
+  const [isComplete, setIsComplete] = useState(todo.isComplete);
 
   const handleTodoClick = () => {
     setShowModal(true);
   };
 
   const handleCheckButtonClick = async (event, todoId) => {
+    event.stopPropagation();
     setIsComplete(!isComplete);
 
-    await axios.put(`/api/todos/calendar/${todoId}`);
-    event.stopPropagation();
+    await axios.put(`/api/todos/calendar/${todoId}`, {
+      isComplete,
+      date,
+    });
   };
 
   return (
     <>
-      {todos.map(todo => {
-        return (
-          <>
-            <TodoContainer>
-              {isComplete ? (
-                <CheckButton
-                  src="/img/checkButton.png"
-                  onClick={event => handleCheckButtonClick(event, todo._id)}
-                />
-              ) : (
-                <NounCheckButton
-                  src="/img/nounCheck.png"
-                  onClick={event => handleCheckButtonClick(event, todo._id)}
-                />
-              )}
-              <Title
-                className={isComplete ? "complete" : null}
-                onClick={handleTodoClick}
-              >
-                {todo.title}
-              </Title>
-            </TodoContainer>
-            {showModal && (
-              <Modal
-                onClick={() => setShowModal(false)}
-                child={<TodoModal contents={todo} />}
-              />
-            )}
-            {todo._id}
-          </>
-        );
-      })}
+      <TodoContainer id={todo._id} onClick={handleTodoClick}>
+        <CheckButton
+          src={todo.isComplete ? "/img/checkButton.png" : "/img/nounCheck.png"}
+          onClick={event => handleCheckButtonClick(event, todo._id)}
+        />
+        <Title className={isComplete ? "complete" : null}>{todo.title}</Title>
+      </TodoContainer>
+      {showModal && (
+        <Modal
+          onClick={() => setShowModal(!showModal)}
+          child={
+            <TodoModal
+              todo={todo}
+              date={date}
+              setShowModal={setShowModal}
+              showModal={showModal}
+            />
+          }
+        />
+      )}
     </>
   );
 }
 
 Todo.propTypes = {
-  todos: PropTypes.instanceOf(Array),
+  todo: PropTypes.shape({
+    isComplete: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    memo: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+  }),
+  date: PropTypes.string.isRequired,
 };

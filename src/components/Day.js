@@ -5,10 +5,6 @@ import styled from "styled-components";
 import Todo from "./Todo";
 
 const DayContainer = styled.div`
-  font-family: "Acme", sans-serif;
-  font-family: "Caveat", cursive;
-  font-family: "Gochi Hand", cursive;
-  font-family: "Quintessential", cursive;
   width: 30vw;
   height: 80vh;
   text-align: center;
@@ -48,13 +44,18 @@ export default function Day({ day, date, todos }) {
         <DateWrapper>{date.slice(-2)}</DateWrapper>
         <DayWrapper>{day}</DayWrapper>
       </DateContainer>
-      <TodoWrapper>{todos && <Todo date={date} todos={todos} />}</TodoWrapper>
+      <TodoWrapper>
+        {todos &&
+          todos.map(todo => {
+            return <Todo key={todo._id} todo={todo} date={date} />;
+          })}
+      </TodoWrapper>
     </DayContainer>
   );
 }
 
 Day.propTypes = {
   day: PropTypes.string.isRequired,
-  date: PropTypes.string,
-  todos: PropTypes.instanceOf(Array),
+  date: PropTypes.string.isRequired,
+  todos: PropTypes.arrayOf(Object),
 };

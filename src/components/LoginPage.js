@@ -94,7 +94,6 @@ export default function LoginPage() {
           <LoginModal>
             <img className="logo" alt="logo" src="/img/logo.png" />
             <h1>Hagomanda</h1>
-            {/* <p className="guide-message">로그인이 필요합니다.</p> */}
             <img
               onClick={signInWithGoogle}
               className="loginButton"
