@@ -17,27 +17,39 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
+const Contents = styled.div`
+  margin-top: 50px;
+`;
+
 const Child = styled.div`
   position: relative;
-  height: 200px;
-  width: 500px;
+  height: 60%;
+  width: 60%;
   margin-top: 70px;
   overflow: scroll;
+  border-radius: 10px;
   background: #f4f4f4;
 `;
 
-// const CloseButton = styled.div`
+const CloseButton = styled.img`
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: 15px;
 
-// `;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 export default function Modal({ child, onClick }) {
   return (
     <Portal>
       <Background onClick={onClick}>
-        <Child onClick={event => event.stopPropagation()}>{child}</Child>
-        {/* <CloseButton>
-          <FontAwesomeIcon icon="fa-solid fa-xmark" />
-        </CloseButton> */}
+        <Child onClick={event => event.stopPropagation()}>
+          <CloseButton onClick={onClick} src="/img/close.svg" />
+          <Contents>{child}</Contents>
+        </Child>
       </Background>
     </Portal>
   );

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import Modal from "./Modal";
 import TodoModal from "./TodoModal";
 
-const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
 
 const TodoContainer = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const TodoContainer = styled.div`
   margin-bottom: 5px;
   border: none;
   border-radius: 4px;
-  background-color: black;
+  background-color: "#" + ${randomColor};
 
   &:hover {
     border: 1px solid black;
@@ -37,65 +38,61 @@ const Title = styled.p`
 const CheckButton = styled.img`
   display: flex;
   align-items: center;
-  width: 25%;
-  height: 25%;
+  width: 18%;
+  height: 18%;
   margin: 0 12px;
 `;
 
-const NounCheckButton = styled.img`
-  display: flex;
-  align-items: center;
-  width: 25%;
-  height: 25%;
-  margin: 0 12px;
-`;
-
-export default function Todo({ todos, date }) {
-  const [isComplete, setIsComplete] = useState(false);
+export default function Todo({ todo, date }) {
   const [showModal, setShowModal] = useState(false);
+  const [isComplete, setIsComplete] = useState(todo.isComplete);
 
   const handleTodoClick = () => {
     setShowModal(true);
   };
 
-  const handleCheckButtonClick = event => {
-    setIsComplete(!isComplete);
+  const handleCheckButtonClick = async (event, todoId) => {
     event.stopPropagation();
+    setIsComplete(!isComplete);
+
+    await axios.put(`/api/todos/calendar/${todoId}`, {
+      isComplete,
+      date,
+    });
   };
 
   return (
     <>
-      {todos.forEach(todo => {
-        return (
-          <TodoContainer>
-            {isComplete ? (
-              <CheckButton
-                src={"/img/checkButton.png"}
-                onClick={handleCheckButtonClick}
-              />
-            ) : (
-              <NounCheckButton
-                src={"/img/nounCheck.png"}
-                onClick={handleCheckButtonClick}
-              />
-            )}
-            <Title
-              className={isComplete ? "complete" : null}
-              onClick={handleTodoClick}
-            >
-              {todo.title}
-            </Title>
-          </TodoContainer>
-        );
-      })}
+      <TodoContainer id={todo._id} onClick={handleTodoClick}>
+        <CheckButton
+          src={todo.isComplete ? "/img/checkButton.png" : "/img/nounCheck.png"}
+          onClick={event => handleCheckButtonClick(event, todo._id)}
+        />
+        <Title className={isComplete ? "complete" : null}>{todo.title}</Title>
+      </TodoContainer>
       {showModal && (
-        <Modal child={<TodoModal contents={todos} date={date} />} />
+        <Modal
+          onClick={() => setShowModal(!showModal)}
+          child={
+            <TodoModal
+              todo={todo}
+              date={date}
+              setShowModal={setShowModal}
+              showModal={showModal}
+            />
+          }
+        />
       )}
     </>
   );
 }
 
 Todo.propTypes = {
-  todos: PropTypes.instanceOf(Array),
-  date: PropTypes.string,
+  todo: PropTypes.shape({
+    isComplete: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    memo: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+  }),
+  date: PropTypes.string.isRequired,
 };
