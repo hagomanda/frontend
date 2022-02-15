@@ -82,7 +82,7 @@ export default function Chatroom() {
       {isLoading && <Loading />}
       {<TargetDiv ref={setTarget}></TargetDiv>}
       {messages.map((data, i) => {
-        return <MessageBox key={i} data={data} />;
+        return <MessageBox key={data.createdAt} data={data} />;
       })}
     </ChatRoomContainer>
   );
