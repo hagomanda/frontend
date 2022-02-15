@@ -10,7 +10,7 @@ import GlobalNavBar from "../components/Header/GlobalNavBar";
 import Navbar from "../components/Header/Navbar";
 import LoginPage from "../components/LoginPage";
 import Main from "../components/Main/Main";
-import CalendarPage from "../components/CalendarPage";
+import CalendarPage from "../components/Calendar/CalendarPage";
 import MandalPage from "../components/Mandal/MandalPage";
 import MyPage from "../components/MyPage";
 import ChatPage from "../components/Chat/ChatPage";

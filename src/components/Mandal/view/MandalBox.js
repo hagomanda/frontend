@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import _ from "lodash";
 
 import { socket } from "../../../features/socket";
 import { VIEW_OPTION, ROLE } from "../../../constants";
@@ -35,25 +36,32 @@ const Content = styled.div`
   outline: none;
 `;
 
-const modifyMandal = (role, box, newText, mainGoalId) => {
-  if (role === ROLE.MAIN) {
-    return axios.put(`/api/goals/mainGoal/${box.current.id}`, {
-      title: newText,
-    });
+const modifyMandal = _.debounce(async (role, box, newText, mainGoalId) => {
+  let modifiedMandal = null;
+  switch (role) {
+    case ROLE.MAIN:
+      modifiedMandal = await axios.put(
+        `/api/goals/mainGoal/${box.current.id}`,
+        {
+          title: newText,
+        },
+      );
+      break;
+    case ROLE.SUBGOAL || ROLE.SUBMAIN:
+      modifiedMandal = await axios.put(`/api/goals/subGoal/${box.current.id}`, {
+        title: newText,
+        mainGoalId,
+      });
+      break;
+    case ROLE.TODO:
+      modifiedMandal = await axios.put(`/api/todos/${box.current.id}`, {
+        title: newText,
+        mainGoalId,
+      });
+      break;
   }
-
-  if (role === ROLE.SUBGOAL || role === ROLE.SUBMAIN) {
-    return axios.put(`/api/goals/subGoal/${box.current.id}`, {
-      title: newText,
-      mainGoalId,
-    });
-  }
-
-  return axios.put(`/api/todos/${box.current.id}`, {
-    title: newText,
-    mainGoalId,
-  });
-};
+  socket.emit("edit", modifiedMandal.data.data, mainGoalId);
+}, 500);
 
 export default function MandalBox({ content, role, goalId, onClick }) {
   const { id: mainGoalId } = useParams();
@@ -68,10 +76,7 @@ export default function MandalBox({ content, role, goalId, onClick }) {
     if (viewOption === VIEW_OPTION.FULL_VIEW) {
       return;
     }
-
-    const modifiedMandal = await modifyMandal(role, box, newText, mainGoalId);
-
-    socket.emit("edit", modifiedMandal.data.data, mainGoalId);
+    modifyMandal(role, box, newText, mainGoalId);
   };
   return (
     <InnerBox className={role} onClick={onClick} id={goalId} ref={box}>
