@@ -44,7 +44,7 @@ export default function Chatroom() {
       scrollTarget.current.scrollTop =
         scrollTarget.current.scrollHeight - prevHeight;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
