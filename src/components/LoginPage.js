@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { loginRequest, join } from "../features/userSlice";
+import Loading from "./shared/Loading";
 
 const LoginModal = styled.div`
   display: flex;
@@ -60,6 +61,10 @@ const LoginContainer = styled.div`
   top: 0;
 `;
 
+const LoadingContainer = styled.div`
+  margin-top: 100px;
+`;
+
 export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -89,7 +94,12 @@ export default function LoginPage() {
   return (
     <>
       {loginLoading ? (
-        <div>loginLoading</div>
+        <LoadingContainer>
+          <Loading
+            bgColor="white"
+            contents="로그인 완료 시 자동으로 페이지를 이동합니다."
+          />
+        </LoadingContainer>
       ) : (
         <LoginContainer>
           <LoginModal>

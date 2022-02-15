@@ -12,14 +12,15 @@ const Button = styled.div`
   background-color: rgb(60, 73, 99);
   border-radius: 50%;
   color: #ffffff;
-  font-size: 50px;
-  text-align: center;
+  font-size: 40px;
   cursor: pointer;
 
   span {
     display: block;
     margin: 0 auto;
+    margin-top: -5px;
     user-select: none;
+    text-align: center;
   }
 `;
 

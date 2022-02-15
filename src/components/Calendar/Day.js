@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { format, parseISO } from "date-fns";
 
 import Todo from "./Todo";
 
 const DayContainer = styled.div`
-  width: 30vw;
-  height: 80vh;
+  width: 12vw;
+  height: 70vh;
   text-align: center;
   border: 1px solid #e9e9e9;
 `;
 
 const DayWrapper = styled.div`
-  font-family: "Hanna", sans-serif;
-  padding: 10px 0;
+  padding-top: 5px;
   background-color: rgb(148, 178, 235);
 `;
 
@@ -25,11 +25,11 @@ const DateWrapper = styled.div`
   text-align: center;
   font-size: 25px;
   background-color: rgb(148, 178, 235);
+  padding-bottom: 5px;
 `;
 
 const DateContainer = styled.div`
   border: none;
-  font-size: 20px;
 `;
 
 const TodoWrapper = styled.div`
@@ -41,8 +41,8 @@ export default function Day({ day, date, todos }) {
   return (
     <DayContainer>
       <DateContainer>
-        <DateWrapper>{date.slice(-2)}</DateWrapper>
         <DayWrapper>{day}</DayWrapper>
+        <DateWrapper>{format(parseISO(date), "d")}</DateWrapper>
       </DateContainer>
       <TodoWrapper>
         {todos &&
