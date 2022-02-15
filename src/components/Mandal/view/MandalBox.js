@@ -2,9 +2,11 @@ import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-
 import { useParams } from "react-router-dom";
 import axios from "axios";
+
+import { socket } from "../../../features/socket";
+import { VIEW_OPTION, ROLE } from "../../../constants";
 
 const InnerBox = styled.div`
   border-radius: 10%;
@@ -33,42 +35,53 @@ const Content = styled.div`
   outline: none;
 `;
 
+const modifyMandal = (role, box, newText, mainGoalId) => {
+  if (role === ROLE.MAIN) {
+    return axios.put(`/api/goals/mainGoal/${box.current.id}`, {
+      title: newText,
+    });
+  }
+
+  if (role === ROLE.SUBGOAL || role === ROLE.SUBMAIN) {
+    return axios.put(`/api/goals/subGoal/${box.current.id}`, {
+      title: newText,
+      mainGoalId,
+    });
+  }
+
+  return axios.put(`/api/todos/${box.current.id}`, {
+    title: newText,
+    mainGoalId,
+  });
+};
+
 export default function MandalBox({ content, role, goalId, onClick }) {
   const { id: mainGoalId } = useParams();
-  const defaultValue = useRef(content);
   const isEditMode = useSelector(state => state.edit.mode);
+  const viewOption = useSelector(state => state.view.option);
 
   const box = useRef();
 
-  const handleContent = event => {
-    defaultValue.current = event.currentTarget.textContent;
+  const handleContent = async event => {
+    const newText = event.currentTarget.innerHTML;
 
-    if (role === "main") {
-      return axios.put(`/api/goals/mainGoal/${box.current.id}`, {
-        title: defaultValue.current,
-      });
+    if (viewOption === VIEW_OPTION.FULL_VIEW) {
+      return;
     }
 
-    if (role === "subGoals" || role === "submain") {
-      return axios.put(`/api/goals/subGoal/${box.current.id}`, {
-        title: defaultValue.current,
-        mainGoalId,
-      });
-    }
+    const modifiedMandal = await modifyMandal(role, box, newText, mainGoalId);
 
-    return axios.put(`/api/todos/${box.current.id}`, {
-      title: defaultValue.current,
-    });
+    socket.emit("edit", modifiedMandal.data.data, mainGoalId);
   };
-
   return (
     <InnerBox className={role} onClick={onClick} id={goalId} ref={box}>
       <Content
         contentEditable={isEditMode}
         suppressContentEditableWarning={true}
+        onBlur={handleContent}
         onInput={handleContent}
         spellCheck={false}
-        dangerouslySetInnerHTML={{ __html: defaultValue.current }}
+        dangerouslySetInnerHTML={{ __html: content }}
       />
     </InnerBox>
   );

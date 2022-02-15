@@ -1,28 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { VIEW_OPTION, ROLE } from "../constants";
 const initialState = {
-  option: "mainGoal",
+  option: VIEW_OPTION.MAIN_VIEW,
   data: {},
   displayed: {},
+  index: 0,
   isFetching: true,
 };
 
-const MAIN_VIEW = "subGoals";
-const SUB_VIEW = "todos";
-
-const makeArray = (mandal, view) => {
+const makeArray = (mandal, child) => {
   const results = [];
 
-  mandal[view].forEach(({ title, level, _id }) => {
-    results.push({ title, level, _id, role: view });
+  mandal[child].forEach(({ title, level, _id }) => {
+    results.push({ title, level, _id, role: child });
   });
 
   const { title, level } = mandal;
+
   results.splice(4, 0, {
     title,
     level,
     _id: mandal._id,
-    role: view === SUB_VIEW ? "submain" : "main",
+    role: child === ROLE.TODO ? ROLE.SUBMAIN : ROLE.MAIN,
   });
 
   return results;
@@ -37,23 +36,31 @@ export const viewSlice = createSlice({
     },
     setMandal: (state, action) => {
       state.data = action.payload;
-      state.displayed = makeArray(action.payload, MAIN_VIEW);
+      if (state.option === VIEW_OPTION.SUB_VIEW) {
+        state.displayed = makeArray(
+          state.data.subGoals[state.index],
+          ROLE.TODO,
+        );
+      } else {
+        state.displayed = makeArray(state.data, ROLE.SUBGOAL);
+      }
       state.isFetching = false;
     },
     displayMain: state => {
-      state.option = "mainGoal";
-      state.displayed = makeArray(state.data, MAIN_VIEW);
+      state.option = VIEW_OPTION.MAIN_VIEW;
+      state.displayed = makeArray(state.data, ROLE.SUBGOAL);
     },
     displayFull: state => {
-      state.option = "full";
+      state.option = VIEW_OPTION.FULL_VIEW;
       state.displayed = state.data;
     },
     displaySub: (state, action) => {
-      state.option = "subGoal";
+      state.option = VIEW_OPTION.SUB_VIEW;
       state.displayed = makeArray(
         state.data.subGoals[action.payload],
-        SUB_VIEW,
+        ROLE.TODO,
       );
+      state.index = action.payload;
     },
   },
 });

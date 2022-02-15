@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { displayMain, displayFull, getMandal } from "../../features/viewSlice";
 import { changeEditMode } from "../../features/editSlice";
+import { VIEW_OPTION } from "../../constants";
 import MainMandal from "./view/MainMandal";
 import SubMandal from "./view/SubMandal";
 import FullView from "./view/FullView";
@@ -84,14 +85,24 @@ export default function MandalPage() {
   const isFetching = useSelector(state => state.view.isFetching);
   const viewOption = useSelector(state => state.view.option);
   const mandalArray = useSelector(state => state.view.displayed);
+  const isEditMode = useSelector(state => state.edit.mode);
   const viewModeButton = useRef();
 
   useEffect(() => {
+    if (viewOption !== VIEW_OPTION.MAIN_VIEW) {
+      dispatch(displayMain());
+    }
     dispatch(getMandal(id));
   }, []);
 
   useEffect(() => {
-    if (viewOption !== "full") {
+    if (!isEditMode) {
+      dispatch(getMandal(id));
+    }
+  }, [isEditMode]);
+
+  useEffect(() => {
+    if (viewOption !== VIEW_OPTION.FULL_VIEW) {
       viewModeButton.current.checked = false;
     }
   }, [viewOption]);
@@ -129,9 +140,13 @@ export default function MandalPage() {
       {!isFetching && (
         <BodyContainer>
           <BoxContainer>
-            {viewOption === "mainGoal" && <MainMandal data={mandalArray} />}
-            {viewOption === "subGoal" && <SubMandal data={mandalArray} />}
-            {viewOption === "full" && <FullView />}
+            {viewOption === VIEW_OPTION.MAIN_VIEW && (
+              <MainMandal data={mandalArray} />
+            )}
+            {viewOption === VIEW_OPTION.SUB_VIEW && (
+              <SubMandal data={mandalArray} />
+            )}
+            {viewOption === VIEW_OPTION.FULL_VIEW && <FullView />}
           </BoxContainer>
         </BodyContainer>
       )}

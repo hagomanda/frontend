@@ -5,6 +5,7 @@ import {
   fork,
   call,
   takeEvery,
+  take,
 } from "redux-saga/effects";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { createBrowserHistory } from "history";
@@ -23,6 +24,7 @@ import {
 
 import { authentication } from "./firebase";
 import { getMandal, setMandal } from "./viewSlice";
+import { createSocketChannel } from "./createSocketChannel";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const JWT_EXPIRY_TIME = 3600 * 1000;
@@ -35,7 +37,22 @@ export default function* rootSaga() {
     fork(watchRefresh),
     fork(watchLogout),
     fork(watchGetMandal),
+    fork(onNewMandal, "modifySuccess"),
   ]);
+}
+
+function* onNewMandal(type) {
+  const channel = yield call(createSocketChannel, type);
+
+  while (true) {
+    try {
+      const newMandal = yield take(channel);
+
+      yield put(setMandal(newMandal));
+    } catch (e) {
+      alert(e.message);
+    }
+  }
 }
 
 function* watchLogin() {
@@ -167,10 +184,12 @@ function* afterLogoutSuccess(location) {
 function* getMandalSaga(action) {
   try {
     const res = yield call(getMainGoal, action.payload);
+
     if (res.data.message) {
       // 결과가 없는 경우(해당 url이 유효하지 않은 경우)
     } else {
       res.data.result.mainGoal["_id"] = action.payload;
+
       yield put(setMandal(res.data.result.mainGoal));
     }
   } catch (error) {
