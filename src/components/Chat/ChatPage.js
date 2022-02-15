@@ -24,11 +24,13 @@ const ChatOpenButton = styled.div`
   background: #ffffff;
   overflow: hidden;
   margin: 10px;
+  cursor: pointer;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 `;
 
