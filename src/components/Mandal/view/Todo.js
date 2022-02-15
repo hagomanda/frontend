@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { format } from "date-fns";
 import styled from "styled-components";
 
-import RadioButton from "./RadioButton";
+import RadioButton from "../../RadioButton";
 
 const BodyContainer = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ const saveTodo = async (todoId, date, repetition) => {
   const result = await axios.post(`/api/todos/${todoId}`, { date, repetition });
 };
 
-export default function Todo({ id }) {
+export default function Todo({ id, setShowModal, showModal }) {
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState();
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -114,6 +114,7 @@ export default function Todo({ id }) {
       type: repetition,
       duration,
     });
+    setShowModal(!showModal);
   };
 
   return (
@@ -158,4 +159,6 @@ export default function Todo({ id }) {
 
 Todo.propTypes = {
   id: PropTypes.string,
+  setShowModal: PropTypes.func,
+  showModal: PropTypes.bool,
 };

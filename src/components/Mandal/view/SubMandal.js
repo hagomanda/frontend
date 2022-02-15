@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import { displayMain, displaySub } from "../../../features/viewSlice";
 import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
+import Modal from "../../Modal";
+import Todo from "./Todo";
 
 const BoxContainer = styled.div`
   display: grid;
@@ -20,12 +22,16 @@ const BoxContainer = styled.div`
 
 export default function SubMandal({ data, mandalIndex }) {
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const [boxId, setBoxId] = useState();
   const viewOption = useSelector(state => state.view.option);
   const isEditMode = useSelector(state => state.edit.mode);
 
   const handleBoxClick = (event, index) => {
     if (viewOption === VIEW_OPTION.FULL_VIEW) {
-      dispatch(displaySub(mandalIndex));
+      mandalIndex <= 4
+        ? dispatch(displaySub(mandalIndex))
+        : dispatch(displaySub(mandalIndex - 1));
       return;
     }
 
@@ -35,14 +41,31 @@ export default function SubMandal({ data, mandalIndex }) {
     }
 
     if (index === 4) {
-      dispatch(displayMain());
+      return dispatch(displayMain());
     }
+
+    setBoxId(event.target.id);
+    setShowModal(true);
   };
 
   return (
-    <BoxContainer className="gridContainer">
-      {showBoxes(data, handleBoxClick)}
-    </BoxContainer>
+    <>
+      <BoxContainer className="gridContainer">
+        {showBoxes(data, handleBoxClick)}
+      </BoxContainer>
+      {showModal && (
+        <Modal
+          onClick={() => setShowModal(!showModal)}
+          child={
+            <Todo
+              id={boxId}
+              setShowModal={setShowModal}
+              showModal={showModal}
+            />
+          }
+        />
+      )}
+    </>
   );
 }
 

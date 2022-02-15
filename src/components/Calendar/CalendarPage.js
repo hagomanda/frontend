@@ -126,15 +126,13 @@ export default function CalendarPage() {
       );
 
       return (
-        <>
-          <Day
-            className="day"
-            day={day}
-            date={date}
-            key={date}
-            todos={todos?.[date]}
-          />
-        </>
+        <Day
+          className="day"
+          day={day}
+          date={date}
+          key={date}
+          todos={todos?.[date]}
+        />
       );
     });
   };
