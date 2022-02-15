@@ -48,7 +48,9 @@ export const userSlice = createSlice({
       state.loginSucceed = false;
       state.loginError = null;
     },
-    refresh: state => state,
+    refresh: state => {
+      state.loginLoading = true;
+    },
   },
 });
 

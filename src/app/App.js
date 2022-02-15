@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
@@ -25,38 +25,30 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <GlobalNavBar />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/home"
-          element={loginState ? <Main /> : <Navigate replace to="/login" />}
-        />
-        <Route
-          path="/mypage"
-          element={loginState ? <MyPage /> : <Navigate replace to="/login" />}
-        />
-        <Route
-          path="/mainGoal/:id"
-          element={
-            loginState ? <MandalPage /> : <Navigate replace to="/login" />
-          }
-        />
-        <Route
-          path="/main"
-          element={loginState ? <Main /> : <Navigate replace to="/login" />}
-        />
-        <Route
-          path="/calendar"
-          element={
-            loginState ? <CalendarPage /> : <Navigate replace to="/login" />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <GlobalNavBar />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<IndexPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element={loginState ? <Main /> : <LoginPage />} />
+          <Route
+            path="/mypage"
+            element={loginState ? <MyPage /> : <LoginPage />}
+          />
+          <Route
+            path="/mainGoal/:id"
+            element={loginState ? <MandalPage /> : <LoginPage />}
+          />
+          <Route path="/main" element={loginState ? <Main /> : <LoginPage />} />
+          <Route
+            path="/calendar"
+            element={loginState ? <CalendarPage /> : <LoginPage />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

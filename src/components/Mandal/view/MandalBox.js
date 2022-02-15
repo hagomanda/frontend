@@ -55,7 +55,6 @@ const modifyMandal = (role, box, newText, mainGoalId) => {
   });
 };
 
-// MandalBox가 handleClick props 내려받을 수 있도록 (MandalPage에서)
 export default function MandalBox({ content, role, goalId, onClick }) {
   const { id: mainGoalId } = useParams();
   const isEditMode = useSelector(state => state.edit.mode);
