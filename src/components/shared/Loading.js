@@ -6,6 +6,7 @@ const LoadingContainer = styled.div`
   width: 100%;
   background-color: ${props => props.color};
   border-radius: 10%;
+
   span {
     display: block;
     text-align: center;
@@ -69,6 +70,7 @@ export default function Loading({
           </div>
         </Loader>
       )}
+
     </LoadingContainer>
   );
 }

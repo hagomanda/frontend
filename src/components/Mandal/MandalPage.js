@@ -11,6 +11,7 @@ import SubMandal from "./view/SubMandal";
 import FullView from "./view/FullView";
 import ShareButton from "./MandalHeader/ShareButton";
 import GoBackButton from "./MandalHeader/GoBackButton";
+import ChatPage from "../Chat/ChatPage";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -153,6 +154,7 @@ export default function MandalPage() {
           </BoxContainer>
         </BodyContainer>
       )}
+      {isEditMode && <ChatPage />}
     </>
   );
 }
