@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import _ from "lodash";
+// import _ from "lodash";
 
-import { VIEW_OPTION, ROLE } from "../../../constants";
+import { VIEW_OPTION } from "../../../constants";
 import { modifyMandal } from "../../../reducers/mandalSlice";
 
 const InnerBox = styled.div`
@@ -43,16 +43,16 @@ export default function MandalBox({ content, role, goalId, onClick }) {
 
   const box = useRef();
 
-  const debouncedModifyMandal = _.debounce((boxRole, title) => {
-    dispatch(
-      modifyMandal({
-        boxRole,
-        title,
-        mainGoalId,
-        boxId: box.current.id,
-      }),
-    );
-  }, 500);
+  // const debouncedModifyMandal = _.debounce((boxRole, title) => {
+  //   dispatch(
+  //     modifyMandal({
+  //       boxRole,
+  //       title,
+  //       mainGoalId,
+  //       boxId: box.current.id,
+  //     }),
+  //   );
+  // }, 500); // 디바운스 관련 차후 수정 예정
 
   const handleContent = async event => {
     const newText = event.currentTarget.innerHTML;

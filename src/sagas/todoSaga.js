@@ -71,7 +71,7 @@ function* getTodosSaga(action) {
 
 function* saveTodoSaga(action) {
   try {
-    const res = yield call(saveTodoAPI, action.payload);
+    yield call(saveTodoAPI, action.payload);
   } catch (error) {
     // 실패시 어떤작업?
     console.log(error);
@@ -80,7 +80,7 @@ function* saveTodoSaga(action) {
 
 function* changeCompletionSaga(action) {
   try {
-    const res = yield call(changeCompletionAPI, action.payload);
+    yield call(changeCompletionAPI, action.payload);
     // if (res.data.message) {
     //   실패 시 어떤 작업?
     // }

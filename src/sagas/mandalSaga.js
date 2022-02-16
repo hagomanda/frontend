@@ -19,7 +19,7 @@ import {
   createMandalSuccess,
   modifyMandal,
   modifyMandalError,
-} from "./mandalSlice";
+} from "../reducers/mandalSlice";
 import { createSocketChannel } from "./createSocketChannel";
 import { socketAction } from "../features/socket";
 import { ROLE } from "../constants";

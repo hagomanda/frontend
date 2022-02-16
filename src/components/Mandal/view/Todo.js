@@ -53,7 +53,7 @@ export default function Todo({ id, setShowModal, showModal }) {
     dispatch(
       getTodos({
         currentDate,
-        days: 1,
+        days: ONE_DAY,
       }),
     );
   };
