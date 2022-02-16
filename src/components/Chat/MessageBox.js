@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 const Container = styled.div`
   display: flex;
@@ -84,7 +84,7 @@ export default function MessageBox({ data }) {
           <p>{message}</p>
         </MessageWrapper>
         <DateWrapper>
-          <span>{format(parseISO(createdAt), "yyyy.MM.dd HH:mm")}</span>
+          <span>{format(new Date(createdAt), "yyyy.MM.dd HH:mm")}</span>
         </DateWrapper>
       </MessageContainer>
     </Container>

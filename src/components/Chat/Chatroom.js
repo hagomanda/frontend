@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { throttle } from "lodash";
+import io from "socket.io-client";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 import Loading from "../shared/Loading";
 import MessageBox from "./MessageBox";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+
+const socket = io.connect("http://localhost:8000");
 
 const ChatRoomContainer = styled.div`
   width: 100%;
@@ -77,12 +81,21 @@ export default function Chatroom() {
     return () => observer && observer.disconnect();
   }, [target]);
 
+  useEffect(() => {
+    socket.on("message", (message, createdAt, displayName, profile) => {
+      setMessages(prev => [
+        ...prev,
+        { message, createdAt, displayName, profile },
+      ]);
+    });
+  }, []);
+  // 본인 메세지일 경우에는 오른쪽으로 그렇지 않을경우에는
   return (
     <ChatRoomContainer ref={scrollTarget}>
       {isLoading && <Loading />}
-      {<TargetDiv ref={setTarget}></TargetDiv>}
+      <TargetDiv ref={setTarget} />
       {messages.map(data => {
-        return <MessageBox key={data.createdAt} data={data} />;
+        return <MessageBox key={uuidv4()} data={data} />;
       })}
     </ChatRoomContainer>
   );
