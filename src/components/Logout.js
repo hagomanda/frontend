@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { logoutRequest } from "../features/userSlice";
+import { logoutRequest } from "../reducers/userSlice";
 
 const Container = styled.div`
   display: flex;

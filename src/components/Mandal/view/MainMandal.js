@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { displayMain, displaySub } from "../../../features/viewSlice";
+import { displayMain, displaySub } from "../../../reducers/mandalSlice";
 import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
 
@@ -23,7 +23,7 @@ export default function MainMandal({ data }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const isEditMode = useSelector(state => state.edit.mode);
-  const viewOption = useSelector(state => state.view.option);
+  const viewOption = useSelector(state => state.mandal.option);
 
   const handleBoxClick = (event, index) => {
     if (viewOption === VIEW_OPTION.FULL_VIEW) {

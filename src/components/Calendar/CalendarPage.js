@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { format, add, getDay } from "date-fns";
 import styled from "styled-components";
-import axios from "axios";
 
 import Day from "./Day";
+import { getTodos } from "../../reducers/todoSlice";
 
 const CalendarHeader = styled.div`
   display: flex;
@@ -61,11 +62,13 @@ const Calendar = styled.div`
   margin-bottom: 20px;
 `;
 
+const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [todos, setTodos] = useState([]);
+  const todos = useSelector(state => state.todo.data);
+  const dispatch = useDispatch();
 
-  const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
   const handlePrevButtonClick = () => {
     setCurrentDate(add(currentDate, { days: -7 }));
   };
@@ -74,20 +77,6 @@ export default function CalendarPage() {
   };
   const goToday = () => {
     setCurrentDate(new Date());
-  };
-
-  const getUsersTodo = async () => {
-    const weekStart = add(currentDate, { days: -1 * getDay(currentDate) });
-    const res = await axios.get("/api/users/todos", {
-      headers: {
-        currentDate: format(weekStart, "yyyy-MM-dd"),
-        days: 7,
-      },
-    });
-
-    if (res.data.result !== "error") {
-      setTodos(res.data.result);
-    }
   };
 
   const showWeekCalendar = () => {
@@ -110,8 +99,13 @@ export default function CalendarPage() {
   };
 
   useEffect(() => {
-    getUsersTodo();
-  }, []);
+    dispatch(
+      getTodos({
+        currentDate,
+        days: 7,
+      }),
+    );
+  }, [currentDate]);
 
   return (
     <div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getUserInfo, shareMandal } from "../../../reducers/shareSlice";
 
 const Container = styled.div`
   position: absolute;
@@ -45,48 +47,13 @@ const ProfileWrapper = styled.div`
   }
 `;
 
-const getUserInfo = async (email, setState) => {
-  try {
-    const { data } = await axios.get("/api/users", {
-      headers: {
-        otheruser: email,
-      },
-    });
-
-    if (!data.message) {
-      setState({ isSuccess: true, user: data.user });
-    } else {
-      setState({ isSuccess: false, message: "검색 결과가 없습니다." });
-    }
-  } catch (error) {
-    setState({ isSuccess: false, message: "오류가 발생했습니다." });
-  }
-};
-
-const shareMandal = async (goalId, email) => {
-  try {
-    const res = await axios.post(`/api/goals/mainGoal/${goalId}/users`, {
-      email: email,
-    });
-
-    if (res.data.result === "ok") {
-      return { isSuccess: true };
-    } else {
-      return { isSuccess: false };
-    }
-  } catch (error) {
-    return { isSuccess: false };
-  }
-};
-
 export default function InviteModal({ onClick }) {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
   const [email, setEmail] = useState("");
-  const [result, setResult] = useState({
-    isSuccess: false,
-    message: "검색 결과가 여기에 나타납니다.",
-  });
+
+  const result = useSelector(state => state.share);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -98,16 +65,15 @@ export default function InviteModal({ onClick }) {
 
   useEffect(() => {
     if (email) {
-      getUserInfo(email, setResult);
+      dispatch(getUserInfo(email));
     }
   }, [email]);
 
   const handleInviteButtonClick = async () => {
-    const { isSuccess } = await shareMandal(id, result.user.email);
-    if (isSuccess) {
+    dispatch(shareMandal({ id, email: result.user.email }));
+
+    if (result.isShareSuccess) {
       onClick(false);
-    } else {
-      setResult({ isSuccess: false, message: "오류가 발생했습니다." });
     }
   };
 
@@ -123,8 +89,8 @@ export default function InviteModal({ onClick }) {
         />
       </div>
       <div>
-        {!result.isSuccess && <p>{result.message}</p>}
-        {result.isSuccess && (
+        {!result.isSearchSuccess && <p>{result.message}</p>}
+        {result.isSearchSuccess && (
           <ResultContainer
             id={result.user.email}
             onClick={handleInviteButtonClick}

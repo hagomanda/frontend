@@ -54,7 +54,7 @@ const makeArray = (mandal, view) => {
 };
 
 export default function FullView() {
-  const data = useSelector(state => state.view.data);
+  const data = useSelector(state => state.mandal.data);
   const mandalArray = data.subGoals.map(subGoal =>
     makeArray(subGoal, SUB_VIEW),
   );

@@ -40,7 +40,7 @@ const RadioLabel = styled.label`
 export default function RadioButton({ handleOnChange, options }) {
   const showButtons = () => {
     return options.slice(1).map(({ value, content }, i) => (
-      <>
+      <div key={i}>
         <StyledRadio
           type="radio"
           id={value}
@@ -50,7 +50,7 @@ export default function RadioButton({ handleOnChange, options }) {
           defaultChecked={i === 0}
         />
         <RadioLabel htmlFor={value}>{content}</RadioLabel>
-      </>
+      </div>
     ));
   };
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { displayMain, displaySub } from "../../../features/viewSlice";
+import { displayMain, displaySub } from "../../../reducers/mandalSlice";
 import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
 import Modal from "../../Modal";
@@ -24,7 +24,7 @@ export default function SubMandal({ data, mandalIndex }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [boxId, setBoxId] = useState();
-  const viewOption = useSelector(state => state.view.option);
+  const viewOption = useSelector(state => state.mandal.option);
   const isEditMode = useSelector(state => state.edit.mode);
 
   const handleBoxClick = (event, index) => {

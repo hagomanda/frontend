@@ -5,7 +5,6 @@ import {
   fork,
   call,
   takeEvery,
-  take,
 } from "redux-saga/effects";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { createBrowserHistory } from "history";
@@ -20,39 +19,20 @@ import {
   logoutFailed,
   join,
   refresh,
-} from "./userSlice";
-
-import { authentication } from "./firebase";
-import { getMandal, setMandal } from "./viewSlice";
-import { createSocketChannel } from "./createSocketChannel";
+} from "../reducers/userSlice";
+import { authentication } from "../features/firebase";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const JWT_EXPIRY_TIME = 3600 * 1000;
 // const JWT_EXPIRY_TIME = 62000;
 
-export default function* rootSaga() {
+export default function* userSaga() {
   yield all([
     fork(watchLogin),
     fork(watchJoin),
     fork(watchRefresh),
     fork(watchLogout),
-    fork(watchGetMandal),
-    fork(onNewMandal, "modifySuccess"),
   ]);
-}
-
-function* onNewMandal(type) {
-  const channel = yield call(createSocketChannel, type);
-
-  while (true) {
-    try {
-      const newMandal = yield take(channel);
-
-      yield put(setMandal(newMandal));
-    } catch (e) {
-      alert(e.message);
-    }
-  }
 }
 
 function* watchLogin() {
@@ -69,10 +49,6 @@ function* watchJoin() {
 
 function* watchRefresh() {
   yield takeEvery(refresh, silentRefreshSaga);
-}
-
-function* watchGetMandal() {
-  yield takeLatest(getMandal, getMandalSaga);
 }
 
 async function signInGoogle() {
@@ -100,11 +76,6 @@ async function joinServer(user) {
 
 async function refreshLogin() {
   const res = await axios.post("/api/auth/refresh");
-  return res;
-}
-
-async function getMainGoal(id) {
-  const res = await axios.get(`/api/goals/mainGoal/${id}`);
   return res;
 }
 
@@ -179,20 +150,4 @@ function* afterLogoutSuccess(location) {
   axios.defaults.headers.common["Authorization"] = null;
   yield put(logoutSucceed());
   history.push(location);
-}
-
-function* getMandalSaga(action) {
-  try {
-    const res = yield call(getMainGoal, action.payload);
-
-    if (res.data.message) {
-      // 결과가 없는 경우(해당 url이 유효하지 않은 경우)
-    } else {
-      res.data.result.mainGoal["_id"] = action.payload;
-
-      yield put(setMandal(res.data.result.mainGoal));
-    }
-  } catch (error) {
-    console.log(error);
-  }
 }

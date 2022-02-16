@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import styled from "styled-components";
 
 import RadioButton from "../../RadioButton";
+import { saveTodo, getTodos } from "../../../reducers/todoSlice";
 
 const BodyContainer = styled.div`
   display: flex;
@@ -40,37 +40,22 @@ const DURATION = [
   { value: 3, content: "3주" },
 ];
 
-const getUsersTodo = async (date, days) => {
-  const result = await axios.get("/api/users/todos", {
-    headers: {
-      currentDate: format(date, "yyyy-MM-dd"),
-      days,
-    },
-  });
-  return result;
-};
-
-const saveTodo = async (todoId, date, repetition) => {
-  await axios.post(`/api/todos/${todoId}`, { date, repetition });
-};
-
 export default function Todo({ id, setShowModal, showModal }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [todos, setTodos] = useState();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isRepeat, setIsRepeat] = useState(false);
   const [repetition, setRepetition] = useState(EVERY_DAY);
   const [duration, setDuration] = useState(1);
   const loginState = useSelector(state => state.user.loginSucceed);
+  const dispatch = useDispatch();
+  const todos = useSelector(state => state.todo.data);
 
   const getTodosOfDay = async () => {
-    const res = await getUsersTodo(currentDate, ONE_DAY);
-    if (res.data.result === "error") {
-      return;
-    }
-
-    setTodos(res.data.result[format(currentDate, "yyyy-MM-dd")]);
-    setIsLoading(false);
+    dispatch(
+      getTodos({
+        currentDate,
+        days: 1,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -84,10 +69,11 @@ export default function Todo({ id, setShowModal, showModal }) {
   };
 
   const showTodosInDate = () => {
-    if (!todos) {
+    if (!todos[format(currentDate, "yyyy-MM-dd")]) {
       return <div> 저장된 일이 없습니다.</div>;
     }
-    return todos?.map((todo, i) => {
+
+    return todos[format(currentDate, "yyyy-MM-dd")]?.map((todo, i) => {
       return (
         <div key={i}>
           {todo.title} {todo.isComplete}
@@ -109,11 +95,12 @@ export default function Todo({ id, setShowModal, showModal }) {
   };
 
   const handleAddButton = () => {
-    saveTodo(id, currentDate, {
+    const options = {
       isRepeat,
       type: repetition,
       duration,
-    });
+    };
+    dispatch(saveTodo({ id, currentDate, options }));
     setShowModal(!showModal);
   };
 
@@ -149,7 +136,8 @@ export default function Todo({ id, setShowModal, showModal }) {
         </ContentContainer>
         <ContentContainer>
           <div>저장된 할 일들</div>
-          {isLoading ? <div>로딩 중</div> : <div>{showTodosInDate()}</div>}
+          {/* {isLoading ? <div>로딩 중</div> : <div>{showTodosInDate()}</div>} */}
+          <div>{showTodosInDate()}</div>
           <input type="button" value="Add" onClick={handleAddButton} />
         </ContentContainer>
       </BodyContainer>

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import axios from "axios";
 
 import Modal from "../Modal";
 import TodoModal from "./TodoModal";
+import { changeCompletion } from "../../reducers/todoSlice";
 
 const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
 
@@ -46,19 +47,22 @@ const CheckButton = styled.img`
 export default function Todo({ todo, date }) {
   const [showModal, setShowModal] = useState(false);
   const [isComplete, setIsComplete] = useState(todo.isComplete);
-
+  const dispatch = useDispatch();
   const handleTodoClick = () => {
     setShowModal(true);
   };
 
   const handleCheckButtonClick = async (event, todoId) => {
     event.stopPropagation();
-    setIsComplete(!isComplete);
+    dispatch(
+      changeCompletion({
+        todoId,
+        date,
+        isComplete: !isComplete,
+      }),
+    );
 
-    await axios.put(`/api/todos/calendar/${todoId}`, {
-      isComplete: !isComplete,
-      date,
-    });
+    setIsComplete(!isComplete);
   };
 
   return (

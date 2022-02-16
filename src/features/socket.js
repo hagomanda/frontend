@@ -11,4 +11,7 @@ export const socketAction = {
   leaveMandal: () => {
     socket.emit("leaveMandal");
   },
+  modifyMandal: (mandal, mainGoalId) => {
+    socket.emit("edit", mandal, mainGoalId);
+  },
 };

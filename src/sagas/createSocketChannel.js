@@ -1,5 +1,5 @@
 import { eventChannel, buffers } from "redux-saga";
-import { socket } from "./socket";
+import { socket } from "../features/socket";
 
 const defaultMatcher = () => true;
 
