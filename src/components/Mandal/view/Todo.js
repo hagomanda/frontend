@@ -51,7 +51,7 @@ const getUsersTodo = async (date, days) => {
 };
 
 const saveTodo = async (todoId, date, repetition) => {
-  const result = await axios.post(`/api/todos/${todoId}`, { date, repetition });
+  await axios.post(`/api/todos/${todoId}`, { date, repetition });
 };
 
 export default function Todo({ id, setShowModal, showModal }) {

@@ -70,7 +70,6 @@ export default function Loading({
           </div>
         </Loader>
       )}
-
     </LoadingContainer>
   );
 }

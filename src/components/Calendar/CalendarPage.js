@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { format, add, getDay } from "date-fns";
 import styled from "styled-components";
 import axios from "axios";
