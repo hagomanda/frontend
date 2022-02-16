@@ -14,6 +14,7 @@ import CalendarPage from "../components/Calendar/CalendarPage";
 import MandalPage from "../components/Mandal/MandalPage";
 import MyPage from "../components/MyPage";
 
+axios.defaults.baseURL = process.env.REACT_APP_PRODUCT_AXIOS_BASEURL;
 axios.defaults.withCredentials = true;
 
 function App() {
