@@ -8,7 +8,7 @@ import {
   setGoalList,
   deleteGoal,
   deleteGoalError,
-} from "./goalListSlice";
+} from "../reducers/goalListSlice";
 
 export default function* goalListSaga() {
   yield all([fork(watchGetGoalList), fork(watchDeleteGoal)]);
@@ -25,7 +25,7 @@ function* watchDeleteGoal() {
 function* getGoalListSaga() {
   try {
     const res = yield call(getGoalListAPI);
-   
+
     if (res.data.message) {
       yield put(getGoalListError(res.data.message));
     } else {
@@ -40,7 +40,7 @@ function* getGoalListSaga() {
 function* deleteGoalSaga(action) {
   try {
     const res = yield call(deleteGoalAPI, action.payload);
-    
+
     if (res.data.message) {
       yield put(deleteGoalError(res.dadta.message));
     } else {
