@@ -81,7 +81,7 @@ export default function Chatroom() {
     <ChatRoomContainer ref={scrollTarget}>
       {isLoading && <Loading />}
       {<TargetDiv ref={setTarget}></TargetDiv>}
-      {messages.map((data, i) => {
+      {messages.map(data => {
         return <MessageBox key={data.createdAt} data={data} />;
       })}
     </ChatRoomContainer>

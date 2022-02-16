@@ -13,7 +13,6 @@ import Main from "../components/Main/Main";
 import CalendarPage from "../components/Calendar/CalendarPage";
 import MandalPage from "../components/Mandal/MandalPage";
 import MyPage from "../components/MyPage";
-import ChatPage from "../components/Chat/ChatPage";
 
 axios.defaults.withCredentials = true;
 
