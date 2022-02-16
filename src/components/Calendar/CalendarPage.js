@@ -10,9 +10,9 @@ const CalendarHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5px;
 
   .today-button {
-    display: flex;
     margin: 10px;
     padding: 10px 25px;
     border: 1px solid rgb(148, 178, 235);
@@ -27,28 +27,15 @@ const CalendarHeader = styled.div`
 
   .current-date {
     display: flex;
-    flex-direction: row;
     align-items: center;
   }
 
-  .prev-button {
-    margin: 0 10px;
-    font-size: 30px;
-    width: 35px;
-    height: 35px;
-
-    &:hover {
-      background-color: #e6e6e6;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-  }
-
+  .prev-button,
   .next-button {
     margin: 0 10px;
-    font-size: 30px;
-    width: 35px;
-    height: 35px;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
 
     &:hover {
       background-color: #e6e6e6;
@@ -59,6 +46,7 @@ const CalendarHeader = styled.div`
 
   .date {
     font-size: 25px;
+    padding-bottom: 3px;
   }
 
   .day {
@@ -72,24 +60,11 @@ const Calendar = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  width: 80%;
-
-  &.calendar {
-    border-radius: 10px;
-    margin-left: 5px;
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todos, setTodos] = useState([]);
-  const loginState = useSelector(state => state.user.loginSucceed);
 
   const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
   const handlePrevButtonClick = () => {
@@ -111,11 +86,9 @@ export default function CalendarPage() {
       },
     });
 
-    if (res.data.result === "error") {
-      return;
+    if (res.data.result !== "error") {
+      setTodos(res.data.result);
     }
-
-    setTodos(res.data.result);
   };
 
   const showWeekCalendar = () => {
@@ -138,13 +111,11 @@ export default function CalendarPage() {
   };
 
   useEffect(() => {
-    if (loginState) {
-      getUsersTodo();
-    }
-  }, [loginState]);
+    getUsersTodo();
+  }, []);
 
   return (
-    <Container>
+    <div>
       <CalendarHeader>
         <div onClick={goToday} className="today-button">
           오늘
@@ -155,7 +126,7 @@ export default function CalendarPage() {
             onClick={handlePrevButtonClick}
             className="prev-button"
           />
-          <div className="date">{format(currentDate, "yyyy년 MM월")}</div>
+          <span className="date">{format(currentDate, "yyyy년 M월")}</span>
           <img
             src="/img/right.svg"
             onClick={handleNextButtonClick}
@@ -164,6 +135,6 @@ export default function CalendarPage() {
         </div>
       </CalendarHeader>
       <Calendar className="calendar">{showWeekCalendar()}</Calendar>
-    </Container>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Logout from "../Logout";
@@ -29,6 +30,7 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   height: inherit;
+  cursor: pointer;
 `;
 
 const MenuWrapper = styled.div`
@@ -36,9 +38,11 @@ const MenuWrapper = styled.div`
 `;
 
 export default function GlobalNavBar() {
+  const navigate = useNavigate();
+
   return (
     <GnbContainer>
-      <LogoWrapper>
+      <LogoWrapper onClick={() => navigate("/")}>
         <img src="/img/logo.svg" />
         <span>HAGOMANDA</span>
       </LogoWrapper>

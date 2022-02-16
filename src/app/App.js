@@ -29,7 +29,7 @@ function App() {
     <>
       <BrowserRouter>
         <GlobalNavBar />
-        <Navbar />
+        {loginState && <Navbar />}
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />

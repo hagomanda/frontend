@@ -29,7 +29,6 @@ export default function NavButton({ textName, link }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const route = pathname.split("/")[1];
-
   const color =
     pathname === link
       ? "white"

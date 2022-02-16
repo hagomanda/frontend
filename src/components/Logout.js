@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { logoutRequest } from "../features/userSlice";
@@ -39,6 +39,8 @@ const StyledLink = styled(Link)`
 
 export default function Logout() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loginSucceed } = useSelector(state => state.user);
 
   const handleLogoutButtonClick = useCallback(() => {
     dispatch(logoutRequest());
@@ -49,7 +51,11 @@ export default function Logout() {
       <StyledLink to="/">
         <div>서비스 소개</div>
       </StyledLink>
-      <LogoutButton onClick={handleLogoutButtonClick}>로그아웃</LogoutButton>
+      {loginSucceed ? (
+        <LogoutButton onClick={handleLogoutButtonClick}>로그아웃</LogoutButton>
+      ) : (
+        <LogoutButton onClick={() => navigate("/login")}>로그인</LogoutButton>
+      )}
     </Container>
   );
 }

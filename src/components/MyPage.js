@@ -7,6 +7,7 @@ import Logout from "./Logout";
 
 const MyPageContainer = styled.div`
   display: block;
+  padding: 20px;
 `;
 
 const ProfileWrapper = styled.div`

@@ -24,10 +24,12 @@ const ButtonsContainer = styled.div`
   margin-left: auto;
 `;
 
-const ImageButton = styled.img`
+const EditButton = styled.img`
   width: 50px;
   height: 50px;
   cursor: pointer;
+  border-radius: 5px;
+  background-color: ${props => props.selected && "rgba(148, 178, 235, 0.5)"};
 `;
 
 const BodyContainer = styled.div`
@@ -122,11 +124,12 @@ export default function MandalPage() {
       <div>
         <ButtonsContainer>
           <GoBackButton onClick={viewCheckHandler} />
-          <ImageButton
+          <EditButton
             className="editButton"
             alt="editButton"
             src="/icons/edit.svg"
             onClick={handleEdit}
+            selected={isEditMode}
           />
           <ShareButton />
           <ToggleButton

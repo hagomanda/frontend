@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const LoadingContainer = styled.div`
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: ${props => props.color};
   border-radius: 10%;
 
   span {
@@ -52,22 +52,31 @@ const Loader = styled.div`
   }
 `;
 
-export default function Loading({ contents = "" }) {
+export default function Loading({
+  bgColor = "#f4f4f4",
+  contents = "",
+  useIcon = true,
+}) {
   return (
-    <LoadingContainer>
+    <LoadingContainer color={bgColor}>
       <span>{contents}</span>
-      <Loader>
-        <div className="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </Loader>
+      {useIcon && (
+        <Loader>
+          <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </Loader>
+      )}
+
     </LoadingContainer>
   );
 }
 
 Loading.propTypes = {
+  bgColor: PropTypes.string,
   contents: PropTypes.string,
+  useIcon: PropTypes.bool,
 };
