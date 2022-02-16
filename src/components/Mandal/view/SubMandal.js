@@ -8,6 +8,7 @@ import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
 import Modal from "../../Modal";
 import Todo from "./Todo";
+import ChatPage from "../../Chat/ChatPage";
 
 const BoxContainer = styled.div`
   display: grid;
@@ -53,6 +54,7 @@ export default function SubMandal({ data, mandalIndex }) {
       <BoxContainer className="gridContainer">
         {showBoxes(data, handleBoxClick)}
       </BoxContainer>
+      <ChatPage />
       {showModal && (
         <Modal
           onClick={() => setShowModal(!showModal)}

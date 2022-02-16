@@ -15,6 +15,7 @@ import MandalPage from "../components/Mandal/MandalPage";
 import MyPage from "../components/MyPage";
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8000";
 
 function App() {
   const dispatch = useDispatch();
