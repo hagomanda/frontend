@@ -25,6 +25,7 @@ function* watchDeleteGoal() {
 function* getGoalListSaga() {
   try {
     const res = yield call(getGoalListAPI);
+   
     if (res.data.message) {
       yield put(getGoalListError(res.data.message));
     } else {
