@@ -9,7 +9,6 @@ const NavContainer = styled.div`
   justify-content: center;
   align-items: end;
   height: 80px;
-  margin-bottom: 10px;
   background-color: rgb(148, 178, 235);
 `;
 
