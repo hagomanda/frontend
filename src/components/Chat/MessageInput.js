@@ -53,14 +53,21 @@ export default function MessageInput() {
   };
 
   const handleSendButtonEnter = event => {
-    if (event.key === "Enter") {
-      handleSendButtonClick();
-    }
-
-    if (!event.target.value) {
+    if (event.key !== "Enter") {
       return;
     }
-    console.log(event.target.value);
+
+    if (event.shiftKey && event.key === "Enter") {
+      return;
+    }
+
+    if (event.key === "Enter" && !event.target.value.length) {
+      event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
+    handleSendButtonClick();
   };
 
   return (
