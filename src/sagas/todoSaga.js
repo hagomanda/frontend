@@ -99,7 +99,8 @@ function* saveMemoSaga(action) {
       yield put(saveMemoError(res.data.message));
     } else {
       yield put(saveMemoSuccess());
-      yield put(getTodos(new Date(action.payload.date)));
+      const currentDate = new Date(action.payload.date);
+      yield put(getTodos({ currentDate, days: 7 }));
     }
   } catch (error) {
     yield put(saveMemoError(error.message));
@@ -114,7 +115,8 @@ function* deleteMemoSaga(action) {
       yield put(deleteMemoError(res.data.message));
     } else {
       yield put(deleteMemoSuccess());
-      yield put(getTodos(new Date(action.payload.date)));
+      const currentDate = new Date(action.payload.date);
+      yield put(getTodos({ currentDate, days: 7 }));
     }
   } catch (error) {
     yield put(deleteMemoError(error));
