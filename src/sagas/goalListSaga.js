@@ -40,6 +40,7 @@ function* getGoalListSaga() {
 function* deleteGoalSaga(action) {
   try {
     const res = yield call(deleteGoalAPI, action.payload);
+    
     if (res.data.message) {
       yield put(deleteGoalError(res.dadta.message));
     } else {
