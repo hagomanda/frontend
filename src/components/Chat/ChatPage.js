@@ -14,6 +14,7 @@ const ChatModalContainer = styled.div`
   width: 300px;
   height: 70vh;
   border: 1px solid #848484;
+  border-radius: 6px;
   background-color: #ffffff;
 `;
 

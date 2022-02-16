@@ -16,6 +16,7 @@ import MyPage from "../components/MyPage";
 
 axios.defaults.baseURL = process.env.REACT_APP_PRODUCT_AXIOS_BASEURL;
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8000";
 
 function App() {
   const dispatch = useDispatch();

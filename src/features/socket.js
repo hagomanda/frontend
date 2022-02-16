@@ -1,5 +1,5 @@
 const { io } = require("socket.io-client");
-export const socket = io.connect("http://localhost:8000");
+export const socket = io.connect(process.env.REACT_APP_URL);
 
 export const socketAction = {
   joinMandal: id => {
