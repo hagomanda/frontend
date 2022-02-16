@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import Loading from "../shared/Loading";
 import MessageBox from "./MessageBox";
 
-const socket = io.connect(process.env.REACT_APP_URL);
+const socket = io.connect(process.env.REACT_APP_PRODUCT_AXIOS_BASEURL);
 
 const ChatRoomContainer = styled.div`
   width: 100%;
