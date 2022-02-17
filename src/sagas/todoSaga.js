@@ -34,7 +34,7 @@ export default function* todoSaga() {
   ]);
 }
 
-function* watchGetTodos() {
+export function* watchGetTodos() {
   yield takeLatest(getTodos, getTodosSaga);
 }
 
@@ -54,7 +54,7 @@ function* watchDeleteMemo() {
   yield takeLatest(deleteMemo, deleteMemoSaga);
 }
 
-function* getTodosSaga(action) {
+export function* getTodosSaga(action) {
   try {
     const res = yield call(getTodosAPI, action.payload);
 
@@ -123,7 +123,7 @@ function* deleteMemoSaga(action) {
   }
 }
 
-async function getTodosAPI(req) {
+export async function getTodosAPI(req) {
   const { currentDate, days } = req;
   const weekStart = add(currentDate, { days: -1 * getDay(currentDate) });
   const startDate = days === 1 ? currentDate : weekStart;

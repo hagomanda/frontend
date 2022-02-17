@@ -33,7 +33,7 @@ export default function* mandalSaga() {
   ]);
 }
 
-function* watchGetMandal() {
+export function* watchGetMandal() {
   yield takeLatest(getMandal, getMandalSaga);
 }
 
