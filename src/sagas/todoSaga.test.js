@@ -1,6 +1,6 @@
 import { expectSaga } from "redux-saga-test-plan";
-import { watchGetTodos, getTodosSaga, getTodosAPI } from "./todoSaga";
-import { call, put } from "redux-saga/effects";
+import { watchGetTodos, getTodosAPI } from "./todoSaga";
+import { call } from "redux-saga/effects";
 import {
   getTodos,
   getTodosSuccess,
@@ -9,11 +9,9 @@ import {
 } from "../reducers/todoSlice";
 
 it("get todos Success", () => {
-  const action = {
-    payload: {
-      currentDate: new Date(),
-      days: 1,
-    },
+  const payload = {
+    currentDate: new Date(),
+    days: 1,
   };
 
   const res = {
@@ -22,31 +20,19 @@ it("get todos Success", () => {
     },
   };
 
-  // return expectSaga(getTodosSaga, action)
-  //   .provide([[call(getTodosAPI, action.payload), res]])
-  //   .put({ type: setTodos.type, payload: "fake todo" })
-  //   .dispatch({ type: getTodosSuccess.type })
-  //   .run();
-
-  return (
-    expectSaga(watchGetTodos)
-      .withReducer(getTodos)
-      // (getTodosSaga, action)
-      // .dispatch({ type: getTodos.type }, action)
-      // .provide()
-      .provide([[call(getTodosAPI, action.payload), res]])
-      .put({ type: setTodos.type, payload: "fake todo" })
-      .dispatch({ type: getTodosSuccess.type })
-      .run()
-  );
+  return expectSaga(watchGetTodos)
+    .withReducer(getTodos)
+    .dispatch({ type: getTodos.type, payload: payload })
+    .provide([[call(getTodosAPI, payload), res]])
+    .put({ type: setTodos.type, payload: "fake todo" })
+    .put({ type: getTodosSuccess.type, payload: undefined })
+    .silentRun();
 });
 
 it("get todos Failure", () => {
-  const action = {
-    payload: {
-      currentDate: new Date(),
-      days: 1,
-    },
+  const payload = {
+    currentDate: new Date(),
+    days: 1,
   };
 
   const result = {
@@ -55,9 +41,11 @@ it("get todos Failure", () => {
     },
   };
 
-  return expectSaga(getTodosSaga, action)
-    .provide([[call(getTodosAPI, action.payload), result]])
+  return expectSaga(watchGetTodos)
+    .withReducer(getTodos)
+    .dispatch({ type: getTodos.type, payload })
+    .provide([[call(getTodosAPI, payload), result]])
     .put({ type: getTodosError.type, payload: "Can't find any Todo" })
     .dispatch({ type: getTodosSuccess.type })
-    .run();
+    .silentRun();
 });
