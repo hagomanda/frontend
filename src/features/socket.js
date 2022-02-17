@@ -1,7 +1,7 @@
 import io from "socket.io-client";
-export const socket = io.connect(process.env.REACT_APP_PRODUCT_AXIOS_BASEURL, {
+export const socket = io.connect(process.env.REACT_APP_SERVER_URL, {
   transports: ["websocket"],
-  cors: { origin: process.env.REACT_APP_PRODUCT_AXIOS_BASEURL },
+  cors: { origin: process.env.REACT_APP_SERVER_URL },
 });
 
 export const socketAction = {

@@ -35,7 +35,7 @@ export default function* userSaga() {
   ]);
 }
 
-function* watchLogin() {
+export function* watchLogin() {
   yield takeLatest(loginRequest, loginSaga);
 }
 
@@ -51,7 +51,7 @@ function* watchRefresh() {
   yield takeEvery(refresh, silentRefreshSaga);
 }
 
-async function signInGoogle() {
+export async function signInGoogle() {
   const provider = new GoogleAuthProvider();
   const googleLoginResult = await signInWithPopup(authentication, provider);
   const { email, displayName, photoURL: profile } = googleLoginResult.user;
@@ -59,7 +59,7 @@ async function signInGoogle() {
   return { email, displayName, profile };
 }
 
-async function loginServer(email) {
+export async function loginServer(email) {
   const res = await axios.post("/api/auth/login", { email });
   return res;
 }
@@ -135,7 +135,7 @@ function* logoutSaga() {
   }
 }
 
-function* afterLoginSuccess(user) {
+export function* afterLoginSuccess(user) {
   const { email, displayName, profile, newAccessToken } = user;
   yield put(loginSucceed({ email, displayName, profile }));
   axios.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
