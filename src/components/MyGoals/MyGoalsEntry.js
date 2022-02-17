@@ -19,6 +19,7 @@ const ThumbnailContainer = styled.div`
   text-align: center;
   background-color: rgb(148, 178, 235);
   border-radius: 5px;
+  overflow: auto;
 
   .delete-button {
     display: none;

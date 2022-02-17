@@ -10,26 +10,21 @@ const DayContainer = styled.div`
   height: 70vh;
   text-align: center;
   border: 1px solid #e9e9e9;
-`;
-
-const DayWrapper = styled.div`
-  padding-top: 5px;
-  background-color: rgb(148, 178, 235);
-`;
-
-const DateWrapper = styled.div`
-  display: flex;
-  justify-content: center;
   border-collapse: collapse;
-  background-color: white;
-  text-align: center;
+`;
+
+const DayWrapper = styled.p`
+  font-size: 20px;
+`;
+
+const DateWrapper = styled.p`
   font-size: 25px;
-  background-color: rgb(148, 178, 235);
-  padding-bottom: 5px;
 `;
 
 const DateContainer = styled.div`
-  border: none;
+  background-color: rgb(148, 178, 235);
+  padding: 5px;
+  text-align: center;
 `;
 
 const TodoWrapper = styled.div`

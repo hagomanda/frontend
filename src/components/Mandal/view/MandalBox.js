@@ -9,8 +9,13 @@ import { VIEW_OPTION } from "../../../constants";
 import { modifyMandal } from "../../../reducers/mandalSlice";
 
 const InnerBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10%;
-  margin: 10px;
+  margin: 5px;
+  padding: 3px;
+  overflow: hidden;
 
   &.subGoals,
   &.todos {
@@ -30,9 +35,10 @@ const InnerBox = styled.div`
   }
 `;
 
-const Content = styled.div`
+const Content = styled.p`
   text-align: center;
-  outline: none;
+  word-break: break-all;
+  font-size: ${props => props.fontSize};
 `;
 
 export default function MandalBox({ content, role, goalId, onClick }) {
@@ -81,6 +87,7 @@ export default function MandalBox({ content, role, goalId, onClick }) {
         onInput={handleContent}
         spellCheck={false}
         dangerouslySetInnerHTML={{ __html: content }}
+        fontSize={viewOption === VIEW_OPTION.FULL_VIEW ? "7px" : "1em"}
       />
     </InnerBox>
   );

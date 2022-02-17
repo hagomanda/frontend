@@ -24,9 +24,7 @@ const ButtonsContainer = styled.div`
   align-items: center;
   width: 400px;
   height: 50px;
-  margin-bottom: 10px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 10px auto;
 `;
 
 const EditButton = styled.img`
@@ -37,17 +35,10 @@ const EditButton = styled.img`
   background-color: ${props => props.selected && "rgba(148, 178, 235, 0.5)"};
 `;
 
-const BodyContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 70vh;
-`;
-
 const BoxContainer = styled.div`
-  height: 684px;
-  width: 684px;
+  margin: 0 auto;
+  width: 70vh;
+  height: 70vh;
 `;
 
 const ToggleButton = styled.input`
@@ -151,17 +142,15 @@ export default function MandalPage() {
       </div>
       {isFetching && <div>Loading...</div>}
       {!isFetching && (
-        <BodyContainer>
-          <BoxContainer>
-            {viewOption === VIEW_OPTION.MAIN_VIEW && (
-              <MainMandal data={mandalArray} />
-            )}
-            {viewOption === VIEW_OPTION.SUB_VIEW && (
-              <SubMandal data={mandalArray} />
-            )}
-            {viewOption === VIEW_OPTION.FULL_VIEW && <FullView />}
-          </BoxContainer>
-        </BodyContainer>
+        <BoxContainer>
+          {viewOption === VIEW_OPTION.MAIN_VIEW && (
+            <MainMandal data={mandalArray} />
+          )}
+          {viewOption === VIEW_OPTION.SUB_VIEW && (
+            <SubMandal data={mandalArray} />
+          )}
+          {viewOption === VIEW_OPTION.FULL_VIEW && <FullView />}
+        </BoxContainer>
       )}
       {isEditMode && <ChatPage />}
     </>
