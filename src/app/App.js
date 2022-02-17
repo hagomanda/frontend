@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import { refresh } from "../reducers/userSlice";
-
 import IndexPage from "../components/IndexPage";
 import GlobalNavBar from "../components/Header/GlobalNavBar";
 import Navbar from "../components/Header/Navbar";
