@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-import styled from "styled-components";
 
-import RadioButton from "../../RadioButton";
 import { saveTodo, getTodos } from "../../../reducers/todoSlice";
+import RadioButton from "../../RadioButton";
+
+const Title = styled.div`
+  padding-bottom: 20px;
+  border-bottom: 1px solid #7a7a7a;
+  margin: 0;
+`;
 
 const BodyContainer = styled.div`
   display: flex;
@@ -18,6 +24,36 @@ const ContentContainer = styled.div`
   margin-top: 10px;
   text-align: center;
   align-items: center;
+  border-right: 1px solid #7a7a7a;
+
+  * {
+    margin: 4px;
+  }
+
+  label {
+    margin: 0;
+  }
+
+  .checkbox {
+    margin-right: 5px;
+  }
+
+  .add {
+    width: 60%;
+    height: 20%;
+    padding: 8px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 100px;
+    background-color: #374661;
+    color: #dce7f3;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #2d3347;
+    }
+  }
 `;
 
 const RadioButtonContainer = styled.div`
@@ -106,7 +142,7 @@ export default function Todo({ id, setShowModal, showModal }) {
 
   return (
     <>
-      <div>할일 저장하기</div> <hr />
+      <Title>할일 저장하기</Title>
       <BodyContainer>
         <ContentContainer>
           <input

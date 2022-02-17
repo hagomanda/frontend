@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import Modal from "../Modal";
-import DeletePopup from "./DeletePopup";
 import { deleteGoal } from "../../reducers/goalListSlice";
+import Modal from "../Modal/Modal";
+import DeletePopup from "./DeletePopup";
 
 const ThumbnailContainer = styled.div`
   display: flex;

@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { socketAction } from "../../features/socket";
-import MyGoalsEntry from "./MyGoalsEntry";
 import { getGoalList } from "../../reducers/goalListSlice";
+import MyGoalsEntry from "./MyGoalsEntry";
 
 const GoalsContainer = styled.div`
   display: inline-grid;

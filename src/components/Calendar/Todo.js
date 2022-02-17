@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import Modal from "../Modal";
-import TodoModal from "./TodoModal";
 import { changeCompletion } from "../../reducers/todoSlice";
+import Modal from "../Modal/Modal";
+import TodoModal from "./TodoModal";
 
 const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
 

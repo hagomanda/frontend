@@ -12,6 +12,7 @@ import Main from "../components/Main/Main";
 import CalendarPage from "../components/Calendar/CalendarPage";
 import MandalPage from "../components/Mandal/MandalPage";
 import MyPage from "../components/MyPage";
+import ErrorPage from "../components/shared/ErrorPage";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 axios.defaults.withCredentials = true;
@@ -45,6 +46,10 @@ function App() {
           <Route
             path="/calendar"
             element={loginState ? <CalendarPage /> : <LoginPage />}
+          />
+          <Route
+            path="/*"
+            element={<ErrorPage message="존재하지 않는 페이지입니다." />}
           />
         </Routes>
       </BrowserRouter>

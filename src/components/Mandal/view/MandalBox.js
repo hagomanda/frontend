@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 // import _ from "lodash";
 
 import { VIEW_OPTION } from "../../../constants";

@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { displayMain, displaySub } from "../../../reducers/mandalSlice";
-import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
+import { showBoxes } from "./utils";
 
 const BoxContainer = styled.div`
   display: inline-grid;
