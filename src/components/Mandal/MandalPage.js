@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 
 import {
   displayMain,
@@ -9,6 +9,11 @@ import {
   getMandal,
 } from "../../reducers/mandalSlice";
 import { changeEditMode } from "../../reducers/editSlice";
+import { initializeGoalError } from "../../reducers/goalListSlice";
+import { initializeMandalError } from "../../reducers/mandalSlice";
+import { initializeTodosError } from "../../reducers/todoSlice";
+import { initializeShareSuccess } from "../../reducers/shareSlice";
+
 import { VIEW_OPTION } from "../../constants";
 import MainMandal from "./view/MainMandal";
 import SubMandal from "./view/SubMandal";
@@ -17,6 +22,7 @@ import ShareButton from "./MandalHeader/ShareButton";
 import GoBackButton from "./MandalHeader/GoBackButton";
 import ChatPage from "../Chat/ChatPage";
 import { socketAction } from "../../features/socket";
+import ErrorModal from "../Modal/ErrorModal";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -86,6 +92,10 @@ export default function MandalPage() {
   const mandalArray = useSelector(state => state.mandal.displayed);
   const isEditMode = useSelector(state => state.edit.mode);
   const viewModeButton = useRef();
+  const shareSuccessState = useSelector(state => state.share.isShareSuccess);
+  const goalListErrorState = useSelector(state => state.goalList.error);
+  const mandalErrorState = useSelector(state => state.mandal.error);
+  const todoErrorState = useSelector(state => state.todo.error);
 
   useEffect(() => {
     if (viewOption !== VIEW_OPTION.MAIN_VIEW) {
@@ -153,6 +163,31 @@ export default function MandalPage() {
         </BoxContainer>
       )}
       {isEditMode && <ChatPage />}
+      {shareSuccessState && (
+        <ErrorModal
+          img={"/img/success.svg"}
+          background={"#4B89DC"}
+          onClick={() => dispatch(initializeShareSuccess())}
+        />
+      )}
+      {goalListErrorState && (
+        <ErrorModal
+          onClick={() => dispatch(initializeGoalError())}
+          message={goalListErrorState}
+        />
+      )}
+      {mandalErrorState && (
+        <ErrorModal
+          onClick={() => dispatch(initializeMandalError())}
+          message={goalListErrorState}
+        />
+      )}
+      {todoErrorState && (
+        <ErrorModal
+          onClick={() => dispatch(initializeTodosError())}
+          message={goalListErrorState}
+        />
+      )}
     </>
   );
 }

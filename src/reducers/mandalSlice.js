@@ -83,6 +83,9 @@ export const mandalSlice = createSlice({
     modifyMandalError: (state, action) => {
       state.error = action.payload;
     },
+    initializeMandalError: state => {
+      state.error = null;
+    },
   },
 });
 
@@ -99,5 +102,6 @@ export const {
   createMandalSuccess,
   modifyMandal,
   modifyMandalError,
+  initializeMandalError,
 } = mandalSlice.actions;
 export default mandalSlice.reducer;

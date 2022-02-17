@@ -4,15 +4,15 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   display: grid;
-  width: 200px;
   padding: 15px 10px;
   border-radius: 4px;
-  grid-template-columns: repeat(auto-fit, minmax(20%, auto));
+  grid-template-columns: repeat(auto-fit, minmax(33%, auto));
   overflow: hidden;
 `;
 
 const StyledRadio = styled.input`
   display: none;
+
   + label {
     background-color: #fff;
     color: #333;
@@ -25,16 +25,17 @@ const StyledRadio = styled.input`
 `;
 
 const RadioLabel = styled.label`
-  padding: 15px 10px;
-  display: inline-block;
-  cursor: pointer;
-  height: 18px;
-  min-width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
   border: 1px solid #333;
+  border-radius: 4px;
   line-height: 24px;
   text-align: center;
   font-weight: bold;
   font-size: 13px;
+  cursor: pointer;
 `;
 
 export default function RadioButton({ handleOnChange, options }) {

@@ -4,9 +4,10 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { displayMain, displaySub } from "../../../reducers/mandalSlice";
-import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
-import Modal from "../../Modal";
+import { showBoxes } from "./utils";
+
+import Modal from "../../Modal/Modal";
 import Todo from "./Todo";
 
 const BoxContainer = styled.div`

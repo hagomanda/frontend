@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import Portal from "./Portal";
+import Portal from "../Portal";
 
 const Background = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const Contents = styled.div`
 
 const Child = styled.div`
   position: relative;
-  height: 60%;
+  height: 50%;
   width: 60%;
   margin-top: 70px;
   overflow: scroll;

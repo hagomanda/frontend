@@ -36,6 +36,9 @@ export const shareSlice = createSlice({
       state.isShareSuccess = false;
       state.message = "오류가 발생했습니다.";
     },
+    initializeShareSuccess: state => {
+      state.isShareSuccess = false;
+    },
   },
 });
 
@@ -47,5 +50,6 @@ export const {
   shareMandal,
   shareMandalSuccess,
   shareMandalError,
+  initializeShareSuccess,
 } = shareSlice.actions;
 export default shareSlice.reducer;

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import Loading from "./shared/Loading";
 import { loginRequest, join } from "../reducers/userSlice";
+import Loading from "./shared/Loading";
 
 const LoginModal = styled.div`
   display: flex;

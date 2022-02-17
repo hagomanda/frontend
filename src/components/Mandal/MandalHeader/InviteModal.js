@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 
 import { getUserInfo, shareMandal } from "../../../reducers/shareSlice";
 
@@ -12,11 +12,20 @@ const Container = styled.div`
   background-color: #ebebeb;
   padding: 10px;
   border: 1px solid #e6e6e6;
+  border-radius: 6px;
   text-align: center;
 
   .inviteEmail {
     width: 90%;
     height: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+
+  button {
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -30,6 +39,7 @@ const ResultContainer = styled.div`
 
   :hover {
     background-color: #c9c9c9;
+    border-radius: 4px;
   }
 `;
 

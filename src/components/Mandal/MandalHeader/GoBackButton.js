@@ -1,9 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+
 import { displayMain } from "../../../reducers/mandalSlice";
-import { useNavigate } from "react-router-dom";
 
 const GoBackContainer = styled.div`
   width: 50px;

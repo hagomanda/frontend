@@ -26,6 +26,9 @@ const goalListSlice = createSlice({
     deleteGoalError: (state, action) => {
       state.error = action.payload;
     },
+    initializeGoalError: state => {
+      state.error = null;
+    },
   },
 });
 
@@ -36,5 +39,6 @@ export const {
   setGoalList,
   deleteGoal,
   deleteGoalError,
+  initializeGoalError,
 } = goalListSlice.actions;
 export default goalListSlice.reducer;

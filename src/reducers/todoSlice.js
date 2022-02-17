@@ -46,6 +46,9 @@ export const todoSlice = createSlice({
     },
     saveTodo: state => state,
   },
+  initializeTodosError: state => {
+    state.error = null;
+  },
 });
 
 export const {
@@ -61,5 +64,6 @@ export const {
   deleteMemoSuccess,
   deleteMemoError,
   saveTodo,
+  initializeTodosError,
 } = todoSlice.actions;
 export default todoSlice.reducer;

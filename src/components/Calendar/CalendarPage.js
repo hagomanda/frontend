@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { format, add, getDay } from "date-fns";
 import styled from "styled-components";
 
-import Day from "./Day";
 import { getTodos } from "../../reducers/todoSlice";
+import Day from "./Day";
 
 const CalendarHeader = styled.div`
   display: flex;

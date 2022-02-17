@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { throttle } from "lodash";
-import { socket } from "../../features/socket";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
+import { socket } from "../../features/socket";
 import Loading from "../shared/Loading";
 import MessageBox from "./MessageBox";
 
