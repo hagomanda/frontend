@@ -10,13 +10,14 @@ import { changeCompletion } from "../../reducers/todoSlice";
 const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
 
 const TodoContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
-  margin-bottom: 5px;
-  border: none;
+  margin-bottom: 3px;
+  padding: 10px;
+  background-color: ${`#${randomColor}`};
   border-radius: 4px;
-  background-color: "#" + ${randomColor};
 
   &:hover {
     border: 1px solid black;
@@ -26,8 +27,10 @@ const TodoContainer = styled.div`
 `;
 
 const Title = styled.p`
+  margin: 0;
   font-size: 20x;
   color: black;
+  word-break: break-all;
 
   &.complete {
     font-size: 20x;
@@ -37,11 +40,9 @@ const Title = styled.p`
 `;
 
 const CheckButton = styled.img`
-  display: flex;
-  align-items: center;
   width: 18%;
   height: 18%;
-  margin: 0 12px;
+  margin: 0 5px;
 `;
 
 export default function Todo({ todo, date }) {

@@ -10,10 +10,9 @@ const CalendarHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5px;
+  margin: 20px 0;
 
   .today-button {
-    margin: 10px;
     padding: 10px 25px;
     border: 1px solid rgb(148, 178, 235);
     border-radius: 6px;
@@ -33,7 +32,6 @@ const CalendarHeader = styled.div`
   .prev-button,
   .next-button {
     margin: 0 10px;
-    padding: 10px;
     width: 20px;
     height: 20px;
 

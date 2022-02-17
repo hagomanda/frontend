@@ -6,30 +6,26 @@ import MainMandal from "./MainMandal";
 import SubMandal from "./SubMandal";
 
 const MandalContainer = styled.div`
-  display: grid;
+  display: inline-grid;
   height: 100%;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 
-  & :nth-child(3n) {
-    border-left: solid #e6e6e6 1px;
+  > div:nth-child(3n) {
+    border-left: 1px solid #e6e6e6;
   }
 
-  & :nth-child(-n + 3) {
-    border-bottom: solid #e6e6e6 1px;
+  > div:nth-child(-n + 3) {
+    border-bottom: 1px solid #e6e6e6;
   }
 
-  & :nth-child(3n + 1) {
-    border-right: solid #e6e6e6 1px;
+  > div:nth-child(3n + 1) {
+    border-right: 1px solid #e6e6e6;
   }
 
-  & :nth-child(3n) {
-    border-left: solid #e6e6e6 1px;
-  }
-
-  & :nth-child(n + 7) {
-    border-top: solid #e6e6e6 1px;
+  > div:nth-child(n + 7) {
+    border-top: 1px solid #e6e6e6;
   }
 `;
 

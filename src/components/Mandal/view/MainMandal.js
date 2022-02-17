@@ -9,14 +9,11 @@ import { showBoxes } from "./utils";
 import { VIEW_OPTION } from "../../../constants";
 
 const BoxContainer = styled.div`
-  display: grid;
-  height: 100%;
-  width: 100%;
+  display: inline-grid;
+  height: ${props => props.size};
+  width: ${props => props.size};
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  & :nth-child(n) {
-    border: none;
-  }
 `;
 
 export default function MainMandal({ data }) {
@@ -44,7 +41,10 @@ export default function MainMandal({ data }) {
   };
 
   return (
-    <BoxContainer className="gridContainer">
+    <BoxContainer
+      className="gridContainer"
+      size={viewOption === VIEW_OPTION.FULL_VIEW ? "25vh" : "70vh"}
+    >
       {showBoxes(data, handleBoxClick)}
     </BoxContainer>
   );
