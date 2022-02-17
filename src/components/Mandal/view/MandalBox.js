@@ -39,6 +39,7 @@ const Content = styled.p`
   text-align: center;
   word-break: break-all;
   font-size: ${props => props.fontSize};
+  outline: none;
 `;
 
 export default function MandalBox({ content, role, goalId, onClick }) {

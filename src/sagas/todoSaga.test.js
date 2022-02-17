@@ -1,7 +1,8 @@
 import { expectSaga } from "redux-saga-test-plan";
-import { getTodosSaga, getTodosAPI } from "./todoSaga";
+import { watchGetTodos, getTodosSaga, getTodosAPI } from "./todoSaga";
 import { call, put } from "redux-saga/effects";
 import {
+  getTodos,
   getTodosSuccess,
   getTodosError,
   setTodos,
@@ -21,11 +22,23 @@ it("get todos Success", () => {
     },
   };
 
-  return expectSaga(getTodosSaga, action)
-    .provide([[call(getTodosAPI, action.payload), res]])
-    .put({ type: setTodos.type, payload: "fake todo" })
-    .dispatch({ type: getTodosSuccess.type })
-    .run();
+  // return expectSaga(getTodosSaga, action)
+  //   .provide([[call(getTodosAPI, action.payload), res]])
+  //   .put({ type: setTodos.type, payload: "fake todo" })
+  //   .dispatch({ type: getTodosSuccess.type })
+  //   .run();
+
+  return (
+    expectSaga(watchGetTodos)
+      .withReducer(getTodos)
+      // (getTodosSaga, action)
+      // .dispatch({ type: getTodos.type }, action)
+      // .provide()
+      .provide([[call(getTodosAPI, action.payload), res]])
+      .put({ type: setTodos.type, payload: "fake todo" })
+      .dispatch({ type: getTodosSuccess.type })
+      .run()
+  );
 });
 
 it("get todos Failure", () => {
