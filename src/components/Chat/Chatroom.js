@@ -40,6 +40,7 @@ export default function Chatroom() {
   // const getData = async (id, token) => {
   //   const prevHeight = scrollTarget.current.scrollHeight;
 
+
   //   try {
   //     const { messages, nextPageToken } = await getMessages(id, token);
   //     setMessages(prev => messages.concat(prev));
@@ -60,6 +61,7 @@ export default function Chatroom() {
   //     await getData(id, nextPageToken);
 
   //     setIsLoading(false);
+
 
   //     if (nextPageToken) {
   //       observer.observe(entry.target);
@@ -87,6 +89,7 @@ export default function Chatroom() {
   useEffect(() => {
     async function test() {
       const { messages } = await getMessages(id);
+
       setMessages(prev => prev.concat(messages));
     }
     test();
