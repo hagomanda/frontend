@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 // import { throttle } from "lodash";
-// import axios from "axios";
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 import { socketAction } from "../../features/socket";
@@ -20,13 +20,13 @@ const ChatRoomContainer = styled.div`
 //   height: 10px;
 // `;
 
-// const getMessages = async (goalId, nextPageToken) => {
-//   const url = nextPageToken
-//     ? `/api/chats/${goalId}?nextPageToken=${nextPageToken}`
-//     : `/api/chats/${goalId}`;
-//   const { data } = await axios.get(url);
-//   return data.result;
-// };
+const getMessages = async (goalId, nextPageToken) => {
+  const url = nextPageToken
+    ? `/api/chats/${goalId}?nextPageToken=${nextPageToken}`
+    : `/api/chats/${goalId}`;
+  const { data } = await axios.get(url);
+  return data.result;
+};
 
 export default function Chatroom() {
   const scrollTarget = useRef();
@@ -34,7 +34,7 @@ export default function Chatroom() {
   const [messages, setMessages] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   // const [token, setToken] = useState("");
-  // const { id } = useParams();
+  const { id } = useParams();
   const messagesEndRef = useRef(null);
 
   // const getData = async (id, token) => {
@@ -85,11 +85,11 @@ export default function Chatroom() {
   // }, [target]);
 
   useEffect(() => {
-    // async function test() {
-    //   const { messages } = await getMessages(id);
-    //   setMessages(prev => prev.concat(messages));
-    // }
-    // test();
+    async function test() {
+      const { messages } = await getMessages(id);
+      setMessages(prev => prev.concat(messages));
+    }
+    test();
     // socket.on("message", ())
     socketAction.takeMessage((message, createdAt, displayName, profile) => {
       setMessages(prev => [
