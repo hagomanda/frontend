@@ -62,7 +62,7 @@ export default function MandalBox({ content, role, goalId, onClick }) {
   // }, 500); // 디바운스 관련 차후 수정 예정
 
   const handleContent = async event => {
-    const newText = event.currentTarget.innerHTML;
+    const newText = event.currentTarget.innerText.replace(/[\r\n]+/gm, " ");
 
     if (viewOption === VIEW_OPTION.FULL_VIEW) {
       return;
@@ -87,9 +87,10 @@ export default function MandalBox({ content, role, goalId, onClick }) {
         onBlur={handleContent}
         onInput={handleContent}
         spellCheck={false}
-        dangerouslySetInnerHTML={{ __html: content }}
         fontSize={viewOption === VIEW_OPTION.FULL_VIEW ? "7px" : "1em"}
-      />
+      >
+        {content}
+      </Content>
     </InnerBox>
   );
 }
