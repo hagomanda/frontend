@@ -5,13 +5,16 @@ import Chatroom from "./Chatroom";
 import MessageInput from "./MessageInput";
 
 const ChatPageContainer = styled.div`
+  /* position: fixed; */
+  /* top: 20%; */
   position: fixed;
-  top: 20%;
+  bottom: 0;
 `;
 
 const ChatModalContainer = styled.div`
   position: relative;
-  visibility: ${props => (props.isOpen ? "visible" : "hidden")};
+  /* visibility: ${props => (props.isOpen ? "visible" : "hidden")}; */
+  display: ${props => (props.isOpen ? "block" : "none")};
   width: 300px;
   height: 70vh;
   border: 1px solid #848484;
@@ -20,7 +23,6 @@ const ChatModalContainer = styled.div`
 `;
 
 const ChatOpenButton = styled.div`
-  position: relative;
   width: 30px;
   height: 30px;
   background: #ffffff;
