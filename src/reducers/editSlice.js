@@ -11,8 +11,11 @@ export const editSlice = createSlice({
     changeEditMode: state => {
       state.mode = !state.mode;
     },
+    leaveEditMode: state => {
+      state.mode = false;
+    },
   },
 });
 
-export const { changeEditMode } = editSlice.actions;
+export const { changeEditMode, leaveEditMode } = editSlice.actions;
 export default editSlice.reducer;

@@ -8,7 +8,7 @@ import {
   displayFull,
   getMandal,
 } from "../../reducers/mandalSlice";
-import { changeEditMode } from "../../reducers/editSlice";
+import { changeEditMode, leaveEditMode } from "../../reducers/editSlice";
 import { initializeGoalError } from "../../reducers/goalListSlice";
 import { initializeMandalError } from "../../reducers/mandalSlice";
 import { initializeTodosError } from "../../reducers/todoSlice";
@@ -102,6 +102,10 @@ export default function MandalPage() {
       dispatch(displayMain());
     }
     dispatch(getMandal(id));
+
+    return () => {
+      dispatch(leaveEditMode());
+    };
   }, []);
 
   useEffect(() => {
