@@ -53,7 +53,7 @@ export default function CreateGoal({ onClick }) {
           value={title}
           placeholder="이번에 달성할 목표는..."
           onChange={event => setTitle(event.target.value)}
-        ></input>
+        />
       </div>
       <div>
         <button onClick={() => onClick(title)}>만들기</button>

@@ -11,15 +11,12 @@ const Button = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  color: #ffffff;
-  font-size: 40px;
   cursor: pointer;
 
   img {
     display: block;
     margin: 0 auto;
     margin-top: -5px;
-    user-select: none;
     text-align: center;
     transition: all ease 0.5s;
 

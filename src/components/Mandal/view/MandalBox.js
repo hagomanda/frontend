@@ -20,10 +20,6 @@ const InnerBox = styled.div`
   &.subGoals {
     background-color: #c6e0ff;
 
-    :nth-child(1) {
-      background-color: #c6e0ff;
-    }
-
     &:hover {
       box-shadow: 0 0 0 3px #cccccd inset;
     }

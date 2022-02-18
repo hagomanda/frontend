@@ -3,16 +3,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
   div {
     margin-top: 30px;
   }
 
   button {
-    justify-content: center;
-    align-items: center;
     width: 30%;
     height: 40px;
     padding: 1em 2em;
