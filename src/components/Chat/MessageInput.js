@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
-import axios from "axios";
+// import axios from "axios";
 import { useSelector } from "react-redux";
 import { socketAction } from "../../features/socket";
 
@@ -40,19 +40,19 @@ const Button = styled.button`
 export default function MessageInput() {
   const user = useSelector(state => state.user.user);
   const [message, setMessage] = useState("");
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const currentDate = new Date();
   const createdAt = format(currentDate, "yyyy.MM.dd HH:mm");
 
   const handleSendButtonClick = async () => {
-    await axios.post(`/api/chats/${id}`, {
-      id,
-      message,
-      createdAt,
-    });
+    // await axios.post(`/api/chats/${id}`, {
+    //   id,
+    //   message,
+    //   createdAt,
+    // });
 
-    socketAction.sendMessage(message, new Date(), user);
+    socketAction.sendMessage(message, createdAt, user);
 
     setMessage("");
   };
