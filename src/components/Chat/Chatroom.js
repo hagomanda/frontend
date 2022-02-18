@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { throttle } from "lodash";
+// import { throttle } from "lodash";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 import { socketAction } from "../../features/socket";
-import Loading from "../shared/Loading";
+// import Loading from "../shared/Loading";
 import MessageBox from "./MessageBox";
 
 const ChatRoomContainer = styled.div`
@@ -15,10 +15,10 @@ const ChatRoomContainer = styled.div`
   overflow: auto;
 `;
 
-const TargetDiv = styled.div`
-  width: 100%;
-  height: 10px;
-`;
+// const TargetDiv = styled.div`
+//   width: 100%;
+//   height: 10px;
+// `;
 
 const getMessages = async (goalId, nextPageToken) => {
   const url = nextPageToken
@@ -30,61 +30,67 @@ const getMessages = async (goalId, nextPageToken) => {
 
 export default function Chatroom() {
   const scrollTarget = useRef();
-  const [target, setTarget] = useState(null);
+  // const [target, setTarget] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [token, setToken] = useState("");
   const { id } = useParams();
   const messagesEndRef = useRef(null);
 
-  const getData = async (id, token) => {
-    const prevHeight = scrollTarget.current.scrollHeight;
+  // const getData = async (id, token) => {
+  //   const prevHeight = scrollTarget.current.scrollHeight;
 
-    try {
-      const { messages, nextPageToken } = await getMessages(id, token);
-      setMessages(prev => messages.concat(prev));
-      setToken(nextPageToken);
-      scrollTarget.current.scrollTop =
-        scrollTarget.current.scrollHeight - prevHeight;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   try {
+  //     const { messages, nextPageToken } = await getMessages(id, token);
+  //     setMessages(prev => messages.concat(prev));
+  //     setToken(nextPageToken);
+  //     scrollTarget.current.scrollTop =
+  //       scrollTarget.current.scrollHeight - prevHeight;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const handleIntersection = async ([entry], observer) => {
-    if (entry.isIntersecting && !isLoading) {
-      observer.unobserve(entry.target);
-      setIsLoading(true);
+  // const handleIntersection = async ([entry], observer) => {
+  //   if (entry.isIntersecting && !isLoading) {
+  //     observer.unobserve(entry.target);
+  //     setIsLoading(true);
 
-      const nextPageToken = token.length ? token : undefined;
-      await getData(id, nextPageToken);
+  //     const nextPageToken = token.length ? token : undefined;
+  //     await getData(id, nextPageToken);
 
-      setIsLoading(false);
+  //     setIsLoading(false);
 
-      if (nextPageToken) {
-        observer.observe(entry.target);
-      }
-    }
-  };
+  //     if (nextPageToken) {
+  //       observer.observe(entry.target);
+  //     }
+  //   }
+  // };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    let observer;
+  // useEffect(() => {
+  //   let observer;
 
-    if (target) {
-      observer = new IntersectionObserver(throttle(handleIntersection, 1000), {
-        threshold: 1,
-      });
-      observer.observe(target);
+  //   if (target) {
+  //     observer = new IntersectionObserver(throttle(handleIntersection, 1000), {
+  //       threshold: 1,
+  //     });
+  //     observer.observe(target);
+  //   }
+
+  //   return () => observer && observer.disconnect();
+  // }, [target]);
+  console.log("리렌더 메세지!!!", messages);
+  useEffect(() => {
+    async function test() {
+      const { messages } = await getMessages(id);
+      setMessages(prev => messages.concat(prev));
     }
+    test();
 
-    return () => observer && observer.disconnect();
-  }, [target]);
-
-  useEffect(() => {
     socketAction.takeMessage((message, createdAt, displayName, profile) => {
       setMessages(prev => [
         ...prev,
@@ -99,8 +105,8 @@ export default function Chatroom() {
 
   return (
     <ChatRoomContainer ref={scrollTarget}>
-      {isLoading && <Loading />}
-      <TargetDiv ref={setTarget} />
+      {/* {isLoading && <Loading />} */}
+      {/* <TargetDiv ref={setTarget} /> */}
       {messages.map(data => {
         return <MessageBox key={uuidv4()} data={data} />;
       })}
