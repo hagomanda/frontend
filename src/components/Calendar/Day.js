@@ -5,6 +5,16 @@ import { format, parseISO } from "date-fns";
 
 import Todo from "./Todo";
 
+function randomColor() {
+  const r = (Math.round(Math.random() * 127) + 127).toString(16);
+  const g = (Math.round(Math.random() * 127) + 127).toString(16);
+  const b = (Math.round(Math.random() * 127) + 127).toString(16);
+
+  return "#" + r + g + b;
+}
+
+const dayTodoTask = {};
+
 const DayContainer = styled.div`
   width: 12vw;
   height: 70vh;
@@ -42,7 +52,17 @@ export default function Day({ day, date, todos }) {
       <TodoWrapper>
         {todos &&
           todos.map(todo => {
-            return <Todo key={todo._id} todo={todo} date={date} />;
+            if (!dayTodoTask[todo._id]) {
+              dayTodoTask[todo._id] = randomColor();
+            }
+            return (
+              <Todo
+                key={todo._id}
+                todo={todo}
+                date={date}
+                color={dayTodoTask[todo._id]}
+              />
+            );
           })}
       </TodoWrapper>
     </DayContainer>

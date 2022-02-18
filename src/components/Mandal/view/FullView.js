@@ -27,6 +27,125 @@ const MandalContainer = styled.div`
   > div:nth-child(n + 7) {
     border-top: 1px solid #e6e6e6;
   }
+
+  > div:first-child {
+    animation: fadeInDiagonallyToTheTLeftTop 2s;
+  }
+
+  > div:nth-child(2) {
+    animation: fadeInTop 2s;
+  }
+
+  > div:nth-child(3) {
+    animation: fadeInDiagonallyToTheTRightTop 2s;
+  }
+
+  > div:nth-child(4) {
+    animation: fadeInLeft 2s;
+  }
+
+  > div:nth-child(6) {
+    animation: fadeInRight 2s;
+  }
+
+  > div:nth-child(7) {
+    animation: fadeInDiagonallyToTheTLeftDown 2s;
+  }
+
+  > div:nth-child(8) {
+    animation: fadeInBottom 2s;
+  }
+
+  > div:nth-child(9) {
+    animation: fadeInDiagonallyToTheTRightDown 2s;
+  }
+
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translate3d(-100%, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
+
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      transform: translate3d(100%, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInTop {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInBottom {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fadeInDiagonallyToTheTLeftTop {
+    from {
+      opacity: 0;
+      transform: translate3d(100%, 70%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fadeInDiagonallyToTheTRightTop {
+    from {
+      opacity: 0;
+      transform: translate3d(-100%, 70%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fadeInDiagonallyToTheTLeftDown {
+    from {
+      opacity: 0;
+      transform: translate3d(100%, -70%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fadeInDiagonallyToTheTRightDown {
+    from {
+      opacity: 0;
+      transform: translate3d(-100%, -70%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
 `;
 
 const MAIN_VIEW = "subGoals";

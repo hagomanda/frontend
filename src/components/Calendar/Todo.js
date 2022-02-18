@@ -7,8 +7,6 @@ import { changeCompletion } from "../../reducers/todoSlice";
 import Modal from "../Modal/Modal";
 import TodoModal from "./TodoModal";
 
-const randomColor = parseInt(Math.random() * 0xffffff).toString(16);
-
 const TodoContainer = styled.div`
   width: 100%;
   display: flex;
@@ -16,7 +14,7 @@ const TodoContainer = styled.div`
   align-items: center;
   margin-bottom: 3px;
   padding: 10px;
-  background-color: ${`#${randomColor}`};
+  background-color: ${props => props.color};
   border-radius: 4px;
 
   &:hover {
@@ -45,7 +43,7 @@ const CheckButton = styled.img`
   margin: 0 5px;
 `;
 
-export default function Todo({ todo, date }) {
+export default function Todo({ todo, date, color }) {
   const [showModal, setShowModal] = useState(false);
   const [isComplete, setIsComplete] = useState(todo.isComplete);
   const dispatch = useDispatch();
@@ -68,7 +66,7 @@ export default function Todo({ todo, date }) {
 
   return (
     <>
-      <TodoContainer id={todo._id} onClick={handleTodoClick}>
+      <TodoContainer id={todo._id} onClick={handleTodoClick} color={color}>
         <CheckButton
           src={isComplete ? "/img/checkButton.png" : "/img/nounCheck.png"}
           onClick={event => handleCheckButtonClick(event, todo._id)}
@@ -78,6 +76,8 @@ export default function Todo({ todo, date }) {
       {showModal && (
         <Modal
           onClick={() => setShowModal(!showModal)}
+          height="55%"
+          width="50%"
           child={
             <TodoModal
               todo={todo}
@@ -100,4 +100,5 @@ Todo.propTypes = {
     _id: PropTypes.string.isRequired,
   }),
   date: PropTypes.string.isRequired,
+  color: PropTypes.string,
 };

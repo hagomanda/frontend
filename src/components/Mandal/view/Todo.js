@@ -11,6 +11,7 @@ const Title = styled.div`
   padding-bottom: 20px;
   border-bottom: 1px solid #7a7a7a;
   margin: 0;
+  font-size: 20px;
 `;
 
 const BodyContainer = styled.div`
@@ -45,7 +46,7 @@ const ContentContainer = styled.div`
     font-size: 16px;
     border: none;
     border-radius: 6px;
-    margin-top: 100px;
+    margin-top: 70px;
     background-color: #374661;
     color: #dce7f3;
 
@@ -174,7 +175,12 @@ export default function Todo({ id, setShowModal, showModal }) {
           <div>저장된 할 일들</div>
           {/* {isLoading ? <div>로딩 중</div> : <div>{showTodosInDate()}</div>} */}
           <div>{showTodosInDate()}</div>
-          <input type="button" value="Add" onClick={handleAddButton} />
+          <input
+            className="add"
+            type="button"
+            value="Add"
+            onClick={handleAddButton}
+          />
         </ContentContainer>
       </BodyContainer>
     </>

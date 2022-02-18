@@ -9,9 +9,6 @@ import {
   getMandal,
 } from "../../reducers/mandalSlice";
 import { changeEditMode } from "../../reducers/editSlice";
-import { initializeGoalError } from "../../reducers/goalListSlice";
-import { initializeMandalError } from "../../reducers/mandalSlice";
-import { initializeTodosError } from "../../reducers/todoSlice";
 import { initializeShareSuccess } from "../../reducers/shareSlice";
 
 import { VIEW_OPTION } from "../../constants";
@@ -31,14 +28,47 @@ const ButtonsContainer = styled.div`
   width: 400px;
   height: 50px;
   margin: 10px auto;
+
+  .tooltip {
+    position: relative;
+    display: block;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(148, 178, 235);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    position: absolute;
+    z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    border-style: solid;
+    border-width: 5px;
+  }
 `;
 
 const EditButton = styled.img`
   width: 50px;
   height: 50px;
-  cursor: pointer;
   border-radius: 5px;
   background-color: ${props => props.selected && "rgba(148, 178, 235, 0.5)"};
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0 3px rgb(148, 178, 235) inset;
+  }
 `;
 
 const BoxContainer = styled.div`
@@ -87,15 +117,13 @@ const ToggleLabel = styled.label`
 export default function MandalPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const viewModeButton = useRef();
+
   const isFetching = useSelector(state => state.mandal.isFetching);
   const viewOption = useSelector(state => state.mandal.option);
   const mandalArray = useSelector(state => state.mandal.displayed);
   const isEditMode = useSelector(state => state.edit.mode);
-  const viewModeButton = useRef();
   const shareSuccessState = useSelector(state => state.share.isShareSuccess);
-  const goalListErrorState = useSelector(state => state.goalList.error);
-  const mandalErrorState = useSelector(state => state.mandal.error);
-  const todoErrorState = useSelector(state => state.todo.error);
 
   useEffect(() => {
     if (viewOption !== VIEW_OPTION.MAIN_VIEW) {
@@ -133,13 +161,16 @@ export default function MandalPage() {
       <div>
         <ButtonsContainer>
           <GoBackButton onClick={viewCheckHandler} />
-          <EditButton
-            className="editButton"
-            alt="editButton"
-            src="/icons/edit.svg"
-            onClick={handleEdit}
-            selected={isEditMode}
-          />
+          <div className="tooltip">
+            <EditButton
+              className="editButton"
+              alt="editButton"
+              src="/icons/edit.svg"
+              onClick={handleEdit}
+              selected={isEditMode}
+            />
+            <span className="tooltiptext ">수정하기</span>
+          </div>
           <ShareButton />
           <ToggleButton
             type="checkbox"
@@ -165,27 +196,9 @@ export default function MandalPage() {
       {isEditMode && <ChatPage />}
       {shareSuccessState && (
         <ErrorModal
-          img={"/img/success.svg"}
-          background={"#4B89DC"}
+          img="/img/success.svg"
+          background="#4B89DC"
           onClick={() => dispatch(initializeShareSuccess())}
-        />
-      )}
-      {goalListErrorState && (
-        <ErrorModal
-          onClick={() => dispatch(initializeGoalError())}
-          message={goalListErrorState}
-        />
-      )}
-      {mandalErrorState && (
-        <ErrorModal
-          onClick={() => dispatch(initializeMandalError())}
-          message={goalListErrorState}
-        />
-      )}
-      {todoErrorState && (
-        <ErrorModal
-          onClick={() => dispatch(initializeTodosError())}
-          message={goalListErrorState}
         />
       )}
     </>

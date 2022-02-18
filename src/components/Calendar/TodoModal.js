@@ -28,7 +28,7 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 60px;
 `;
 
 const Button = styled.button`
@@ -57,7 +57,8 @@ const Button = styled.button`
   @include transition;
 
   &:hover {
-    color: brown;
+    color: #0000ff;
+    border: 1px solid #0000ff;
     background-position: 99% 50%;
     cursor: pointer;
   }
@@ -67,6 +68,7 @@ const Memo = styled.textarea`
   width: 450px;
   height: 200px;
   font-size: 20px;
+  margin-top: 10px;
 `;
 
 export default function TodoModal({ todo, date, setShowModal, showModal }) {
