@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { format, parseISO } from "date-fns";
-
+import { useSelector } from "react-redux";
 import Todo from "./Todo";
 
 const DayContainer = styled.div`
@@ -32,7 +32,8 @@ const TodoWrapper = styled.div`
   height: 86%;
 `;
 
-export default function Day({ day, date, todos }) {
+export default function Day({ day, date }) {
+  const todos = useSelector(state => state.todo.data);
   return (
     <DayContainer>
       <DateContainer>
@@ -40,8 +41,8 @@ export default function Day({ day, date, todos }) {
         <DateWrapper>{format(parseISO(date), "d")}</DateWrapper>
       </DateContainer>
       <TodoWrapper>
-        {todos &&
-          todos.map(todo => {
+        {todos?.[date] &&
+          todos[date].map(todo => {
             return <Todo key={todo._id} todo={todo} date={date} />;
           })}
       </TodoWrapper>
@@ -52,5 +53,4 @@ export default function Day({ day, date, todos }) {
 Day.propTypes = {
   day: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  todos: PropTypes.arrayOf(Object),
 };

@@ -64,7 +64,7 @@ const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const todos = useSelector(state => state.todo.data);
+  const isFetching = useSelector(state => state.todo.isFetching);
   const dispatch = useDispatch();
 
   const handlePrevButtonClick = () => {
@@ -84,15 +84,7 @@ export default function CalendarPage() {
         "yyyy-MM-dd",
       );
 
-      return (
-        <Day
-          className="day"
-          day={day}
-          date={date}
-          key={date}
-          todos={todos?.[date]}
-        />
-      );
+      return <Day className="day" day={day} date={date} key={date} />;
     });
   };
 
@@ -125,7 +117,11 @@ export default function CalendarPage() {
           />
         </div>
       </CalendarHeader>
-      <Calendar className="calendar">{showWeekCalendar()}</Calendar>
+      {isFetching ? (
+        <div> Loading </div>
+      ) : (
+        <Calendar className="calendar">{showWeekCalendar()}</Calendar>
+      )}
     </div>
   );
 }
