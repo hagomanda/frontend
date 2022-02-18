@@ -21,7 +21,7 @@ import FullView from "./view/FullView";
 import ShareButton from "./MandalHeader/ShareButton";
 import GoBackButton from "./MandalHeader/GoBackButton";
 import ChatPage from "../Chat/ChatPage";
-import { socketAction } from "../../features/socket";
+import { socket, socketAction } from "../../features/socket";
 import ErrorModal from "../Modal/ErrorModal";
 
 const ButtonsContainer = styled.div`
@@ -96,6 +96,10 @@ export default function MandalPage() {
   const goalListErrorState = useSelector(state => state.goalList.error);
   const mandalErrorState = useSelector(state => state.mandal.error);
   const todoErrorState = useSelector(state => state.todo.error);
+
+  socket.on("selectMandalBox", (a, b) => {
+    console.log(a, b);
+  });
 
   useEffect(() => {
     if (viewOption !== VIEW_OPTION.MAIN_VIEW) {
