@@ -82,6 +82,8 @@ export default function MandalBox({ content, role, goalId, onClick }) {
   return (
     <InnerBox className={role} onClick={onClick} id={goalId} ref={box}>
       <Content
+        onClick={onClick}
+        id={goalId}
         contentEditable={isEditMode}
         suppressContentEditableWarning={true}
         onBlur={handleContent}
