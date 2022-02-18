@@ -58,7 +58,6 @@ const MessageWrapper = styled.div`
 
 const DateWrapper = styled.div`
   width: 100%;
-  text-align: right;
 
   span {
     font-size: 13px;

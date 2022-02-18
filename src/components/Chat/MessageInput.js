@@ -39,8 +39,8 @@ export default function MessageInput() {
   const [message, setMessage] = useState("");
   const { id } = useParams();
 
-  const currenDate = new Date();
-  const createdAt = format(currenDate, "yyyy.MM.dd HH:mm");
+  const currentDate = new Date();
+  const createdAt = format(currentDate, "yyyy.MM.dd HH:mm");
 
   const handleSendButtonClick = async () => {
     await axios.post(`/api/chats/${id}`, {
