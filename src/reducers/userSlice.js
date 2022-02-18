@@ -6,6 +6,7 @@ const initialState = {
   loginSucceed: false,
   loginError: null,
   logoutLoading: false,
+  logoutSucceed: false,
   refreshLogin: false,
 };
 
@@ -40,6 +41,7 @@ export const userSlice = createSlice({
       state.loginSucceed = false;
       state.loginError = null;
       state.logoutLoading = false;
+      state.logoutSucceed = true;
     },
     logoutFailed: (state, action) => {
       state.logoutLoading = false;

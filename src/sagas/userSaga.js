@@ -70,13 +70,17 @@ async function joinAPI(user) {
   return res;
 }
 
-export async function refreshAPI() {
-  const res = await axios.post("/api/auth/refresh");
+export async function refreshAPI(refreshToken) {
+  const res = await axios.post("/api/auth/refresh", {
+    refreshToken,
+  });
+
   return res;
 }
 
 export function* silentRefreshSaga() {
-  const res = yield call(refreshAPI);
+  const refreshToken = localStorage.getItem("refreshToken");
+  const res = yield call(refreshAPI, refreshToken);
 
   if (!res.data.isSuccess) {
     yield put(
@@ -85,8 +89,9 @@ export function* silentRefreshSaga() {
       }),
     );
   } else {
-    const { email, displayName, profile, newAccessToken } = res.data;
-
+    const { email, displayName, profile, newAccessToken, newRefreshToken } =
+      res.data;
+    localStorage.setItem("refreshToken", newRefreshToken);
     axios.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
     yield put(loginSucceed({ email, displayName, profile }));
   }
@@ -103,11 +108,13 @@ function* loginSaga(action) {
     const res = yield call(loginAPI, signInGoogleResult.email);
 
     if (res.data.isSuccess) {
-      const { email, displayName, profile, newAccessToken } = res.data;
+      const { email, displayName, profile, newAccessToken, newRefreshToken } =
+        res.data;
 
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${newAccessToken}`;
+      localStorage.setItem("refreshToken", newRefreshToken);
       yield put(loginSucceed({ email, displayName, profile }));
     } else {
       yield put(
@@ -129,6 +136,7 @@ export function* logoutSaga() {
       yield put(logoutSucceed());
       const history = createBrowserHistory();
       axios.defaults.headers.common["Authorization"] = null;
+      localStorage.removeItem("refreshToken");
       history.push(location);
     } else {
       yield put(logoutFailed("ServerLogoutFailed"));
