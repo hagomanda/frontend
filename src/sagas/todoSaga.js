@@ -167,6 +167,7 @@ export async function changeCompletionAPI(req) {
     isComplete,
     date,
   });
+
   return result;
 }
 
