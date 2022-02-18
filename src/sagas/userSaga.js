@@ -131,8 +131,7 @@ function* loginSaga(action) {
 export function* logoutSaga() {
   try {
     const serverLogoutResult = yield call(logoutAPI);
-
-    if (serverLogoutResult.statusText) {
+    if (serverLogoutResult.data.result === "ok") {
       yield put(logoutSucceed());
       const history = createBrowserHistory();
       axios.defaults.headers.common["Authorization"] = null;
