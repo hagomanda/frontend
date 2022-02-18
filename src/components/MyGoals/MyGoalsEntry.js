@@ -28,7 +28,6 @@ const ThumbnailContainer = styled.div`
     height: 20px;
     top: 0;
     right: 0;
-    background-color: #000000;
     border-radius: 50%;
     cursor: pointer;
 
@@ -45,6 +44,9 @@ const ThumbnailContainer = styled.div`
   }
 
   &:hover {
+    transform: scale(1.01, 1.01);
+    cursor: pointer;
+
     .delete-button {
       display: block;
     }
@@ -76,12 +78,17 @@ export default function MyGoalsEntry({ title, id }) {
         <Modal
           child={<DeletePopup onClick={handleConfirmButtonClick} />}
           onClick={() => setShowModal(false)}
+          width="30%"
+          height="20%"
         />
       )}
       <ThumbnailContainer onClick={handleContainerClick}>
-        <div className="delete-button" onClick={handleDeleteButtonClick}>
-          <span>x</span>
-        </div>
+        <img
+          src="/img/xmark.svg"
+          className="delete-button"
+          alt="delete-button"
+          onClick={handleDeleteButtonClick}
+        />
         <p className="title" dangerouslySetInnerHTML={{ __html: title }} />
       </ThumbnailContainer>
     </>

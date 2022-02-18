@@ -28,7 +28,7 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 60px;
 `;
 
 const Button = styled.button`
@@ -36,29 +36,17 @@ const Button = styled.button`
   justify-content: center;
   width: 20%;
   height: 18%;
-  font-size: 20px;
+  margin: 10px;
   padding: 1em 2em;
   border-radius: 10px;
   color: rgb(148, 178, 235);
-  margin: 10px;
   font-weight: bold;
   font-size: 0.8rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: linear-gradient(
-    to right,
-    rgba(#b2876f, 0) 25%,
-    rgba(#b2876f, 0.8) 75%
-  );
-  background-position: 1% 50%;
-  background-size: 400% 300%;
   border: 1px solid rgb(148, 178, 235);
-  @include transition;
 
   &:hover {
-    color: brown;
-    background-position: 99% 50%;
+    border: 1px solid #0000ff;
+    color: #0000ff;
     cursor: pointer;
   }
 `;
@@ -67,6 +55,7 @@ const Memo = styled.textarea`
   width: 450px;
   height: 200px;
   font-size: 20px;
+  margin-top: 10px;
 `;
 
 export default function TodoModal({ todo, date, setShowModal, showModal }) {

@@ -9,20 +9,33 @@ import { getUserInfo, shareMandal } from "../../../reducers/shareSlice";
 const Container = styled.div`
   position: absolute;
   width: 300px;
-  background-color: #ebebeb;
   padding: 10px;
+  background-color: #ebebeb;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
   text-align: center;
 
   .inviteEmail {
-    width: 90%;
-    height: 20px;
+    width: 100%;
+    height: 40px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
+
+    :focus {
+      outline: none;
+    }
   }
 
   button {
+    width: 20%;
+    height: 20%;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #374661;
+    font-size: 16px;
+    color: #dce7f3;
+
     &:hover {
       cursor: pointer;
     }
@@ -34,8 +47,8 @@ const ResultContainer = styled.div`
   align-items: center;
   margin: 10px;
   padding: 10px;
-  cursor: pointer;
   user-select: none;
+  cursor: pointer;
 
   :hover {
     background-color: #c9c9c9;
@@ -46,9 +59,9 @@ const ResultContainer = styled.div`
 const ProfileWrapper = styled.div`
   width: 30px;
   height: 30px;
+  margin-right: 10px;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 10px;
 
   .profile {
     width: 100%;

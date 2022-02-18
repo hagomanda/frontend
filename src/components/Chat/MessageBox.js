@@ -39,14 +39,14 @@ const NameWrapper = styled.div`
 const MessageContainer = styled.div`
   width: auto;
   min-width: 150px;
-  padding: 10px;
   margin-right: 10px;
+  padding: 10px;
 `;
 
 const MessageWrapper = styled.div`
   width: 100%;
-  padding: 5px;
   margin-bottom: 5px;
+  padding: 5px;
   border: 1px solid rgba(148, 178, 235, 0.5);
   border-radius: 10px;
 

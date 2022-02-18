@@ -27,6 +27,38 @@ const MandalContainer = styled.div`
   > div:nth-child(n + 7) {
     border-top: 1px solid #e6e6e6;
   }
+
+  > div:first-child {
+    animation: fadeInDiagonallyToTheTLeftTop 1s;
+  }
+
+  > div:nth-child(2) {
+    animation: fadeInTop 1s;
+  }
+
+  > div:nth-child(3) {
+    animation: fadeInDiagonallyToTheTRightTop 1s;
+  }
+
+  > div:nth-child(4) {
+    animation: fadeInLeft 1s;
+  }
+
+  > div:nth-child(6) {
+    animation: fadeInRight 1s;
+  }
+
+  > div:nth-child(7) {
+    animation: fadeInDiagonallyToTheTLeftDown 1s;
+  }
+
+  > div:nth-child(8) {
+    animation: fadeInBottom 1s;
+  }
+
+  > div:nth-child(9) {
+    animation: fadeInDiagonallyToTheTRightDown 1s;
+  }
 `;
 
 const MAIN_VIEW = "subGoals";

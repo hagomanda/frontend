@@ -13,6 +13,11 @@ const ShareContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 0 3px rgb(148, 178, 235) inset;
+    }
   }
 `;
 
@@ -25,7 +30,10 @@ export default function ShareButton() {
 
   return (
     <ShareContainer>
-      <img onClick={handleButtonClick} src="/icons/share.svg" />
+      <div className="tooltip">
+        <img onClick={handleButtonClick} src="/icons/share.svg" />
+        <span className="tooltiptext">협업하기</span>
+      </div>
       {showInvite && <InviteModal onClick={setShowInvite} />}
     </ShareContainer>
   );

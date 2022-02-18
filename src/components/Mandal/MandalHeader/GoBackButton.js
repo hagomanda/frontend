@@ -15,6 +15,10 @@ const GoBackContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    &:hover {
+      box-shadow: 0 0 0 3px rgb(148, 178, 235) inset;
+    }
   }
 `;
 
@@ -34,7 +38,10 @@ export default function GoBackButton() {
 
   return (
     <GoBackContainer onClick={handleGoBackButtonClick}>
-      <img src="/icons/back.svg" />
+      <div className="tooltip">
+        <img src="/icons/back.svg" />
+        <span className="tooltiptext ">뒤로가기</span>
+      </div>
     </GoBackContainer>
   );
 }

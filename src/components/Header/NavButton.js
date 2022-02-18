@@ -6,10 +6,10 @@ import styled from "styled-components";
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin: 0;
-  padding: 15px;
   width: 180px;
   height: 50%;
+  margin: 0;
+  padding: 15px;
   box-sizing: border-box;
   background-color: ${props =>
     props.color === "white" ? "#ffffff" : "rgb(148, 178, 235)"};

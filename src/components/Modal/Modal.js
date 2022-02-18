@@ -23,8 +23,8 @@ const Contents = styled.div`
 
 const Child = styled.div`
   position: relative;
-  height: 50%;
-  width: 60%;
+  height: ${props => props.height || "40%"};
+  width: ${props => props.width || "45%"};
   margin-top: 70px;
   overflow: scroll;
   border-radius: 10px;
@@ -42,11 +42,15 @@ const CloseButton = styled.img`
   }
 `;
 
-export default function Modal({ child, onClick }) {
+export default function Modal({ child, onClick, width, height }) {
   return (
     <Portal>
       <Background onClick={onClick}>
-        <Child onClick={event => event.stopPropagation()}>
+        <Child
+          width={width}
+          height={height}
+          onClick={event => event.stopPropagation()}
+        >
           <CloseButton onClick={onClick} src="/img/close.svg" />
           <Contents>{child}</Contents>
         </Child>
@@ -58,4 +62,6 @@ export default function Modal({ child, onClick }) {
 Modal.propTypes = {
   child: PropTypes.element,
   onClick: PropTypes.func,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };

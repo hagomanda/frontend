@@ -17,7 +17,14 @@ const InnerBox = styled.div`
   padding: 3px;
   overflow: hidden;
 
-  &.subGoals,
+  &.subGoals {
+    background-color: #c6e0ff;
+
+    &:hover {
+      box-shadow: 0 0 0 3px #cccccd inset;
+    }
+  }
+
   &.todos {
     background-color: #f4f4f4;
     &:hover {
@@ -26,9 +33,17 @@ const InnerBox = styled.div`
     }
   }
 
-  &.main,
-  &.submain {
+  &.main {
     background-color: rgb(148, 178, 235);
+
+    &:hover {
+      box-shadow: 0 0 0 3px #cccccd inset;
+    }
+  }
+
+  &.submain {
+    background-color: #c6e0ff;
+
     &:hover {
       box-shadow: 0 0 0 3px #cccccd inset;
     }
@@ -42,7 +57,7 @@ const Content = styled.p`
   outline: none;
 `;
 
-export default function MandalBox({ content, role, goalId, onClick }) {
+export default function MandalBox({ content, role, goalId, onClick, color }) {
   const { id: mainGoalId } = useParams();
   const isEditMode = useSelector(state => state.edit.mode);
   const viewOption = useSelector(state => state.mandal.option);
@@ -80,7 +95,13 @@ export default function MandalBox({ content, role, goalId, onClick }) {
   };
 
   return (
-    <InnerBox className={role} onClick={onClick} id={goalId} ref={box}>
+    <InnerBox
+      className={role}
+      onClick={onClick}
+      id={goalId}
+      ref={box}
+      color={color}
+    >
       <Content
         onClick={onClick}
         id={goalId}
@@ -102,4 +123,5 @@ MandalBox.propTypes = {
   role: PropTypes.string.isRequired,
   goalId: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  color: PropTypes.string,
 };
