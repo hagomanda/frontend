@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { format, parseISO } from "date-fns";
-
+import { useSelector } from "react-redux";
 import Todo from "./Todo";
 
 function randomColor() {
@@ -42,7 +42,8 @@ const TodoWrapper = styled.div`
   height: 86%;
 `;
 
-export default function Day({ day, date, todos }) {
+export default function Day({ day, date }) {
+  const todos = useSelector(state => state.todo.data);
   return (
     <DayContainer>
       <DateContainer>
@@ -55,6 +56,7 @@ export default function Day({ day, date, todos }) {
             if (!dayTodoTask[todo._id]) {
               dayTodoTask[todo._id] = randomColor();
             }
+
             return (
               <Todo
                 key={todo._id}
@@ -72,5 +74,4 @@ export default function Day({ day, date, todos }) {
 Day.propTypes = {
   day: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  todos: PropTypes.arrayOf(Object),
 };

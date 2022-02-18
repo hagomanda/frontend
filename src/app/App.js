@@ -16,14 +16,37 @@ import ErrorPage from "../components/shared/ErrorPage";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 axios.defaults.withCredentials = true;
+const JWT_EXPIRY_TIME = 1000 * 60 * 59;
+
+let refreshLoginTime = null;
 
 function App() {
   const dispatch = useDispatch();
   const loginState = useSelector(state => state.user.loginSucceed);
+  const logoutState = useSelector(state => state.user.logoutSucceed);
+  const refreshLoginState = useSelector(state => state.user.refreshLogin);
+  function setRefreshTimer() {
+    refreshLoginTime = setTimeout(() => dispatch(refresh()), JWT_EXPIRY_TIME);
+  }
+  function clearRefreshTimer() {
+    clearTimeout(refreshLoginTime);
+  }
 
   useEffect(() => {
     dispatch(refresh());
   }, []);
+
+  useEffect(() => {
+    if (refreshLoginState) {
+      setRefreshTimer();
+    }
+  }, [refreshLoginState]);
+
+  useEffect(() => {
+    if (logoutState) {
+      clearRefreshTimer();
+    }
+  }, [logoutState]);
 
   return (
     <>

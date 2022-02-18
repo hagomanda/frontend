@@ -58,7 +58,7 @@ export default function Todo({ todo, date, color }) {
       changeCompletion({
         todoId,
         date,
-        isComplete: !isComplete,
+        isComplete: !todo.isComplete,
       }),
     );
 

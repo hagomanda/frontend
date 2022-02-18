@@ -8,7 +8,8 @@ import {
   displayFull,
   getMandal,
 } from "../../reducers/mandalSlice";
-import { changeEditMode } from "../../reducers/editSlice";
+
+import { changeEditMode, leaveEditMode } from "../../reducers/editSlice";
 import { initializeShareSuccess } from "../../reducers/shareSlice";
 
 import { VIEW_OPTION } from "../../constants";
@@ -101,6 +102,10 @@ export default function MandalPage() {
       dispatch(displayMain());
     }
     dispatch(getMandal(id));
+
+    return () => {
+      dispatch(leaveEditMode());
+    };
   }, []);
 
   useEffect(() => {
