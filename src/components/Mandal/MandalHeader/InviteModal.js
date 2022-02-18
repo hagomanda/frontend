@@ -9,8 +9,8 @@ import { getUserInfo, shareMandal } from "../../../reducers/shareSlice";
 const Container = styled.div`
   position: absolute;
   width: 300px;
-  background-color: #ebebeb;
   padding: 10px;
+  background-color: #ebebeb;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
   text-align: center;
@@ -29,11 +29,11 @@ const Container = styled.div`
   button {
     width: 20%;
     height: 20%;
-    font-size: 16px;
     margin-top: 10px;
     border: none;
     border-radius: 6px;
     background-color: #374661;
+    font-size: 16px;
     color: #dce7f3;
 
     &:hover {
@@ -47,8 +47,8 @@ const ResultContainer = styled.div`
   align-items: center;
   margin: 10px;
   padding: 10px;
-  cursor: pointer;
   user-select: none;
+  cursor: pointer;
 
   :hover {
     background-color: #c9c9c9;
@@ -59,9 +59,9 @@ const ResultContainer = styled.div`
 const ProfileWrapper = styled.div`
   width: 30px;
   height: 30px;
+  margin-right: 10px;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 10px;
 
   .profile {
     width: 100%;

@@ -36,30 +36,17 @@ const Button = styled.button`
   justify-content: center;
   width: 20%;
   height: 18%;
-  font-size: 20px;
+  margin: 10px;
   padding: 1em 2em;
   border-radius: 10px;
   color: rgb(148, 178, 235);
-  margin: 10px;
   font-weight: bold;
   font-size: 0.8rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: linear-gradient(
-    to right,
-    rgba(#b2876f, 0) 25%,
-    rgba(#b2876f, 0.8) 75%
-  );
-  background-position: 1% 50%;
-  background-size: 400% 300%;
   border: 1px solid rgb(148, 178, 235);
-  @include transition;
 
   &:hover {
-    color: #0000ff;
     border: 1px solid #0000ff;
-    background-position: 99% 50%;
+    color: #0000ff;
     cursor: pointer;
   }
 `;

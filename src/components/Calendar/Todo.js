@@ -12,6 +12,7 @@ const TodoContainer = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+
   margin-bottom: 3px;
   padding: 10px;
   background-color: ${props => props.color};
@@ -31,9 +32,9 @@ const Title = styled.p`
   word-break: break-all;
 
   &.complete {
-    font-size: 20x;
     color: grey;
     text-decoration: line-through;
+    font-size: 20x;
   }
 `;
 

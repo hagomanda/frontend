@@ -41,7 +41,7 @@ const ContentContainer = styled.div`
 
   .add {
     width: 60%;
-    height: 20%;
+    height: 25%;
     padding: 8px 15px;
     font-size: 16px;
     border: none;

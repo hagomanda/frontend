@@ -7,8 +7,8 @@ import axios from "axios";
 const InputContainer = styled.div`
   display: flex;
   position: absolute;
-  bottom: 0;
   width: 100%;
+  bottom: 0;
   height: 10%;
 `;
 

@@ -29,35 +29,35 @@ const MandalContainer = styled.div`
   }
 
   > div:first-child {
-    animation: fadeInDiagonallyToTheTLeftTop 2s;
+    animation: fadeInDiagonallyToTheTLeftTop 1s;
   }
 
   > div:nth-child(2) {
-    animation: fadeInTop 2s;
+    animation: fadeInTop 1s;
   }
 
   > div:nth-child(3) {
-    animation: fadeInDiagonallyToTheTRightTop 2s;
+    animation: fadeInDiagonallyToTheTRightTop 1s;
   }
 
   > div:nth-child(4) {
-    animation: fadeInLeft 2s;
+    animation: fadeInLeft 1s;
   }
 
   > div:nth-child(6) {
-    animation: fadeInRight 2s;
+    animation: fadeInRight 1s;
   }
 
   > div:nth-child(7) {
-    animation: fadeInDiagonallyToTheTLeftDown 2s;
+    animation: fadeInDiagonallyToTheTLeftDown 1s;
   }
 
   > div:nth-child(8) {
-    animation: fadeInBottom 2s;
+    animation: fadeInBottom 1s;
   }
 
   > div:nth-child(9) {
-    animation: fadeInDiagonallyToTheTRightDown 2s;
+    animation: fadeInDiagonallyToTheTRightDown 1s;
   }
 
   @keyframes fadeInRight {
