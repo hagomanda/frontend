@@ -26,4 +26,7 @@ export const socketAction = {
       saveMessage(message, createdAt, displayName, profile);
     });
   },
+  sendMessage: (message, createdAt, user) => {
+    socket.emit("message", message, createdAt, user);
+  },
 };

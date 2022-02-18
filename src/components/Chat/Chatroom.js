@@ -87,7 +87,7 @@ export default function Chatroom() {
   useEffect(() => {
     async function test() {
       const { messages } = await getMessages(id);
-      setMessages(prev => messages.concat(prev));
+      setMessages(prev => prev.concat(messages));
     }
     test();
 

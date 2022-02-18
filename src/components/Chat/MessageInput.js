@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { socketAction } from "../../features/socket";
 
 const InputContainer = styled.div`
   display: flex;
@@ -36,6 +38,7 @@ const Button = styled.button`
 `;
 
 export default function MessageInput() {
+  const user = useSelector(state => state.user.user);
   const [message, setMessage] = useState("");
   const { id } = useParams();
 
@@ -48,6 +51,8 @@ export default function MessageInput() {
       message,
       createdAt,
     });
+
+    socketAction.sendMessage(message, new Date(), user);
 
     setMessage("");
   };
