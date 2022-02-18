@@ -23,6 +23,8 @@ export default function MainMandal({ data }) {
   const viewOption = useSelector(state => state.mandal.option);
 
   const handleBoxClick = (event, index) => {
+    event.stopPropagation();
+
     if (viewOption === VIEW_OPTION.FULL_VIEW) {
       dispatch(displayMain());
       return;

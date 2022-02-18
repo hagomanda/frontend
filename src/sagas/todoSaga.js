@@ -161,7 +161,6 @@ async function saveTodoAPI(req) {
 }
 
 export async function changeCompletionAPI(req) {
-  console.log(req);
   const { todoId, isComplete, date } = req;
 
   const result = await axios.put(`/api/todos/calendar/${todoId}`, {
