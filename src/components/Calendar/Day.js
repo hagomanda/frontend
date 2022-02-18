@@ -51,8 +51,8 @@ export default function Day({ day, date }) {
         <DateWrapper>{format(parseISO(date), "d")}</DateWrapper>
       </DateContainer>
       <TodoWrapper>
-        {todos &&
-          todos.map(todo => {
+        {todos[date] &&
+          todos[date].map(todo => {
             if (!dayTodoTask[todo._id]) {
               dayTodoTask[todo._id] = randomColor();
             }

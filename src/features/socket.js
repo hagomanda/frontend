@@ -22,6 +22,7 @@ export const socketAction = {
   },
   takeMessage: saveMessage => {
     socket.on("message", (message, createdAt, displayName, profile) => {
+      console.log("11111소켓 리시브", message);
       saveMessage(message, createdAt, displayName, profile);
     });
   },
