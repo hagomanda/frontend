@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { socketAction } from "../../features/socket";
+import { saveMessages } from "../../reducers/chatSlice";
 
 const InputContainer = styled.div`
   display: flex;
@@ -41,17 +42,13 @@ export default function MessageInput() {
   const user = useSelector(state => state.user.user);
   const [message, setMessage] = useState("");
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const currentDate = new Date();
   const createdAt = format(currentDate, "yyyy.MM.dd HH:mm");
 
-  const handleSendButtonClick = async () => {
-    await axios.post(`/api/chats/${id}`, {
-      id,
-      message,
-      createdAt,
-    });
-
+  const handleSendButtonClick = () => {
+    dispatch(saveMessages({ id, message, createdAt }));
     socketAction.sendMessage(message, createdAt, user);
 
     setMessage("");
