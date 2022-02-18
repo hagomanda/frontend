@@ -6,6 +6,7 @@ const initialState = {
   loginSucceed: false,
   loginError: null,
   logoutLoading: false,
+  refreshLogin: false,
 };
 
 export const userSlice = createSlice({
@@ -22,6 +23,7 @@ export const userSlice = createSlice({
       state.loginSucceed = true;
       state.loginError = null;
       state.user = action.payload;
+      state.refreshLogin = true;
     },
     loginFailed: (state, action) => {
       state.loginLoading = false;
@@ -50,6 +52,7 @@ export const userSlice = createSlice({
     },
     refresh: state => {
       state.loginLoading = true;
+      state.refreshLogin = false;
     },
   },
 });

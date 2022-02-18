@@ -14,8 +14,12 @@ import {
   getTodosSuccess,
   getTodosError,
   saveTodo,
+  saveTodoError,
+  setTodosSuccess,
   setTodos,
   changeCompletion,
+  changeCompletionSuccess,
+  changeCompletionError,
   saveMemo,
   saveMemoSuccess,
   saveMemoError,
@@ -27,6 +31,7 @@ import {
 export default function* todoSaga() {
   yield all([
     fork(watchGetTodos),
+    fork(watchSetTodo),
     fork(watchSaveTodo),
     fork(watchChangeCompletion),
     fork(watchSaveMemo),
@@ -42,7 +47,7 @@ function* watchSaveTodo() {
   yield takeLatest(saveTodo, saveTodoSaga);
 }
 
-function* watchChangeCompletion() {
+export function* watchChangeCompletion() {
   yield takeEvery(changeCompletion, changeCompletionSaga);
 }
 
@@ -52,6 +57,14 @@ function* watchSaveMemo() {
 
 function* watchDeleteMemo() {
   yield takeLatest(deleteMemo, deleteMemoSaga);
+}
+
+function* watchSetTodo() {
+  yield takeEvery(setTodos, setTodosSaga);
+}
+
+function* setTodosSaga(action) {
+  yield put(setTodosSuccess(action.payload));
 }
 
 export function* getTodosSaga(action) {
@@ -73,21 +86,24 @@ function* saveTodoSaga(action) {
   try {
     yield call(saveTodoAPI, action.payload);
   } catch (error) {
-    // 실패시 어떤작업?
-    console.log(error);
+    put(saveTodoError(error.message));
   }
 }
 
-function* changeCompletionSaga(action) {
+export function* changeCompletionSaga(action) {
   try {
-    yield call(changeCompletionAPI, action.payload);
-    // if (res.data.message) {
-    //   실패 시 어떤 작업?
-    // }
-    // 성공 후 어떤 작업?
+    const res = yield call(changeCompletionAPI, action.payload);
+
+    if (res.data.message) {
+      yield put(changeCompletionError(res.data.message));
+    } else {
+      yield put(changeCompletionSuccess(action.payload));
+      const currentDate = new Date(action.payload.date);
+      const res = yield call(getTodosAPI, { currentDate, days: 7 });
+      yield put(setTodos(res.data.result));
+    }
   } catch (error) {
-    console.log(error);
-    //   실패 시 어떤 작업?
+    yield put(changeCompletionError(error.message));
   }
 }
 
@@ -144,13 +160,15 @@ async function saveTodoAPI(req) {
   return result;
 }
 
-async function changeCompletionAPI(req) {
+export async function changeCompletionAPI(req) {
+  console.log(req);
   const { todoId, isComplete, date } = req;
 
-  await axios.put(`/api/todos/calendar/${todoId}`, {
+  const result = await axios.put(`/api/todos/calendar/${todoId}`, {
     isComplete,
     date,
   });
+  return result;
 }
 
 async function saveMemoAPI(req) {
