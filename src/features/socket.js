@@ -17,4 +17,12 @@ export const socketAction = {
   modifyMandal: (mandal, mainGoalId) => {
     socket.emit("edit", mandal, mainGoalId);
   },
+  selectMandalBox: (user, boxId) => {
+    socket.emit("selectMandalBox", user, boxId);
+  },
+  takeMessage: saveMessage => {
+    socket.on("message", (message, createdAt, displayName, profile) => {
+      saveMessage(message, createdAt, displayName, profile);
+    });
+  },
 };

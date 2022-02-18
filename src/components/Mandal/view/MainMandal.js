@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { displayMain, displaySub } from "../../../reducers/mandalSlice";
 import { VIEW_OPTION } from "../../../constants";
 import { showBoxes } from "./utils";
+// import { socketAction } from "../../../features/socket";
 
 const BoxContainer = styled.div`
   display: inline-grid;
@@ -21,17 +22,23 @@ export default function MainMandal({ data }) {
   const dispatch = useDispatch();
   const isEditMode = useSelector(state => state.edit.mode);
   const viewOption = useSelector(state => state.mandal.option);
+  // const user = useSelector(state => state.user.user);
 
   const handleBoxClick = (event, index) => {
     event.stopPropagation();
-
     if (viewOption === VIEW_OPTION.FULL_VIEW) {
       dispatch(displayMain());
       return;
     }
 
     if (isEditMode) {
-      event.target.children[0]?.focus();
+      // if (event.target.children.length === 0) {
+      //   socketAction.selectMandalBox(user, event.target.parentElement.id);
+      // } else {
+      //   socketAction.selectMandalBox(user, event.target.id);
+      // }
+      // event.target.children[0]?.focus();
+      // console.log(user);
       return;
     }
 

@@ -5,7 +5,7 @@ import { throttle } from "lodash";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-import { socket } from "../../features/socket";
+import { socketAction } from "../../features/socket";
 import Loading from "../shared/Loading";
 import MessageBox from "./MessageBox";
 
@@ -85,7 +85,7 @@ export default function Chatroom() {
   }, [target]);
 
   useEffect(() => {
-    socket.on("message", (message, createdAt, displayName, profile) => {
+    socketAction.takeMessage((message, createdAt, displayName, profile) => {
       setMessages(prev => [
         ...prev,
         { message, createdAt, displayName, profile },
