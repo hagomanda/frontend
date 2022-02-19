@@ -22,6 +22,7 @@ export default function SubMandal({ data, mandalIndex }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [boxId, setBoxId] = useState();
+  const [boxContent, setBoxContent] = useState();
   const viewOption = useSelector(state => state.mandal.option);
   const isEditMode = useSelector(state => state.edit.mode);
 
@@ -41,9 +42,11 @@ export default function SubMandal({ data, mandalIndex }) {
     if (index === 4) {
       return dispatch(displayMain());
     }
-
     setBoxId(event.target.id);
-    setShowModal(true);
+    setBoxContent(event.target.innerText);
+    if (event.target.innerText) {
+      setShowModal(true);
+    }
   };
 
   return (
@@ -60,6 +63,7 @@ export default function SubMandal({ data, mandalIndex }) {
           child={
             <Todo
               id={boxId}
+              title={boxContent}
               setShowModal={setShowModal}
               showModal={showModal}
             />

@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { getTodos } from "../../reducers/todoSlice";
 import Day from "./Day";
+import Loading from "../shared/Loading";
 
 const CalendarHeader = styled.div`
   display: flex;
@@ -118,7 +119,7 @@ export default function CalendarPage() {
         </div>
       </CalendarHeader>
       {isFetching ? (
-        <div> Loading </div>
+        <Loading bgColor="white" contents="Data를 로딩 중입니다." />
       ) : (
         <Calendar className="calendar">{showWeekCalendar()}</Calendar>
       )}

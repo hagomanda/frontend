@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-// import _ from "lodash";
+import _ from "lodash";
 
 import { VIEW_OPTION } from "../../../constants";
 import { modifyMandal } from "../../../reducers/mandalSlice";
@@ -65,16 +65,16 @@ export default function MandalBox({ content, role, goalId, onClick, color }) {
 
   const box = useRef();
 
-  // const debouncedModifyMandal = _.debounce((boxRole, title) => {
-  //   dispatch(
-  //     modifyMandal({
-  //       boxRole,
-  //       title,
-  //       mainGoalId,
-  //       boxId: box.current.id,
-  //     }),
-  //   );
-  // }, 500); // 디바운스 관련 차후 수정 예정
+  const debouncedModifyMandal = _.debounce((role, title) => {
+    dispatch(
+      modifyMandal({
+        role,
+        title,
+        mainGoalId,
+        boxId: box.current.id,
+      }),
+    );
+  }, 500);
 
   const handleContent = async event => {
     const newText = event.currentTarget.innerText.replace(/[\r\n]+/gm, " ");
@@ -83,15 +83,16 @@ export default function MandalBox({ content, role, goalId, onClick, color }) {
       return;
     }
 
-    dispatch(
-      modifyMandal({
-        role,
-        title: newText,
-        mainGoalId,
-        boxId: box.current.id,
-      }),
-    );
-    // debouncedModifyMandal(boxRole, newText); 디바운스 걸면 구현은 되는데 에러콘솔 찍힘.
+    // dispatch(
+    //   modifyMandal({
+    //     role,
+    //     title: newText,
+    //     mainGoalId,
+    //     boxId: box.current.id,
+    //   }),
+    // );
+    debouncedModifyMandal(role, newText);
+    // 디바운스 걸면 구현은 되는데 에러콘솔 찍힘.
   };
 
   return (
@@ -114,6 +115,7 @@ export default function MandalBox({ content, role, goalId, onClick, color }) {
       >
         {content}
       </Content>
+      {/* <p>lv: {level}</p> */}
     </InnerBox>
   );
 }
@@ -124,4 +126,5 @@ MandalBox.propTypes = {
   goalId: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   color: PropTypes.string,
+  level: PropTypes.number,
 };

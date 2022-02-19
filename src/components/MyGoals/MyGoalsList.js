@@ -34,7 +34,7 @@ export default function MyGoalsList() {
     <>
       <GoalsContainer>
         {isLoading ? (
-          <div>로딩 중</div>
+          <div />
         ) : !data.length ? (
           <div>아직 만다라트가 없어요!</div>
         ) : (
