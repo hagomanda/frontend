@@ -136,7 +136,6 @@ export function* logoutSaga() {
       axios.defaults.headers.common["Authorization"] = null;
       localStorage.removeItem("refreshToken");
       const history = createBrowserHistory();
-      console.log("히스토리, 테스트", history);
       history.push(location);
     } else {
       yield put(logoutFailed("ServerLogoutFailed"));
