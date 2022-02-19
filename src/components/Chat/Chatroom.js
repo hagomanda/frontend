@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 // import { throttle } from "lodash";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-import { socketAction } from "../../features/socket";
 // import Loading from "../shared/Loading";
 import MessageBox from "./MessageBox";
+import { useDispatch, useSelector } from "react-redux";
+import { getMessages } from "../../reducers/chatSlice";
 
 const ChatRoomContainer = styled.div`
   width: 100%;
@@ -20,22 +20,24 @@ const ChatRoomContainer = styled.div`
 //   height: 10px;
 // `;
 
-const getMessages = async (goalId, nextPageToken) => {
-  const url = nextPageToken
-    ? `/api/chats/${goalId}?nextPageToken=${nextPageToken}`
-    : `/api/chats/${goalId}`;
-  const { data } = await axios.get(url);
-  return data.result;
-};
+// const getMessages = async (goalId, nextPageToken) => {
+//   const url = nextPageToken
+//     ? `/api/chats/${goalId}?nextPageToken=${nextPageToken}`
+//     : `/api/chats/${goalId}`;
+//   const { data } = await axios.get(url);
+//   return data.result;
+// };
 
 export default function Chatroom() {
   const scrollTarget = useRef();
   // const [target, setTarget] = useState(null);
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   // const [token, setToken] = useState("");
   const { id } = useParams();
   const messagesEndRef = useRef(null);
+  const dispatch = useDispatch();
+  const messages = useSelector(state => state.chat.messages);
 
   // const getData = async (id, token) => {
   //   const prevHeight = scrollTarget.current.scrollHeight;
@@ -85,18 +87,19 @@ export default function Chatroom() {
   // }, [target]);
 
   useEffect(() => {
-    async function test() {
-      const { messages } = await getMessages(id);
-      setMessages(prev => prev.concat(messages));
-    }
-    test();
+    // async function test() {
+    //   const { messages } = await getMessages(id);
+    //   setMessages(prev => prev.concat(messages));
+    // }
+    // test();
+    dispatch(getMessages({ id, token: null }));
     // socket.on("message", ())
-    socketAction.takeMessage((message, createdAt, displayName, profile) => {
-      setMessages(prev => [
-        ...prev,
-        { message, createdAt, displayName, profile },
-      ]);
-    });
+    // socketAction.takeMessage((message, createdAt, displayName, profile) => {
+    //   setMessages(prev => [
+    //     ...prev,
+    //     { message, createdAt, displayName, profile },
+    //   ]);
+    // });
   }, []);
 
   useEffect(() => {
@@ -107,7 +110,7 @@ export default function Chatroom() {
     <ChatRoomContainer ref={scrollTarget}>
       {/* {isLoading && <Loading />} */}
       {/* <TargetDiv ref={setTarget} /> */}
-      {messages.map(data => {
+      {messages?.map(data => {
         return <MessageBox key={uuidv4()} data={data} />;
       })}
       <div ref={messagesEndRef} />
