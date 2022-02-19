@@ -9,6 +9,7 @@ import editReducer from "../reducers/editSlice";
 import todoReducer from "../reducers/todoSlice";
 import goalListReducer from "../reducers/goalListSlice";
 import shareReducer from "../reducers/shareSlice";
+import chatReducer from "../reducers/chatSlice";
 
 const customHistory = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware({
@@ -25,6 +26,7 @@ export const store = configureStore({
     todo: todoReducer,
     goalList: goalListReducer,
     share: shareReducer,
+    chat: chatReducer,
   },
   middleware: [sagaMiddleware],
 });
