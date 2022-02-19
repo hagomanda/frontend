@@ -6,6 +6,7 @@ import { format } from "date-fns";
 
 import { saveTodo, getTodos } from "../../../reducers/todoSlice";
 import RadioButton from "../../RadioButton";
+import Loading from "../../shared/Loading";
 
 const Title = styled.div`
   padding-bottom: 20px;
@@ -77,7 +78,7 @@ const DURATION = [
   { value: 3, content: "3주" },
 ];
 
-export default function Todo({ id, setShowModal, showModal }) {
+export default function Todo({ title, id, setShowModal, showModal }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isRepeat, setIsRepeat] = useState(false);
   const [repetition, setRepetition] = useState(EVERY_DAY);
@@ -85,6 +86,7 @@ export default function Todo({ id, setShowModal, showModal }) {
   const loginState = useSelector(state => state.user.loginSucceed);
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todo.data);
+  const isLoading = useSelector(state => state.todo.isFetching);
 
   const getTodosOfDay = async () => {
     dispatch(
@@ -143,7 +145,7 @@ export default function Todo({ id, setShowModal, showModal }) {
 
   return (
     <>
-      <Title>할일 저장하기</Title>
+      <Title>{title} 저장하기</Title>
       <BodyContainer>
         <ContentContainer>
           <input
@@ -173,8 +175,11 @@ export default function Todo({ id, setShowModal, showModal }) {
         </ContentContainer>
         <ContentContainer>
           <div>저장된 할 일들</div>
-          {/* {isLoading ? <div>로딩 중</div> : <div>{showTodosInDate()}</div>} */}
-          <div>{showTodosInDate()}</div>
+          {isLoading ? (
+            <Loading bgColor="#f4f4f4" contents="" />
+          ) : (
+            <div>{showTodosInDate()}</div>
+          )}
           <input
             className="add"
             type="button"
@@ -191,4 +196,5 @@ Todo.propTypes = {
   id: PropTypes.string,
   setShowModal: PropTypes.func,
   showModal: PropTypes.bool,
+  title: PropTypes.string,
 };

@@ -19,8 +19,9 @@ import FullView from "./view/FullView";
 import ShareButton from "./MandalHeader/ShareButton";
 import GoBackButton from "./MandalHeader/GoBackButton";
 import ChatPage from "../Chat/ChatPage";
-import { socket, socketAction } from "../../features/socket";
+import { socketAction } from "../../features/socket";
 import ErrorModal from "../Modal/ErrorModal";
+import Loading from "../shared/Loading";
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -97,10 +98,6 @@ export default function MandalPage() {
   const isEditMode = useSelector(state => state.edit.mode);
   const shareSuccessState = useSelector(state => state.share.isShareSuccess);
 
-  socket.on("selectMandalBox", (a, b) => {
-    console.log(a, b);
-  });
-
   useEffect(() => {
     if (viewOption !== VIEW_OPTION.MAIN_VIEW) {
       dispatch(displayMain());
@@ -161,7 +158,9 @@ export default function MandalPage() {
           <ToggleLabel htmlFor="toggle-slider">on/off</ToggleLabel>
         </ButtonsContainer>
       </div>
-      {isFetching && <div>Loading...</div>}
+      {isFetching && (
+        <Loading bgColor="white" contents="만다라트 가져오는 중..." />
+      )}
       {!isFetching && (
         <BoxContainer>
           {viewOption === VIEW_OPTION.MAIN_VIEW && (

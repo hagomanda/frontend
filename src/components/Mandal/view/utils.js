@@ -11,6 +11,7 @@ export const showBoxes = (data, handleClick) => {
         key={box["_id"]}
         goalId={box["_id"]}
         onClick={event => handleClick(event, index)}
+        level={box.level}
       />
     );
   });
