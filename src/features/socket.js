@@ -20,11 +20,11 @@ export const socketAction = {
   selectMandalBox: (user, boxId) => {
     socket.emit("selectMandalBox", user, boxId);
   },
-  // takeMessage: saveMessage => {
-  //   socket.on("message", (message, createdAt, displayName, profile) => {
-  //     saveMessage(message, createdAt, displayName, profile);
-  //   });
-  // },
+  takeMessage: saveMessage => {
+    socket.on("message", (message, createdAt, displayName, profile) => {
+      saveMessage(message, createdAt, displayName, profile);
+    });
+  },
   sendMessage: (message, createdAt, user) => {
     socket.emit("message", message, createdAt, user);
   },
