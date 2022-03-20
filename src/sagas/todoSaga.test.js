@@ -1,19 +1,11 @@
 import { expectSaga } from "redux-saga-test-plan";
-import {
-  watchGetTodos,
-  getTodosAPI,
-  watchChangeCompletion,
-  changeCompletionAPI,
-  changeCompletionSaga,
-} from "./todoSaga";
+import { watchGetTodos, getTodosAPI } from "./todoSaga";
 import { call } from "redux-saga/effects";
 import {
   getTodos,
   getTodosSuccess,
   getTodosError,
   setTodos,
-  changeCompletion,
-  changeCompletionSuccess,
 } from "../reducers/todoSlice";
 describe("todoSaga 테스트", () => {
   describe("#1. todo 테스트", () => {

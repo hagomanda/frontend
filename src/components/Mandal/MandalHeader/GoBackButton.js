@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 import { displayMain } from "../../../reducers/mandalSlice";
 
@@ -45,7 +44,3 @@ export default function GoBackButton() {
     </GoBackContainer>
   );
 }
-
-GoBackButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};

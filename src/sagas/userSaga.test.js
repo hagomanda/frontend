@@ -1,5 +1,6 @@
 import { expectSaga } from "redux-saga-test-plan";
 import { throwError } from "redux-saga-test-plan/providers";
+import * as matchers from "redux-saga-test-plan/matchers";
 import { call } from "redux-saga/effects";
 import {
   watchLogin,
@@ -40,11 +41,19 @@ describe("userSaga 테스트", () => {
       return expectSaga(watchLogin)
         .withReducer(loginRequest)
         .dispatch({ type: loginRequest.type })
-        .provide([[call(signInGoogle), user]])
-        .provide([[call(loginAPI, user.email)]], res)
-        .put({ type: loginSucceed.type, payload: user })
+        .provide([
+          [matchers.call.fn(signInGoogle), user],
+          [matchers.call.fn(loginAPI), res],
+        ])
+        .put({
+          type: loginSucceed.type,
+          payload: {
+            email: user.email,
+            displayName: user.displayName,
+            profile: user.profile,
+          },
+        })
         .silentRun();
-      //혹시 구글 로그인 해결 할 수 있으신분...
     });
 
     it("login 실패", () => {
@@ -72,7 +81,7 @@ describe("userSaga 테스트", () => {
       return expectSaga(watchRefresh)
         .withReducer(refresh)
         .dispatch({ type: refresh.type, payload: undefined })
-        .provide([[call(refreshAPI), res]])
+        .provide([[matchers.call.fn(refreshAPI), res]])
         .put({
           type: loginSucceed.type,
           payload: {
@@ -88,7 +97,9 @@ describe("userSaga 테스트", () => {
   describe("#2. logout 테스트", () => {
     it("logout 성공", () => {
       const res = {
-        statusText: "ok",
+        data: {
+          result: "ok",
+        },
       };
 
       return expectSaga(watchLogout)
