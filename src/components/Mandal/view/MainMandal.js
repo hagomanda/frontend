@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { displayMain, displaySub } from "../../../reducers/mandalSlice";
 import { VIEW_OPTION } from "../../../constants";
 import { showBoxes } from "./utils";
-// import { socketAction } from "../../../features/socket";
 
 const BoxContainer = styled.div`
   display: inline-grid;

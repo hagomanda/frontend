@@ -83,16 +83,7 @@ export default function MandalBox({ content, role, goalId, onClick, color }) {
       return;
     }
 
-    // dispatch(
-    //   modifyMandal({
-    //     role,
-    //     title: newText,
-    //     mainGoalId,
-    //     boxId: box.current.id,
-    //   }),
-    // );
     debouncedModifyMandal(role, newText);
-    // 디바운스 걸면 구현은 되는데 에러콘솔 찍힘.
   };
 
   return (

@@ -31,7 +31,7 @@ export default function ShareButton() {
   return (
     <ShareContainer>
       <div className="tooltip">
-        <img onClick={handleButtonClick} src="/icons/share.svg" />
+        <img onClick={handleButtonClick} src="/icons/share.svg" alt="share" />
         <span className="tooltiptext">협업하기</span>
       </div>
       {showInvite && <InviteModal onClick={setShowInvite} />}
