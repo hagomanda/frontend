@@ -19,7 +19,7 @@
 우리 팀, 우리 동아리, 우리 모임의 장기 목표 달성을 위해 함께 하는 플래닝 툴입니다.
 
 [HAGOMANDA DEMO](https://hagomanda.kr/)  
-[기능 설명 보러 가기](https://github.com/hagomanda/frontend#기능-설명)
+[기능 설명 보러 가기](https://github.com/hagomanda/frontend#기능-소개)
 
 <details>
   <summary>우리 팀의 2022 만다라트</summary>
