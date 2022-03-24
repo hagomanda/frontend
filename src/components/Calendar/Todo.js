@@ -71,6 +71,7 @@ export default function Todo({ todo, date, color }) {
         <CheckButton
           src={isComplete ? "/img/checkButton.png" : "/img/nounCheck.png"}
           onClick={event => handleCheckButtonClick(event, todo._id)}
+          alt="checkButton"
         />
         <Title className={isComplete ? "complete" : null}>{todo.title}</Title>
       </TodoContainer>
