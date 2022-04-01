@@ -1,9 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-import { useSelector } from "react-redux";
-import userEvent from "@testing-library/user-event";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom/extend-expect";
 
 import ShareButton from "./ShareButton";
 import GoBackButton from "./GoBackButton";
