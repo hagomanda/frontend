@@ -38,8 +38,8 @@ export default function GoBackButton() {
   return (
     <GoBackContainer onClick={handleGoBackButtonClick}>
       <div className="tooltip">
-        <img src="/icons/back.svg" />
-        <span className="tooltiptext ">뒤로가기</span>
+        <img src="/icons/back.svg" alt="go-back-button" />
+        <span className="tooltiptext">뒤로가기</span>
       </div>
     </GoBackContainer>
   );

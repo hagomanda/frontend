@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import history from "history/browser";
 
 const ErrorPageContainer = styled.div`
-  width: 100%
+  width: 100%;
   padding-top: 10%;
   color: #3c4963;
 
