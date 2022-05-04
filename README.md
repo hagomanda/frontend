@@ -21,6 +21,10 @@
 [HAGOMANDA DEMO](https://hagomanda.kr/)  
 [기능 설명 보러 가기](https://github.com/hagomanda/frontend#기능-소개)
 
+테스트 계정  
+- ID : hagomanda.test@gmail.com  
+- PW : manda@test123
+
 <details>
   <summary>우리 팀의 2022 만다라트</summary>
   <div markdown="1">
